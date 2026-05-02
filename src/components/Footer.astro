@@ -2,21 +2,48 @@
 const year = new Date().getFullYear();
 ---
 
-<footer>
-  <p>© {year} My Blog · Built with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> 🚀</p>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© {year} Naoki. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://twitter.com/" target="_blank" rel="noopener">Twitter</a>
+    </div>
+  </div>
 </footer>
 
 <style>
-  footer {
-    background: #2d2d2d;
-    color: #ccc;
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 0.9rem;
-    margin-top: auto;
+  .site-footer {
+    border-top: 1px solid var(--border-color);
+    margin-top: 80px;
+    padding: 32px 0;
   }
 
-  footer a {
-    color: #a78bfa;
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-copy {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--text-primary);
   }
 </style>

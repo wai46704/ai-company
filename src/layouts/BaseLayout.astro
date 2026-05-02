@@ -8,33 +8,32 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'My personal blog built with Astro' } = Astro.props;
+const { title, description = 'Naokiのブログ' } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/ai-company/favicon.svg" />
-    <title>{title}</title>
+    <title>{title} | Naoki's Blog</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
     <Header />
-    <main>
-      <slot />
+    <main class="site-main">
+      <div class="container">
+        <slot />
+      </div>
     </main>
     <Footer />
   </body>
 </html>
 
 <style>
-  main {
-    flex: 1;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-    width: 100%;
+  .site-main {
+    padding: 48px 0 80px;
+    min-height: calc(100vh - 56px);
   }
 </style>

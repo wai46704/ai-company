@@ -1,79 +1,61 @@
 ---
-const navLinks = [
-  { href: '/ai-company/', label: 'Home' },
-  { href: '/ai-company/about', label: 'About' },
-  { href: '/ai-company/blog', label: 'Blog' },
-  { href: '/ai-company/contact', label: 'Contact' },
-];
+const base = import.meta.env.BASE_URL;
 
-const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: '/about',   label: 'About' },
+  { href: '/blog',    label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
+];
 ---
 
-<header class="nav-header">
-  <div class="nav-inner">
-    <a href="/ai-company/" class="nav-logo">✨ My Blog</a>
-    <nav>
-      <ul>
-        {navLinks.map(link => (
-          <li>
-            <a
-              href={link.href}
-              class:list={['nav-link', { active: currentPath === link.href || currentPath === link.href + '/' }]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={base} class="site-title">Naoki</a>
+    <nav class="site-nav">
+      {navLinks.map(link => (
+        <a href={`${base}${link.href}`} class="nav-link">{link.label}</a>
+      ))}
     </nav>
   </div>
 </header>
 
 <style>
-  .nav-header {
-    background: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
-    padding: 0.75rem 1.5rem;
-    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+  .site-header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
-  .nav-inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
+  .header-inner {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    align-items: center;
+    height: 56px;
   }
 
-  .nav-logo {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 0.02em;
+  .site-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  nav ul {
-    list-style: none;
+  .site-nav {
     display: flex;
-    gap: 0.25rem;
+    gap: 24px;
   }
 
   .nav-link {
-    display: inline-block;
-    padding: 0.4rem 0.9rem;
-    border-radius: 9999px;
-    color: rgba(255, 255, 255, 0.85);
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: background 0.2s, color 0.2s;
-    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: color 0.2s;
   }
 
-  .nav-link:hover,
-  .nav-link.active {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    text-decoration: none;
+  .nav-link:hover {
+    color: var(--text-primary);
   }
 </style>
