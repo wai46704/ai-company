@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Hello, World! ブログ始めました | My Blog">
+  <article class="post">
+    <header class="post-header">
+      <div class="post-emoji">🎉</div>
+      <h1>Hello, World! ブログ始めました</h1>
+      <div class="post-meta">
+        <time>2024-01-01</time>
+        <span class="tag">雑記</span>
+        <span class="tag">はじめに</span>
+      </div>
+    </header>
+
+    <div class="post-body">
+      <p>
+        ようこそ！このブログを始めました。長い間「いつかブログを書こう」と思っていたのですが、
+        ようやく重い腰を上げて作り始めました。
+      </p>
+      <h2>なぜブログを始めたか</h2>
+      <p>
+        日々の学びをアウトプットする場所が欲しかったからです。
+        読んだ本や試したツール、気になったアイデアを書き留めておくことで、
+        自分の思考を整理し、誰かの役に立てたらと思っています。
+      </p>
+      <h2>これから書くこと</h2>
+      <ul>
+        <li>🛠️ プログラミング・技術</li>
+        <li>🎨 デザイン</li>
+        <li>📚 読書メモ</li>
+        <li>🌍 日常・旅</li>
+      </ul>
+      <p>ゆっくり更新していきますが、よろしくお願いします！</p>
+    </div>
+
+    <a href="/ai-company/blog" class="back-link">← ブログ一覧に戻る</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .post-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px dashed #e8e4ff;
+  }
+
+  .post-emoji {
+    font-size: 4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: #6c63ff;
+    margin-bottom: 1rem;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  time {
+    color: #aaa;
+    font-size: 0.88rem;
+  }
+
+  .tag {
+    background: #f0edff;
+    color: #6c63ff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+
+  .post-body {
+    line-height: 1.9;
+    font-size: 1.02rem;
+  }
+
+  .post-body h2 {
+    font-size: 1.3rem;
+    color: #a855f7;
+    margin: 2rem 0 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid #a855f7;
+  }
+
+  .post-body p {
+    margin-bottom: 1rem;
+  }
+
+  .post-body ul {
+    margin: 0.5rem 0 1rem 1.5rem;
+  }
+
+  .post-body li {
+    margin-bottom: 0.4rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 3rem;
+    color: #6c63ff;
+    font-weight: 600;
+  }
+</style>

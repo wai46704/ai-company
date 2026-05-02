@@ -1,0 +1,79 @@
+---
+const navLinks = [
+  { href: '/ai-company/', label: 'Home' },
+  { href: '/ai-company/about', label: 'About' },
+  { href: '/ai-company/blog', label: 'Blog' },
+  { href: '/ai-company/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="nav-header">
+  <div class="nav-inner">
+    <a href="/ai-company/" class="nav-logo">✨ My Blog</a>
+    <nav>
+      <ul>
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class:list={['nav-link', { active: currentPath === link.href || currentPath === link.href + '/' }]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-header {
+    background: linear-gradient(135deg, #6c63ff 0%, #a855f7 100%);
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+  }
+
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    text-decoration: none;
+  }
+</style>

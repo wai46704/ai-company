@@ -1,0 +1,43 @@
+/* Global styles */
+:root {
+  --color-primary: #6c63ff;
+  --color-secondary: #ff6584;
+  --color-accent: #43e97b;
+  --color-bg: #f9f9ff;
+  --color-text: #2d2d2d;
+  --color-muted: #888;
+  --font-body: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --max-width: 860px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1.2;
+}

@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Home | My Blog" description="Welcome to my personal blog!">
+  <section class="hero">
+    <div class="hero-emoji">🌈</div>
+    <h1>こんにちは！ Welcome to My Blog</h1>
+    <p class="hero-sub">アイデア・技術・日常をシェアする場所です。</p>
+    <div class="hero-actions">
+      <a href="/ai-company/blog" class="btn btn-primary">📝 記事を読む</a>
+      <a href="/ai-company/about" class="btn btn-outline">👋 About Me</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="card">
+      <span class="card-icon">💡</span>
+      <h3>Ideas</h3>
+      <p>日々のアイデアや気づきをまとめています。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🛠️</span>
+      <h3>Tech</h3>
+      <p>プログラミングや技術の話題を発信します。</p>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <h3>Life</h3>
+      <p>日常の出来事や旅の記録など。</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+  }
+
+  .hero-emoji {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    background: linear-gradient(135deg, #6c63ff, #ff6584, #43e97b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 99, 255, 0.3);
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #6c63ff, #a855f7);
+    color: #fff;
+  }
+
+  .btn-outline {
+    border: 2px solid #6c63ff;
+    color: #6c63ff;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #6c63ff;
+  }
+
+  .card p {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+</style>

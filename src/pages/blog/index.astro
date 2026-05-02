@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = [
+  {
+    slug: 'hello-world',
+    title: 'Hello, World! ブログ始めました',
+    date: '2024-01-01',
+    emoji: '🎉',
+    excerpt: 'このブログを始めたきっかけと、これから書いていきたいことについて。',
+    tags: ['雑記', 'はじめに'],
+  },
+  {
+    slug: 'astro-is-awesome',
+    title: 'Astroで作るモダンな静的サイト',
+    date: '2024-01-10',
+    emoji: '🚀',
+    excerpt: 'AstroフレームワークでGitHub Pagesにブログを公開するまでの手順を紹介します。',
+    tags: ['技術', 'Astro', 'Web'],
+  },
+  {
+    slug: 'design-tips',
+    title: 'カラフルなUIを作るデザインのコツ',
+    date: '2024-01-20',
+    emoji: '🎨',
+    excerpt: '配色や余白の使い方など、見ていて楽しいUIを作るための実践的なヒントをまとめました。',
+    tags: ['デザイン', 'UI/UX'],
+  },
+];
+---
+
+<BaseLayout title="Blog | My Blog" description="記事一覧">
+  <section class="blog-header">
+    <h1>📝 Blog</h1>
+    <p>アイデア・技術・日常の記録</p>
+  </section>
+
+  <ul class="post-list">
+    {posts.map(post => (
+      <li class="post-card">
+        <a href={`/ai-company/blog/${post.slug}`} class="post-link">
+          <span class="post-emoji">{post.emoji}</span>
+          <div class="post-info">
+            <h2>{post.title}</h2>
+            <p class="post-excerpt">{post.excerpt}</p>
+            <div class="post-meta">
+              <time>{post.date}</time>
+              <div class="tags">
+                {post.tags.map(tag => <span class="tag">{tag}</span>)}
+              </div>
+            </div>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
+
+<style>
+  .blog-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .blog-header h1 {
+    font-size: 2.2rem;
+    color: #6c63ff;
+    margin-bottom: 0.4rem;
+  }
+
+  .blog-header p {
+    color: var(--color-muted);
+  }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .post-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+  }
+
+  .post-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(108, 99, 255, 0.15);
+  }
+
+  .post-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .post-emoji {
+    font-size: 2.8rem;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 0.1rem;
+  }
+
+  .post-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .post-info h2 {
+    font-size: 1.15rem;
+    color: #2d2d2d;
+    margin-bottom: 0.4rem;
+  }
+
+  .post-excerpt {
+    font-size: 0.92rem;
+    color: var(--color-muted);
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  time {
+    font-size: 0.82rem;
+    color: #aaa;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: #f0edff;
+    color: #6c63ff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+</style>

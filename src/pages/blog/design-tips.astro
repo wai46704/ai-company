@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="カラフルなUIを作るデザインのコツ | My Blog">
+  <article class="post">
+    <header class="post-header">
+      <div class="post-emoji">🎨</div>
+      <h1>カラフルなUIを作るデザインのコツ</h1>
+      <div class="post-meta">
+        <time>2024-01-20</time>
+        <span class="tag">デザイン</span>
+        <span class="tag">UI/UX</span>
+      </div>
+    </header>
+
+    <div class="post-body">
+      <p>
+        見ていて楽しいUIを作るには、色・余白・タイポグラフィのバランスが大切です。
+        実践で使えるヒントをいくつかまとめました。
+      </p>
+
+      <h2>配色のポイント</h2>
+      <ul>
+        <li>🎯 メインカラーは1〜2色に絞る</li>
+        <li>🌈 グラデーションはブランドを印象づける</li>
+        <li>⬜ 白・グレーのバランスで読みやすさを確保する</li>
+      </ul>
+
+      <h2>余白の使い方</h2>
+      <p>
+        余白はデザインの「呼吸」です。要素同士が詰まっていると窮屈に感じるため、
+        <code>padding</code> と <code>gap</code> を意識的に使いましょう。
+      </p>
+
+      <h2>ホバーアニメーション</h2>
+      <p>
+        カードやボタンに微細な <code>transform: translateY(-3px)</code> と
+        <code>box-shadow</code> の変化を加えるだけで、インタラクティブさが格段に増します。
+      </p>
+    </div>
+
+    <a href="/ai-company/blog" class="back-link">← ブログ一覧に戻る</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { max-width: 720px; margin: 0 auto; }
+  .post-header { text-align: center; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 2px dashed #e8e4ff; }
+  .post-emoji { font-size: 4rem; margin-bottom: 0.75rem; }
+  h1 { font-size: clamp(1.5rem, 4vw, 2rem); color: #6c63ff; margin-bottom: 1rem; }
+  .post-meta { display: flex; align-items: center; gap: 0.6rem; justify-content: center; flex-wrap: wrap; }
+  time { color: #aaa; font-size: 0.88rem; }
+  .tag { background: #f0edff; color: #6c63ff; font-size: 0.78rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 9999px; }
+  .post-body { line-height: 1.9; font-size: 1.02rem; }
+  .post-body h2 { font-size: 1.3rem; color: #a855f7; margin: 2rem 0 0.75rem; padding-left: 0.75rem; border-left: 3px solid #a855f7; }
+  .post-body p { margin-bottom: 1rem; }
+  .post-body ul { margin: 0.5rem 0 1rem 1.5rem; }
+  .post-body li { margin-bottom: 0.4rem; }
+  code { background: #f3f0ff; color: #6c63ff; padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.9em; }
+  .back-link { display: inline-block; margin-top: 3rem; color: #6c63ff; font-weight: 600; }
+</style>

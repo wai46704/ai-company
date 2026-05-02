@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About | My Blog" description="About me and this blog">
+  <section class="about">
+    <div class="avatar">🧑‍💻</div>
+    <h1>About Me</h1>
+    <p class="tagline">テクノロジーとクリエイティビティが好きなエンジニアです。</p>
+
+    <div class="bio-card">
+      <p>
+        このブログは、日々の学びやアイデア、技術的な発見をアウトプットする場所として作りました。
+        プログラミング、デザイン、そして日常の出来事について書いています。
+      </p>
+    </div>
+
+    <div class="skills">
+      <h2>スキル・興味</h2>
+      <ul class="skill-list">
+        <li>🚀 Web開発 (Astro, React, TypeScript)</li>
+        <li>🎨 UI/UXデザイン</li>
+        <li>🤖 AI・機械学習</li>
+        <li>📸 写真・映像</li>
+        <li>🎮 ゲーム</li>
+      </ul>
+    </div>
+
+    <a href="/ai-company/contact" class="btn">📬 連絡はこちら</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .avatar {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    color: #6c63ff;
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    color: var(--color-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .bio-card {
+    background: #fff;
+    border-left: 4px solid #6c63ff;
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 12px rgba(108, 99, 255, 0.07);
+    line-height: 1.8;
+  }
+
+  .skills {
+    margin-bottom: 2.5rem;
+  }
+
+  .skills h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #a855f7;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .skill-list li {
+    background: #f3f0ff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.97rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.8rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #ff6584, #ffb86c);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 101, 132, 0.35);
+    text-decoration: none;
+  }
+</style>
