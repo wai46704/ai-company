@@ -1,3 +1,38 @@
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## よく使うコマンド
+
+```bash
+npm run dev      # 開発サーバー起動（http://localhost:4321/ai-company/）
+npm run build    # 静的サイトをビルド → dist/ に出力
+npm run preview  # ビルド結果をローカルでプレビュー
+```
+
+## アーキテクチャ概要
+
+Astro製の個人ブログサイト。GitHub Pagesに静的ホスティング。
+
+- **コンテンツ管理:** `src/content/blog/*.md` に frontmatter 付き Markdown を追加するだけで記事公開
+- **スタイリング:** `src/styles/global.css` の CSS 変数でカラーパレットを一元管理
+- **カテゴリカラー:** `src/components/PostCard.astro` 内の `categoryStyles` オブジェクトで定義（開発・日常・デザイン）。新カテゴリ追加時はここに追記する
+- **デプロイ:** `main` ブランチへの push で GitHub Actions が自動ビルド → GitHub Pages に配信
+
+## 記事追加方法
+
+`src/content/blog/<slug>.md` を作成し、以下の frontmatter を付与：
+
+```yaml
+---
+title: "記事タイトル"
+pubDate: 2026-01-01
+category: "開発"   # 開発 / 日常 / デザイン
+description: "記事の概要（一覧カードに表示）"
+emoji: "💻"        # カードバナーの絵文字
+---
+```
+
+## デプロイ設定
+
+`astro.config.mjs` の `site`（GitHubユーザー名）と `base`（リポジトリ名）を実際の値に設定すること。

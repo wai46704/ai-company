@@ -23,3 +23,6 @@ pnpm-debug.log*
 
 # Windows
 Thumbs.db
+
+# Superpowers
+.superpowers/
