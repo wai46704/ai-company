@@ -1,4 +1,6 @@
 ---
+import { getCollection } from 'astro:content';
+
 const base = import.meta.env.BASE_URL;
 
 const navLinks = [
@@ -6,6 +8,15 @@ const navLinks = [
   { href: '/blog',    label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ];
+
+const allPosts = await getCollection('blog');
+const searchIndex = JSON.stringify(allPosts.map(post => ({
+  slug: post.slug,
+  title: post.data.title,
+  description: post.data.description,
+  category: post.data.category,
+  emoji: post.data.emoji,
+})));
 ---
 
 <header class="site-header">
@@ -15,9 +26,30 @@ const navLinks = [
       {navLinks.map(link => (
         <a href={`${base}${link.href}`} class="nav-link">{link.label}</a>
       ))}
+      <button id="search-btn" class="search-btn" aria-label="検索">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
     </nav>
   </div>
 </header>
+
+<!-- 検索オーバーレイ -->
+<div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="記事を検索">
+  <div class="search-modal">
+    <div class="search-input-wrapper">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="search-input" type="search" placeholder="記事を検索..." autocomplete="off" />
+      <button id="search-close" class="search-close" aria-label="閉じる">✕</button>
+    </div>
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
 
 <style>
   .site-header {
@@ -46,6 +78,7 @@ const navLinks = [
 
   .site-nav {
     display: flex;
+    align-items: center;
     gap: 24px;
   }
 
@@ -58,4 +91,226 @@ const navLinks = [
   .nav-link:hover {
     color: var(--text-primary);
   }
+
+  /* 検索ボタン */
+  .search-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .search-btn:hover {
+    color: var(--text-primary);
+    background: var(--border-color);
+  }
+
+  /* 検索オーバーレイ */
+  .search-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    padding: 80px 20px 20px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .search-overlay.active {
+    display: flex;
+  }
+
+  .search-modal {
+    background: var(--bg-card);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 560px;
+    overflow: hidden;
+  }
+
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .search-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  #search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: var(--text-primary);
+    background: transparent;
+    font-family: inherit;
+  }
+
+  #search-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  /* 検索結果 */
+  .search-results {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .search-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .search-close:hover {
+    color: var(--text-primary);
+  }
 </style>
+
+<!-- グローバルスタイル（search-result-item は動的に生成するため） -->
+<style is:global>
+  .search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .search-result-item:last-child {
+    border-bottom: none;
+  }
+
+  .search-result-item:hover {
+    background: linear-gradient(135deg, #667eea0a, #f093fb0a);
+  }
+
+  .result-emoji {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .result-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .result-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .result-category {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 2px;
+  }
+
+  .search-empty {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .search-hint {
+    padding: 20px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+</style>
+
+<script define:vars={{ searchIndex, base }}>
+  const posts = JSON.parse(searchIndex);
+
+  const overlay  = document.getElementById('search-overlay');
+  const btn      = document.getElementById('search-btn');
+  const closeBtn = document.getElementById('search-close');
+  const input    = document.getElementById('search-input');
+  const results  = document.getElementById('search-results');
+
+  function openSearch() {
+    overlay.classList.add('active');
+    input.focus();
+    results.innerHTML = '<p class="search-hint">キーワードを入力してください</p>';
+  }
+
+  function closeSearch() {
+    overlay.classList.remove('active');
+    input.value = '';
+    results.innerHTML = '';
+  }
+
+  function renderResults(query) {
+    if (!query.trim()) {
+      results.innerHTML = '<p class="search-hint">キーワードを入力してください</p>';
+      return;
+    }
+
+    const q = query.toLowerCase();
+    const filtered = posts.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q)
+    );
+
+    if (filtered.length === 0) {
+      results.innerHTML = `<p class="search-empty">「${query}」に一致する記事は見つかりませんでした</p>`;
+      return;
+    }
+
+    results.innerHTML = filtered.map(p => `
+      <a href="${base}/blog/${p.slug}" class="search-result-item">
+        <span class="result-emoji">${p.emoji}</span>
+        <div>
+          <div class="result-category">${p.category}</div>
+          <div class="result-title">${p.title}</div>
+          <div class="result-desc">${p.description}</div>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  btn.addEventListener('click', openSearch);
+  closeBtn.addEventListener('click', closeSearch);
+  input.addEventListener('input', e => renderResults(e.target.value));
+
+  // オーバーレイ背景クリックで閉じる
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) closeSearch();
+  });
+
+  // Escキーで閉じる
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSearch();
+  });
+
+  // 検索結果の記事リンクをクリックしたら閉じる
+  results.addEventListener('click', closeSearch);
+</script>
