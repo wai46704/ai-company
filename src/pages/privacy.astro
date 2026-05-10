@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+const lastUpdated = '2026-05-04';
+---
+
+<BaseLayout title="プライバシーポリシー | Naoki" description="当サイトのプライバシーポリシーについて説明します。">
+  <div class="privacy-page container">
+
+    <header class="privacy-header">
+      <h1 class="privacy-title">プライバシーポリシー</h1>
+      <p class="privacy-updated">最終更新日：{lastUpdated}</p>
+    </header>
+
+    <div class="privacy-body">
+
+      <section>
+        <h2>基本方針</h2>
+        <p>当サイト「Naoki」（以下、当サイト）は、個人情報の重要性を認識し、その保護に努めます。本プライバシーポリシーでは、当サイトにおける個人情報の取扱い方針を説明します。</p>
+      </section>
+
+      <section>
+        <h2>Cookie（クッキー）について</h2>
+        <p>Cookie とは、ウェブサイトがお使いのブラウザに保存する小さなデータです。当サイトでは、アクセス解析・広告配信の目的で Cookie を使用しています。</p>
+        <p>ブラウザの設定から Cookie を無効にすることができますが、その場合、一部の機能が正常に動作しないことがあります。</p>
+      </section>
+
+      <section>
+        <h2>アクセス解析</h2>
+        <p>当サイトでは、サイトの改善・分析を目的として Google アナリティクスを利用することがあります。Google アナリティクスは Cookie を使用してトラフィックデータを収集しますが、このデータは匿名で収集されており、個人を特定するものではありません。</p>
+        <p>Google のデータ収集・利用方法については、<a href="https://policies.google.com/technologies/ads?gl=jp" target="_blank" rel="noopener noreferrer">Google のポリシー</a>をご参照ください。</p>
+      </section>
+
+      <section>
+        <h2>広告配信・アフィリエイト</h2>
+        <p>当サイトでは、第三者配信の広告サービスおよびアフィリエイトプログラムを利用しています。広告配信事業者は、ユーザーの興味に応じた広告を表示するために Cookie を使用することがあります。これにより、ブラウザを識別できる場合がありますが、個人を特定するものではありません。</p>
+        <p>当サイトの記事内にはアフィリエイトリンクが含まれる場合があります。リンクを経由して商品・サービスをご購入いただいた際、当サイトに紹介報酬が発生することがありますが、掲載内容はそれに左右されません。</p>
+      </section>
+
+      <section>
+        <h2>免責事項</h2>
+        <p>当サイトに掲載する情報は、正確性・有用性を高めるよう努めていますが、その内容を保証するものではありません。当サイトの情報をもとに生じた損害・トラブルについて、当サイトは一切の責任を負いません。</p>
+        <p>当サイトからリンクしている外部サイトの内容・サービスについても、同様に責任を負いかねます。あらかじめご了承ください。</p>
+      </section>
+
+      <section>
+        <h2>著作権</h2>
+        <p>当サイトに掲載しているすべてのコンテンツ（文章・画像・動画等）の著作権は、当サイト運営者または各権利者に帰属します。無断での転載・複製・二次利用等はご遠慮ください。</p>
+        <p>引用する場合は、出典の明記と該当ページへのリンクをお願いします。</p>
+      </section>
+
+      <section>
+        <h2>リンクについて</h2>
+        <p>当サイトへのリンクは原則フリーです。許可・連絡は不要です。</p>
+      </section>
+
+      <section>
+        <h2>プライバシーポリシーの変更</h2>
+        <p>本プライバシーポリシーは、必要に応じて予告なく変更する場合があります。変更後の内容は当ページに掲載した時点で有効になります。</p>
+      </section>
+
+      <section>
+        <h2>お問い合わせ</h2>
+        <p>本ポリシーに関するご質問は、<a href={`${base}/contact`}>お問い合わせページ</a>からご連絡ください。</p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .privacy-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+  }
+
+  .privacy-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .privacy-title {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .privacy-updated {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .privacy-body {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .privacy-body section h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 3px solid #667eea;
+  }
+
+  .privacy-body section p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  .privacy-body section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .privacy-body a {
+    color: #667eea;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .privacy-body a:hover {
+    opacity: 0.8;
+  }
+</style>
