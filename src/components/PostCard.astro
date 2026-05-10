@@ -7,7 +7,6 @@ interface Props {
 
 const { post } = Astro.props;
 const { title, pubDate, category, description, emoji } = post.data;
-const base = import.meta.env.BASE_URL;
 
 const categoryStyles: Record<string, { gradient: string; color: string }> = {
   '開発':    { gradient: 'linear-gradient(135deg, #667eea, #764ba2)', color: '#667eea' },
@@ -28,7 +27,7 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
 });
 ---
 
-<a href={`${base}/blog/${post.slug}`} class="post-card">
+<a href={`/blog/${post.slug}`} class="post-card">
   <div class="card-banner" style={`background: ${style.gradient}`}>
     <span class="card-emoji">{emoji}</span>
   </div>
