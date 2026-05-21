@@ -2,5 +2,5 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://wai46704.github.io',
+  site: 'https://naoki-blog.com',
 });
