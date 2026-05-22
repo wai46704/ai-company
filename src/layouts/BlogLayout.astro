@@ -138,28 +138,28 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
     color: inherit;
   }
 
-  .post-content table {
+  :global(.post-content table) {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 24px;
     font-size: 0.95rem;
   }
 
-  .post-content th,
-  .post-content td {
+  :global(.post-content th),
+  :global(.post-content td) {
     border: 1px solid #dddddd;
     padding: 10px 14px;
     text-align: left;
     line-height: 1.6;
   }
 
-  .post-content th {
+  :global(.post-content th) {
     background: #f5f5f5;
     font-weight: 700;
     color: var(--text-primary);
   }
 
-  .post-content tr:nth-child(even) td {
+  :global(.post-content tr:nth-child(even) td) {
     background: #fafafa;
   }
 
