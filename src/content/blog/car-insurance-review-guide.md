@@ -122,6 +122,10 @@ emoji: "🚗"
 
 3サービスとも無料で利用できます。1つだけでなく複数のサービスを使うことで、より多くの保険会社を比較できます。
 
+<a href="https://px.a8.net/svt/ejp?a8mat=4B5OO3+E22GZ6+2PS+15QP81" rel="nofollow">
+<img border="0" width="468" height="60" alt="" src="https://www21.a8.net/svt/bgt?aid=260605731850&wid=001&eno=01&mid=s00000000352007011000&mc=1"></a>
+<img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B5OO3+E22GZ6+2PS+15QP81" alt="">
+
 ---
 
 ## 4. よくある3つの疑問
