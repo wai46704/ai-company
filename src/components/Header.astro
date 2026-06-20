@@ -2,9 +2,9 @@
 import { getCollection } from 'astro:content';
 
 const navLinks = [
-  { href: '/about',   label: 'About' },
-  { href: '/blog',    label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/about/',   label: 'About' },
+  { href: '/blog/',    label: 'Blog' },
+  { href: '/contact/', label: 'Contact' },
 ];
 
 const allPosts = await getCollection('blog');
@@ -284,7 +284,7 @@ const searchIndex = JSON.stringify(allPosts.map(post => ({
     }
 
     results.innerHTML = filtered.map(p => `
-      <a href="/blog/${p.slug}" class="search-result-item">
+      <a href="/blog/${p.slug}/" class="search-result-item">
         <span class="result-emoji">${p.emoji}</span>
         <div>
           <div class="result-category">${p.category}</div>

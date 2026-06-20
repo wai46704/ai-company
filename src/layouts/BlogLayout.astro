@@ -34,13 +34,13 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
 
   <nav class="post-nav">
     {prevPost ? (
-      <a href={`/blog/${prevPost.slug}`} class="post-nav-link prev">
+      <a href={`/blog/${prevPost.slug}/`} class="post-nav-link prev">
         <span class="post-nav-label">← 前の記事</span>
         <span class="post-nav-title">{prevPost.data.title}</span>
       </a>
     ) : <div />}
     {nextPost && (
-      <a href={`/blog/${nextPost.slug}`} class="post-nav-link next">
+      <a href={`/blog/${nextPost.slug}/`} class="post-nav-link next">
         <span class="post-nav-label">次の記事 →</span>
         <span class="post-nav-title">{nextPost.data.title}</span>
       </a>
