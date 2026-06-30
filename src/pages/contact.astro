@@ -4,13 +4,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const contacts = [
   {
     label: 'GitHub',
-    href: 'https://github.com/',
+    href: 'https://github.com/wai46704',
     emoji: '🐙',
     description: 'コードはこちら',
   },
   {
     label: 'Twitter / X',
-    href: 'https://twitter.com/',
+    href: 'https://x.com/IL8yTt8H8c16315',
     emoji: '🐦',
     description: '日常のつぶやき',
   },
@@ -38,6 +38,25 @@ const contacts = [
       </a>
     ))}
   </div>
+
+  <section class="newsletter">
+    <h2 class="newsletter-title">📮 メルマガ購読</h2>
+    <p class="newsletter-description">
+      お金とITのお役立ち情報を、ブログ更新にあわせてメールでお届けします。無料でいつでも解除できます。
+    </p>
+    <div class="newsletter-embed">
+      <iframe
+        src="https://naokiaicompany.substack.com/embed"
+        width="480"
+        height="320"
+        style="border: 1px solid #EEE; background: white; max-width: 100%;"
+        frameborder="0"
+        scrolling="no"
+        title="メルマガ購読フォーム"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -86,5 +105,24 @@ const contacts = [
   .contact-description {
     font-size: 0.85rem;
     color: var(--text-muted);
+  }
+  .newsletter {
+    margin-top: 56px;
+    max-width: 480px;
+  }
+  .newsletter-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .newsletter-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .newsletter-embed iframe {
+    border-radius: var(--radius-card);
   }
 </style>
