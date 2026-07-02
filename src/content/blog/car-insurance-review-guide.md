@@ -114,6 +114,8 @@ emoji: "🚗"
 
 #### おすすめ一括見積もりサービス3選
 
+<p style="font-size: 0.75rem; color: #888; margin-bottom: 4px;">PR（広告）／以下は広告リンクを含みます</p>
+
 | サービス名 | 特徴 |
 |---|---|
 | [保険スクエアbang！](https://www.bang.co.jp/promo/landing05/?ID=abcaw00069&soid=34286.304716&_rt_ck=263.260610474205) | 最大20社を一括比較。利用者数No.1クラスの老舗サービス |
@@ -122,6 +124,7 @@ emoji: "🚗"
 
 3サービスとも無料で利用できます。1つだけでなく複数のサービスを使うことで、より多くの保険会社を比較できます。
 
+<p style="font-size: 0.75rem; color: #888; margin-bottom: 4px;">PR（広告）</p>
 <a href="https://px.a8.net/svt/ejp?a8mat=4B5OO3+E22GZ6+2PS+15QP81" rel="nofollow">
 <img border="0" width="468" height="60" alt="" src="https://www21.a8.net/svt/bgt?aid=260605731850&wid=001&eno=01&mid=s00000000352007011000&mc=1"></a>
 <img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B5OO3+E22GZ6+2PS+15QP81" alt="">
