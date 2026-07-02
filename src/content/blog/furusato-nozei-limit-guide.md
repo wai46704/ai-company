@@ -134,6 +134,7 @@ iDeCoを満額拠出していると、所得税・住民税がすでに安くな
 
 手続きの期限は毎年12月31日まで。ただし年末になると人気の返礼品は売り切れます。枠が残っているうちに、早めにお気に入りを見つけてくださいね。
 
+<p style="font-size: 0.75rem; color: #888; margin-bottom: 4px;">PR（広告）</p>
 <a href="https://px.a8.net/svt/ejp?a8mat=4B5VOC+70FT9U+35Z2+62MDD" rel="nofollow">
 <img border="0" width="468" height="60" alt="" src="https://www29.a8.net/svt/bgt?aid=260614812424&wid=001&eno=01&mid=s00000014771001020000&mc=1"></a>
 <img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B5VOC+70FT9U+35Z2+62MDD" alt="">
