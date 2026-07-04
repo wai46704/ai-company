@@ -62,6 +62,8 @@ emoji: "📱"
 > 自分が「月に何GB使っているか」をマイページで確認するだけで、最適なプランは自動的に絞られます。まずは直近3ヶ月の平均使用量を確認してみましょう。
 
 ちなみに僕は月平均の使用量が20GBだったので楽天モバイルにしました。
+
+<p style="font-size: 0.75rem; color: #888; margin-bottom: 4px;">PR（広告）</p>
 <a href="https://px.a8.net/svt/ejp?a8mat=4B3U79+1AFTYQ+5W58+60H7L" rel="nofollow">
 <img border="0" width="468" height="60" alt="" src="https://www25.a8.net/svt/bgt?aid=260519589078&wid=001&eno=01&mid=s00000027494001010000&mc=1"></a>
 <img border="0" width="1" height="1" src="https://www19.a8.net/0.gif?a8mat=4B3U79+1AFTYQ+5W58+60H7L" alt="">
