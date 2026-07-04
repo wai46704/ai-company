@@ -138,3 +138,11 @@ iDeCoを満額拠出していると、所得税・住民税がすでに安くな
 <a href="https://px.a8.net/svt/ejp?a8mat=4B5VOC+70FT9U+35Z2+62MDD" rel="nofollow">
 <img border="0" width="468" height="60" alt="" src="https://www29.a8.net/svt/bgt?aid=260614812424&wid=001&eno=01&mid=s00000014771001020000&mc=1"></a>
 <img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B5VOC+70FT9U+35Z2+62MDD" alt="">
+
+---
+
+## あわせて読みたい
+
+- [高額療養費制度が2026年8月改正｜負担増と年間上限を解説](/blog/kougaku-ryoyouhi-reform-2026/)
+- [初めてのクレジットカード｜学生・主婦向けおすすめ5選](/blog/credit-card-beginners-guide/)
+- [「最強の盾」となる生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
