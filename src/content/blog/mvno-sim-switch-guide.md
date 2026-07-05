@@ -123,5 +123,5 @@ emoji: "📱"
 ## あわせて読みたい
 
 - [自動車保険、高くない？見直しで確認すべき3つのこと](/blog/car-insurance-review-guide/)
-- [「最強の盾」となる生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
+- [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [初めてのクレジットカード｜学生・主婦向けおすすめ5選](/blog/credit-card-beginners-guide/)

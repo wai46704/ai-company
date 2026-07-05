@@ -121,5 +121,5 @@ emoji: "💡"
 ## あわせて読みたい
 
 - [老後不安をゼロにする「3つの柱」の作り方](/blog/rogo-fuan-zero-3pillars/)
-- [人生の「貯め時」と「かかり時」フェーズ別攻略法](/blog/tametime-kakariji-money-guide/)
+- [「貯め時」と「かかり時」｜フェーズ別攻略法](/blog/tametime-kakariji-money-guide/)
 - [「自己投資」と「金融投資」の黄金バランス](/blog/jiko-toshi-vs-kinyu-toshi-balance/)

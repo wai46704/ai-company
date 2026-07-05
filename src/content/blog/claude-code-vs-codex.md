@@ -1,5 +1,5 @@
 ---
-title: "エンジニアの右腕はどちらか？ Claude Code vs. OpenAI Codex 徹底比較"
+title: "Claude Code vs. Codex｜右腕はどちらか徹底比較"
 pubDate: 2026-05-14
 category: "開発"
 description: "AIコーディングツールの2大巨頭「Claude Code」と「OpenAI Codex」を専門用語なしで徹底比較。初心者でも分かる3つのポイントと、プロが実践する理想の使い方を解説します。"

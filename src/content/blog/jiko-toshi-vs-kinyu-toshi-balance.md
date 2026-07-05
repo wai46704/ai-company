@@ -112,6 +112,6 @@ emoji: "⚖️"
 
 ## あわせて読みたい
 
-- [新NISAの始め方3ステップ｜初心者の最短ルート](/blog/nisa-beginners-guide/)
-- [一生後悔しないための「リスク許容度」完全ガイド](/blog/risk-tolerance-guide/)
+- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [「全額投資で人生逆転」の甘い罠｜リスク許容度ガイド](/blog/risk-tolerance-guide/)
 - [副業より先に転職！資産形成を最速で終わらせる戦略](/blog/tenshoku-vs-fukugyou-strategy/)

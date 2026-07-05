@@ -143,6 +143,6 @@ iDeCoを満額拠出していると、所得税・住民税がすでに安くな
 
 ## あわせて読みたい
 
-- [高額療養費制度が2026年8月改正｜負担増と年間上限を解説](/blog/kougaku-ryoyouhi-reform-2026/)
+- [高額療養費制度2026年8月改正｜負担増と年間上限の新設を解説](/blog/kougaku-ryoyouhi-reform-2026/)
 - [初めてのクレジットカード｜学生・主婦向けおすすめ5選](/blog/credit-card-beginners-guide/)
-- [「最強の盾」となる生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
+- [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)

@@ -119,5 +119,5 @@ emoji: "🏦"
 ## あわせて読みたい
 
 - [貯金が増えても不安が消えない人へ｜究極のお金の使い方](/blog/best-way-to-spend-money/)
-- [人生の「貯め時」と「かかり時」フェーズ別攻略法](/blog/tametime-kakariji-money-guide/)
-- [新NISAの始め方3ステップ｜初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [「貯め時」と「かかり時」｜フェーズ別攻略法](/blog/tametime-kakariji-money-guide/)
+- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)

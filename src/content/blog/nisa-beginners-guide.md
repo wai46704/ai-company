@@ -1,5 +1,5 @@
 ---
-title: "【完全版】新NISAの始め方3ステップ！「損をしたくない」初心者のための最短ルート"
+title: "【完全版】新NISAの始め方3ステップ｜損しない初心者の最短ルート"
 pubDate: 2026-05-03
 category: "お金"
 description: "2024年から始まった新NISA。「難しそう」「元本割れが怖い」という不安を解消し、初心者が今日から始めるための3ステップを徹底解説します。"
@@ -125,6 +125,6 @@ emoji: "💰"
 
 ## あわせて読みたい
 
-- [SBI証券 vs 楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
-- [一生後悔しないための「リスク許容度」完全ガイド](/blog/risk-tolerance-guide/)
+- [SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
+- [「全額投資で人生逆転」の甘い罠｜リスク許容度ガイド](/blog/risk-tolerance-guide/)
 - [「自己投資」と「金融投資」の黄金バランス](/blog/jiko-toshi-vs-kinyu-toshi-balance/)

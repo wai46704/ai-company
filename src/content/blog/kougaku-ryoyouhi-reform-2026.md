@@ -1,5 +1,5 @@
 ---
-title: "高額療養費制度が2026年8月に改正｜負担増と「年間上限」新設をわかりやすく解説"
+title: "高額療養費制度2026年8月改正｜負担増と年間上限の新設を解説"
 pubDate: 2026-05-31
 category: "お金"
 description: "高額療養費制度が2026年8月から大きく変わります。月額上限の引き上げ（最大38%増）と年間上限の新設、それぞれのポイントと私たちが今すぐ取るべき行動を徹底解説します。"
@@ -127,6 +127,6 @@ emoji: "🏥"
 
 ## あわせて読みたい
 
-- [働けなくなったら？お金の不安を解消するリスク管理術](/blog/income-protection-risk-guide/)
-- [「最強の盾」となる生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
+- [病気やケガで働けなくなったら？お金の不安を解消するリスク管理術](/blog/income-protection-risk-guide/)
+- [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [【年収別】ふるさと納税の限度額と返礼品の選び方](/blog/furusato-nozei-limit-guide/)

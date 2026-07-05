@@ -120,5 +120,5 @@ emoji: "💼"
 ## あわせて読みたい
 
 - [「自己投資」と「金融投資」の黄金バランス](/blog/jiko-toshi-vs-kinyu-toshi-balance/)
-- [新NISAの始め方3ステップ｜初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
 - [貯金が増えても不安が消えない人へ｜究極のお金の使い方](/blog/best-way-to-spend-money/)

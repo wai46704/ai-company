@@ -106,5 +106,5 @@ IDとパスワードだけの守りには限界があります。銀行や証券
 
 ## あわせて読みたい
 
-- [Claude Code vs OpenAI Codex 徹底比較](/blog/claude-code-vs-codex/)
+- [Claude Code vs. Codex｜右腕はどちらか徹底比較](/blog/claude-code-vs-codex/)
 - [初めてのクレジットカード｜学生・主婦向けおすすめ5選](/blog/credit-card-beginners-guide/)
