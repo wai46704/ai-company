@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="5">
+<title>🗝️ Nオフィス執務室</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0a2e 0%, #1a1040 40%, #2d1b5e 75%, #3d2472 100%);
+    font-family: "Meiryo", "Yu Gothic", "Hiragino Sans", sans-serif;
+    color: #e8e4ff;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ===== 星空 ===== */
+  #sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50%      { opacity: 1;   transform: scale(1.2); }
+  }
+  .star.big {
+    box-shadow: 0 0 6px 2px rgba(255, 240, 180, 0.5);
+    background: #fff8d8;
+  }
+
+  /* ===== レイアウト ===== */
+  #app { position: relative; z-index: 1; width: 900px; margin: 0 auto; padding: 24px 0 48px; }
+
+  header { text-align: center; margin-bottom: 10px; }
+  h1 {
+    font-size: 30px;
+    letter-spacing: 4px;
+    color: #ffe9a8;
+    text-shadow: 0 0 12px rgba(255, 220, 120, 0.55), 0 2px 0 #5a3d00;
+  }
+  h1 .key { display: inline-block; animation: keyswing 4s ease-in-out infinite; }
+  @keyframes keyswing {
+    0%, 100% { transform: rotate(-8deg); }
+    50%      { transform: rotate(8deg); }
+  }
+  #office-message {
+    margin-top: 8px;
+    font-size: 15px;
+    color: #cfd0ff;
+  }
+  #office-updated {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #8f8ec0;
+  }
+  .deco-line {
+    margin: 12px auto 0;
+    width: 520px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #b9a5ff 30%, #ffe9a8 50%, #b9a5ff 70%, transparent);
+    position: relative;
+  }
+  .deco-line::after {
+    content: "♥ ★ ♥";
+    position: absolute;
+    left: 50%; top: -9px;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #ffb3d9;
+    background: transparent;
+    letter-spacing: 8px;
+    text-shadow: 0 0 6px rgba(255, 150, 200, 0.8);
+  }
+
+  /* ===== 全員完了バナー ===== */
+  #all-done-banner {
+    display: none;
+    margin: 14px auto 0;
+    width: 560px;
+    text-align: center;
+    padding: 12px 0;
+    border: 2px solid #ffd75e;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(90, 60, 0, 0.55), rgba(50, 30, 0, 0.55));
+    box-shadow: 0 0 24px rgba(255, 215, 94, 0.45), inset 0 0 18px rgba(255, 215, 94, 0.2);
+    animation: bannerGlow 1.6s ease-in-out infinite;
+  }
+  #all-done-banner .crown { font-size: 28px; display: inline-block; animation: crownFloat 2s ease-in-out infinite; }
+  #all-done-banner .txt { font-size: 20px; font-weight: bold; color: #ffe9a8; letter-spacing: 3px; margin-left: 10px; }
+  @keyframes bannerGlow {
+    0%, 100% { box-shadow: 0 0 16px rgba(255, 215, 94, 0.35), inset 0 0 12px rgba(255, 215, 94, 0.15); }
+    50%      { box-shadow: 0 0 34px rgba(255, 215, 94, 0.75), inset 0 0 24px rgba(255, 215, 94, 0.35); }
+  }
+  @keyframes crownFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-5px); }
+  }
+
+  /* ===== エラー表示 ===== */
+  #load-error {
+    display: none;
+    margin: 60px auto;
+    width: 480px;
+    text-align: center;
+    padding: 24px;
+    border: 2px dashed #ff8899;
+    border-radius: 12px;
+    color: #ffb3c0;
+    font-size: 16px;
+    background: rgba(80, 20, 40, 0.4);
+  }
+
+  /* ===== 執務室グリッド ===== */
+  #floor {
+    margin-top: 26px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px 26px;
+    padding: 26px 30px 30px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(30, 22, 70, 0.55), rgba(18, 12, 45, 0.75));
+    border: 1px solid rgba(150, 130, 255, 0.25);
+    box-shadow: inset 0 0 40px rgba(0, 0, 10, 0.5);
+  }
+
+  /* ===== 座席 ===== */
+  .seat { position: relative; text-align: center; padding-top: 34px; }
+
+  .bubble {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    animation: bubbleFloat 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+  }
+  @keyframes bubbleFloat {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%      { transform: translateX(-50%) translateY(-6px); }
+  }
+
+  .chara {
+    position: relative;
+    display: inline-block;
+    width: 96px;
+    height: 96px;
+  }
+  .chara canvas {
+    width: 96px;
+    height: 96px;
+    image-rendering: pixelated;
+  }
+
+  /* 机とPC */
+  .desk {
+    position: relative;
+    margin: -26px auto 0;
+    width: 150px;
+    height: 40px;
+    background: linear-gradient(180deg, #6b4a86, #4a3260);
+    border: 2px solid #2c1c40;
+    border-radius: 6px 6px 3px 3px;
+    box-shadow: 0 5px 0 #241536, 0 8px 12px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+  }
+  .pc {
+    position: absolute;
+    top: -30px;
+    right: 14px;
+    width: 42px;
+    height: 30px;
+    background: #22183a;
+    border: 3px solid #101020;
+    border-radius: 4px;
+  }
+  .pc::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -9px;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 6px;
+    background: #101020;
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: #1d2f52;
+  }
+
+  /* 名札 */
+  .plate {
+    margin: 14px auto 0;
+    width: 200px;
+    padding: 7px 8px;
+    background: rgba(15, 10, 40, 0.75);
+    border: 1px solid rgba(160, 140, 255, 0.35);
+    border-radius: 9px;
+  }
+  .plate .nm { font-size: 15px; font-weight: bold; color: #fff; }
+  .plate .role { font-size: 11px; color: #b9a5ff; margin-top: 2px; }
+  .plate .task {
+    font-size: 11px;
+    color: #ffe9a8;
+    margin-top: 4px;
+    min-height: 14px;
+    overflow-wrap: break-word;
+  }
+
+  /* ===== ハートの光（done演出） ===== */
+  .heart {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin-left: -8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(-45deg);
+    background: #ff8fc7;
+  }
+  .heart::before, .heart::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff8fc7;
+  }
+  .heart::before { top: -8px; left: 0; }
+  .heart::after  { top: 0; left: 8px; }
+  .heart.h2 { background: #ffc9e5; }
+  .heart.h2::before, .heart.h2::after { background: #ffc9e5; }
+
+  /* ===== 状態: idle ===== */
+  .seat.idle .chara { filter: brightness(0.5) saturate(0.6); }
+  .seat.idle .screen { background: #16213a; }
+  .seat.idle .plate { opacity: 0.75; }
+
+  /* ===== 状態: working ===== */
+  .seat.working .chara canvas { animation: typing 0.35s steps(2) infinite; }
+  @keyframes typing {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(1px); }
+  }
+  .seat.working .screen { animation: screenFlicker 0.9s ease-in-out infinite; }
+  @keyframes screenFlicker {
+    0%, 100% { background: #2a4a8f; box-shadow: 0 0 6px rgba(90, 140, 255, 0.5); }
+    50%      { background: #5a8fe0; box-shadow: 0 0 14px rgba(120, 170, 255, 0.9); }
+  }
+
+  /* ===== 状態: done ===== */
+  .seat.done .chara { filter: brightness(1.15); }
+  .seat.done .desk {
+    animation: deskShine 1.8s ease-in-out infinite;
+    border-color: #a88a30;
+  }
+  @keyframes deskShine {
+    0%, 100% { box-shadow: 0 5px 0 #241536, 0 0 12px rgba(255, 220, 120, 0.4); }
+    50%      { box-shadow: 0 5px 0 #241536, 0 0 26px rgba(255, 220, 120, 0.9); }
+  }
+  .seat.done .screen { background: #2f5a3a; box-shadow: 0 0 8px rgba(120, 255, 160, 0.6); }
+  .seat.done .heart    { animation: heartPop 2.2s ease-out infinite; }
+  .seat.done .heart.h2 { animation: heartPop 2.2s ease-out 1.1s infinite; }
+  @keyframes heartPop {
+    0%   { opacity: 0;   transform: rotate(-45deg) scale(0.3) translate(0, 0); }
+    20%  { opacity: 0.9; }
+    100% { opacity: 0;   transform: rotate(-45deg) scale(2.6) translate(-8px, 8px); }
+  }
+
+  /* ===== 状態: error ===== */
+  .seat.error .chara { animation: errorBlink 0.8s ease-in-out infinite; }
+  @keyframes errorBlink {
+    0%, 100% { filter: brightness(1) sepia(0) hue-rotate(0deg); }
+    50%      { filter: brightness(1.2) sepia(0.9) hue-rotate(-45deg) saturate(4); }
+  }
+  .seat.error .screen { background: #7a2030; animation: screenFlicker 0.4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div id="sky"></div>
+
+<div id="app">
+  <header>
+    <h1><span class="key">🗝️</span> Nオフィス執務室 <span class="key">🗝️</span></h1>
+    <div id="office-message">--</div>
+    <div id="office-updated">--</div>
+    <div class="deco-line"></div>
+  </header>
+
+  <div id="all-done-banner">
+    <span class="crown">👑</span><span class="txt">本日の業務完了！</span><span class="crown">👑</span>
+  </div>
+
+  <div id="load-error">⚠️ 状態ファイルが見つかりません<br><small>（オフィス状態.js を確認してください）</small></div>
+
+  <div id="floor"></div>
+</div>
+
+<script src="オフィス状態.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* ===== 星空を生成 ===== */
+  var sky = document.getElementById("sky");
+  for (var i = 0; i < 90; i++) {
+    var s = document.createElement("div");
+    var size = Math.random() < 0.15 ? 3 : (Math.random() < 0.5 ? 2 : 1);
+    s.className = "star" + (size === 3 ? " big" : "");
+    s.style.width = size + "px";
+    s.style.height = size + "px";
+    s.style.left = (Math.random() * 100) + "%";
+    s.style.top = (Math.random() * 100) + "%";
+    s.style.animationDelay = (Math.random() * 3).toFixed(2) + "s";
+    s.style.animationDuration = (2 + Math.random() * 3).toFixed(2) + "s";
+    sky.appendChild(s);
+  }
+
+  /* ===== メンバー定義 ===== */
+  var MEMBERS = [
+    { id: "minato",  name: "ミナト", emoji: "🔍", role: "リサーチ",  hair: "#3a6fd8", hairHi: "#6fa0ff", cloth: "#20345e" },
+    { id: "haru",    name: "ハル",   emoji: "✍️", role: "執筆",      hair: "#8a5a2e", hairHi: "#b8834f", cloth: "#5e4020" },
+    { id: "aoi",     name: "アオイ", emoji: "📝", role: "校閲",      hair: "#2a2f6e", hairHi: "#4a52a8", cloth: "#3a2a5e" },
+    { id: "tsumugi", name: "ツムギ", emoji: "📣", role: "SNS",       hair: "#f06aae", hairHi: "#ffa0d0", cloth: "#8e3060" },
+    { id: "riku",    name: "リク",   emoji: "📊", role: "SEO",       hair: "#9aa4b8", hairHi: "#cdd5e4", cloth: "#40506e" },
+    { id: "yume",    name: "ユメ",   emoji: "📮", role: "メルマガ",  hair: "#e8c04a", hairHi: "#ffe28a", cloth: "#a06a20" }
+  ];
+
+  var STATE_BUBBLE = { idle: "💤", working: "⌨️", done: "✅", error: "⚠️" };
+
+  /* ===== ドット絵（16x16、canvas描画） =====
+     H=髪 h=髪ハイライト S=肌 E=目 B=服 b=服影 F=靴 .=透過 */
+  var BASE_SPRITE = [
+    "..H..H..H..H....",
+    "..HH.HHhH.HH....",
+    "...HHhhhhHH.....",
+    "..HHhhhhhhHH....",
+    "..HSSSSSSSSH....",
+    "...SESSSSES.....",
+    "...SSSSSSSS.....",
+    "....SSSSSS......",
+    "...BBBBBBBB.....",
+    "..BBbBBBBbBB....",
+    "..B.BBBBBB.B....",
+    "..S.bBBBBb.S....",
+    "....BB..BB......",
+    "....BB..BB......",
+    "...FFF..FFF.....",
+    "..FFFF..FFFF...."
+  ];
+
+  /* キャラごとの持ち物（右手側に数ドット） [x, y, 色] */
+  var ACCESSORIES = {
+    minato:  [[12,9,"#c8d8ff"],[13,9,"#c8d8ff"],[12,10,"#c8d8ff"],[13,10,"#88a8e8"],[14,11,"#8a6a3a"]],           /* 虫眼鏡 */
+    haru:    [[12,9,"#e8b050"],[13,10,"#404060"],[12,10,"#e8b050"]],                                               /* ペン */
+    aoi:     [[3,5,"#b8c8e8"],[4,5,"#b8c8e8"],[7,5,"#b8c8e8"],[8,5,"#b8c8e8"],[5,5,"#8898b8"],[6,5,"#8898b8"]],   /* メガネ */
+    tsumugi: [[12,8,"#f8f8f8"],[13,8,"#e05080"],[12,9,"#e05080"],[13,9,"#e05080"],[14,9,"#c03060"]],               /* メガホン */
+    riku:    [[12,8,"#50d080"],[12,9,"#50d080"],[13,9,"#f0d050"],[13,10,"#f0d050"],[14,10,"#f08050"]],             /* グラフ */
+    yume:    [[12,9,"#fff8e8"],[13,9,"#fff8e8"],[12,10,"#f0d8a8"],[13,10,"#fff8e8"]]                               /* 手紙 */
+  };
+
+  function drawChara(canvas, m) {
+    var ctx = canvas.getContext("2d");
+    var palette = {
+      "H": m.hair, "h": m.hairHi,
+      "S": "#f2c9a0", "E": "#25203a",
+      "B": m.cloth, "b": shade(m.cloth),
+      "F": "#e8d840"  /* KH風の大きな黄色い靴 */
+    };
+    for (var y = 0; y < 16; y++) {
+      for (var x = 0; x < 16; x++) {
+        var c = BASE_SPRITE[y].charAt(x);
+        if (c === "." || !palette[c]) continue;
+        ctx.fillStyle = palette[c];
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+    var acc = ACCESSORIES[m.id] || [];
+    for (var i = 0; i < acc.length; i++) {
+      ctx.fillStyle = acc[i][2];
+      ctx.fillRect(acc[i][0], acc[i][1], 1, 1);
+    }
+  }
+
+  function shade(hex) {
+    var n = parseInt(hex.slice(1), 16);
+    var r = Math.max(0, ((n >> 16) & 255) - 40);
+    var g = Math.max(0, ((n >> 8) & 255) - 40);
+    var b = Math.max(0, (n & 255) - 40);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+
+  /* ===== 状態の読み込み（防御コード） ===== */
+  var status = window.OFFICE_STATUS;
+  if (!status || !status.members) {
+    document.getElementById("load-error").style.display = "block";
+    document.getElementById("office-message").textContent = "";
+    document.getElementById("office-updated").textContent = "";
+    return;
+  }
+
+  document.getElementById("office-message").textContent = status.message || "";
+  document.getElementById("office-updated").textContent = "最終更新: " + (status.updated || "不明");
+
+  /* ===== 座席を生成 ===== */
+  var floor = document.getElementById("floor");
+  var VALID = { idle: 1, working: 1, done: 1, error: 1 };
+  var allDone = true;
+
+  MEMBERS.forEach(function (m) {
+    var info = status.members[m.id] || { state: "idle", task: "" };
+    var state = VALID[info.state] ? info.state : "idle";
+    if (state !== "done") allDone = false;
+
+    var seat = document.createElement("div");
+    seat.className = "seat " + state;
+    seat.id = "seat-" + m.id;
+
+    var bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = STATE_BUBBLE[state];
+    seat.appendChild(bubble);
+
+    var chara = document.createElement("div");
+    chara.className = "chara";
+    var cv = document.createElement("canvas");
+    cv.width = 16;
+    cv.height = 16;
+    drawChara(cv, m);
+    chara.appendChild(cv);
+    var h1 = document.createElement("div"); h1.className = "heart";
+    var h2 = document.createElement("div"); h2.className = "heart h2";
+    chara.appendChild(h1);
+    chara.appendChild(h2);
+    seat.appendChild(chara);
+
+    var desk = document.createElement("div");
+    desk.className = "desk";
+    var pc = document.createElement("div");
+    pc.className = "pc";
+    var screen = document.createElement("div");
+    screen.className = "screen";
+    pc.appendChild(screen);
+    desk.appendChild(pc);
+    seat.appendChild(desk);
+
+    var plate = document.createElement("div");
+    plate.className = "plate";
+    var nm = document.createElement("div");
+    nm.className = "nm";
+    nm.textContent = m.name + " " + m.emoji;
+    var role = document.createElement("div");
+    role.className = "role";
+    role.textContent = m.role;
+    var task = document.createElement("div");
+    task.className = "task";
+    task.textContent = info.task || "―";
+    plate.appendChild(nm);
+    plate.appendChild(role);
+    plate.appendChild(task);
+    seat.appendChild(plate);
+
+    floor.appendChild(seat);
+  });
+
+  if (allDone) {
+    document.getElementById("all-done-banner").style.display = "block";
+  }
+})();
+</script>
+</body>
+</html>
