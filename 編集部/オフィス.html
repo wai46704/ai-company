@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="5">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🗝️ Nオフィス執務室</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,6 +29,7 @@
   }
   #office-message { margin-top: 8px; font-size: 15px; color: #cfd0ff; }
   #office-updated { margin-top: 4px; font-size: 12px; color: #8d8bc2; }
+  #office-warn { margin-top: 4px; font-size: 12px; color: #ff9d9d; display: none; }
 
   /* 全員完了バナー */
   #banner {
@@ -54,14 +55,14 @@
   #fit { display: flex; justify-content: center; margin-top: 12px; }
   #stage {
     position: relative;
-    width: 1280px;
-    height: 848px;
+    width: 1360px;
+    height: 952px;
     flex: 0 0 auto;
     transform-origin: top center;
   }
   #cv {
-    width: 1280px;
-    height: 848px;
+    width: 1360px;
+    height: 952px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
     border: 4px solid #4a3f78;
@@ -85,16 +86,7 @@
   }
 
   /* 状態バッジ */
-  .badge { position: absolute; font-size: 26px; pointer-events: none; }
-  .badge.zzz   { animation: floatz 2.6s ease-in-out infinite; opacity: .85; }
-  .badge.warn  { animation: blinkw 0.8s steps(2) infinite; }
-  .badge.check { animation: popin 0.5s ease-out; filter: drop-shadow(0 0 6px rgba(120,255,160,.8)); }
-  @keyframes floatz {
-    0%, 100% { transform: translateY(0); opacity: .55; }
-    50%      { transform: translateY(-8px); opacity: 1; }
-  }
-  @keyframes blinkw { 0% { opacity: 1; } 50% { opacity: .15; } 100% { opacity: 1; } }
-  @keyframes popin  { 0% { transform: scale(0); } 70% { transform: scale(1.3); } 100% { transform: scale(1); } }
+  .badge { position: absolute; font-size: 26px; pointer-events: none; transition: opacity .3s; }
 
   /* 名札 */
   .plate {
@@ -137,16 +129,18 @@
   <h1><span class="key">🗝️</span> Nオフィス執務室</h1>
   <div id="office-message">…</div>
   <div id="office-updated"></div>
+  <div id="office-warn">⚠️ 状態ファイルが見つかりません（idle表示中）</div>
   <div id="banner">👑 本日の業務完了！ 👑</div>
 </header>
 
 <div id="fit">
   <div id="stage">
-    <canvas id="cv" width="320" height="212"></canvas>
+    <canvas id="cv" width="340" height="238"></canvas>
     <div id="clock">--:--</div>
   </div>
 </div>
 
+<!-- 初期状態: これは必ず同期読み込み。file://でも初期表示は動く -->
 <script src="オフィス状態.js"></script>
 <script>
 (function () {
@@ -154,28 +148,67 @@
 
   /* ============================================================
      基本セットアップ
+       - キャンバス論理解像度 340x238（旧320x212より一回り広い）
+       - 表示は S=4倍拡大（image-rendering: pixelated）
   ============================================================ */
-  var S = 4; // 4倍拡大
+  var CW = 340, CH = 238;   // canvas 論理サイズ
+  var S = 4;                // 拡大率
   var cv = document.getElementById("cv");
   var ctx = cv.getContext("2d");
   var stage = document.getElementById("stage");
+  var warnEl = document.getElementById("office-warn");
 
-  var STATUS = (window.OFFICE_STATUS && window.OFFICE_STATUS.members) ? window.OFFICE_STATUS : {
-    updated: "-", message: "状態ファイルが読めませんでした", members: {}
-  };
-  document.getElementById("office-message").textContent = STATUS.message || "";
-  document.getElementById("office-updated").textContent = STATUS.updated ? ("最終更新: " + STATUS.updated) : "";
+  /* ------------------------------------------------------------
+     状態管理: window.OFFICE_STATUS を安全に読み、防御する。
+     不正stateはidle扱い。読めない場合は警告表示＋空メンバー。
+  ------------------------------------------------------------ */
+  var VALID_STATES = { idle: 1, working: 1, done: 1, error: 1 };
+
+  function normalizeStatus(raw) {
+    if (!raw || typeof raw !== "object" || !raw.members || typeof raw.members !== "object") {
+      return { ok: false, updated: "-", message: "状態ファイルが見つかりません", members: {} };
+    }
+    var members = {};
+    for (var id in raw.members) {
+      var m = raw.members[id] || {};
+      var st = (typeof m.state === "string" && VALID_STATES[m.state]) ? m.state : "idle";
+      members[id] = { state: st, task: (typeof m.task === "string") ? m.task : "" };
+    }
+    return {
+      ok: true,
+      updated: raw.updated || "-",
+      message: raw.message || "",
+      members: members
+    };
+  }
+
+  // 初期状態（同期読み込み済みの window.OFFICE_STATUS を使用）
+  var STATUS = normalizeStatus(window.OFFICE_STATUS);
+  if (!STATUS.ok) warnEl.style.display = "block";
 
   function memberState(id) {
     var m = STATUS.members && STATUS.members[id];
     return { state: (m && m.state) || "idle", task: (m && m.task) || "" };
   }
 
-  /* 画面幅に合わせて縮小（ドット比率は維持） */
+  /* ------------------------------------------------------------
+     ヘッダー情報の反映
+  ------------------------------------------------------------ */
+  function applyHeader() {
+    document.getElementById("office-message").textContent = STATUS.message || "";
+    document.getElementById("office-updated").textContent =
+      (STATUS.updated && STATUS.updated !== "-") ? ("最終更新: " + STATUS.updated) : "";
+    warnEl.style.display = STATUS.ok ? "none" : "block";
+  }
+  applyHeader();
+
+  /* ============================================================
+     画面幅に合わせて縮小（ドット比率は維持）
+  ============================================================ */
   function fit() {
-    var w = Math.min(1, (window.innerWidth - 24) / 1280);
+    var w = Math.min(1, (window.innerWidth - 24) / (CW * S));
     stage.style.transform = "scale(" + w + ")";
-    stage.style.marginBottom = (-(1 - w) * 848) + "px";
+    stage.style.marginBottom = (-(1 - w) * (CH * S)) + "px";
   }
   window.addEventListener("resize", fit);
   fit();
@@ -195,291 +228,339 @@
     for (var k in pal) { var c = hex2rgb(pal[k]); out[k] = fn(c[0], c[1], c[2]); }
     return out;
   }
-  function dimmed(pal) { // idle: 薄暗く・少し青く
-    return transformPal(pal, function (r, g, b) { return rgb2hex(r * .45, g * .45, b * .58 + 18); });
-  }
-  function reddened(pal) { // error: 赤みがかる
-    return transformPal(pal, function (r, g, b) { return rgb2hex(r * .65 + 105, g * .38, b * .38); });
-  }
-  function darker(pal) { // error通常コマ: 落ち込み
-    return transformPal(pal, function (r, g, b) { return rgb2hex(r * .7, g * .62, b * .68); });
-  }
+  function dimmed(pal)   { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .45, g * .45, b * .58 + 18); }); }
+  function reddened(pal) { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .65 + 105, g * .38, b * .38); }); }
+  function darker(pal)   { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .7, g * .62, b * .68); }); }
+  // done時: ほんのり温かく（金色ライト下）
+  function warmed(pal)   { return transformPal(pal, function (r, g, b) { return rgb2hex(r * 1.06 + 10, g * 1.02 + 6, b * .92); }); }
 
   /* ============================================================
      スプライト定義（6人それぞれ完全に独立したピクセルマップ）
-     1文字=1ピクセル。'.' は透明。各キャラ専用のパレットを持つ。
+       - 1文字=1ピクセル。'.' は透明。各キャラ専用パレット。
+       - サイズを一回り拡大（幅38〜40 × 高さ〜52）＝描き込み強化。
+       - まばたき用に「目を閉じたコマ」を差分で持たせる（closedEye）。
   ============================================================ */
 
   /* ---- ミナト🔍 青の短髪ツンツン・探偵風コート（大きな襟）・広い肩幅 ---- */
   var MINATO = {
-    pal: { b:"#3b6fb5", B:"#274c86", s:"#f4c79c", e:"#1d2733", k:"#4a3a26",
-           w:"#e9e5da", c:"#8a6a45", C:"#61492f", t:"#93353f", m:"#b06a52", n:"#d9a878" },
+    w: 40,
+    pal: { b:"#3b6fb5", B:"#274c86", L:"#5a8fd4", s:"#f4c79c", S:"#e0ac82", e:"#1d2733",
+           k:"#4a3a26", w:"#e9e5da", c:"#8a6a45", C:"#61492f", D:"#4a3826", t:"#93353f", m:"#b06a52", n:"#d9a878" },
     map: [
-      "..........b....b.....b..........",
-      ".........bb...bbb...bb..........",
-      "........bbb..bbbbb..bbb.........",
-      ".......bbbb.bbbbbbb.bbbb........",
-      ".......bbbbbbbbbbbbbbbbb........",
-      "......bbbbbbbbbbbbbbbbbb........",
-      "......bbbBBBBBBBBBBBBBbb........",
-      "......bbBsssssssssssssBb........",
-      "......bBsssssssssssssssb........",
-      "......bBsskkssssskkssBb.........",
-      "......bBsseessssseessBb.........",
-      "......bBsssssssssssssBb.........",
-      "......bBssssssmmsssssBb.........",
-      ".......Bssssssssssssssb.........",
-      "........bsssssssssssb...........",
-      "...........nssssn...............",
-      "....ccc....wwwwww....ccc........",
-      "...ccccc..wwwttww...ccccc.......",
-      "..cccCccc.wwwttww..cccCccc......",
-      "..ccC.cccwwwwttwww.ccc.Ccc......",
-      "..ccC..cccwwwttwww.cc..Ccc......",
-      "..ccC..cccwwwttwwwccc..Ccc......",
-      "..ccC..ccccwwttwwcccc..Ccc......",
-      "..ccc..ccccwwttwwcccc..ccc......",
-      "..ccc..ccccwwwwwwcccc..ccc......",
-      "..ccc..cccccccccccccc..ccc......",
-      "..ccc..cccccccccccccc..ccc......",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......ccccccCCcccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc..........."
-    ]
+      "............b.....b......b...............",
+      "...........bb....bbb....bb...............",
+      "..........bLb...bLbLb...bLb..............",
+      ".........bbLbb.bbLbLbb.bbLbb.............",
+      ".........bbbbbbbbbbbbbbbbbbbb............",
+      "........bbbbbbbbbbbbbbbbbbbbb............",
+      "........bbbBBBBBBBBBBBBBBBBbb............",
+      "........bbBSssssssssssssssSBb............",
+      "........bBSssssssssssssssssSb............",
+      "........bBSsskkSsssssSkkssSSb............",
+      "........bBSsseeSsssssSeessSSb............",
+      "........bBSssssssssssssssssSb............",
+      "........bBSsssssssmmssssssssb............",
+      ".........BSssssssssssssssssb.............",
+      "..........bSsssssssssssssb...............",
+      "............nSssssssssn..................",
+      "..............nssssn.....................",
+      ".....ccc.....wwwwwwww.....ccc............",
+      "....ccccc...wwwttttww....ccccc...........",
+      "...cccCccc..wwwttttww...cccCccc..........",
+      "...ccC.cccc.wwwwttwwww..cccc.Ccc.........",
+      "...ccC..ccccwwwwttwwwwc.ccc...Ccc........",
+      "...ccC..cccccwwwttwwwccc.cc...Ccc........",
+      "...ccC..ccccccwwttwwcccccc...Ccc........",
+      "...ccc..ccccccwwttwwcccccc...ccc........",
+      "...ccc..cccccwwwwwwwwccccc...ccc........",
+      "...ccc..ccccccccccccccccc...ccc........",
+      "...ccc..ccccccDDDDDDcccccc..ccc........",
+      "........cccccccccccccccccc..............",
+      "........ccccccccCCcccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........ccccccccCCcccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........ccccccD....Dcccccc..............",
+      "........ccccccD....Dcccccc..............",
+      "........ccccccD....Dcccccc..............",
+      "........cccccc......cccccc.............."
+    ],
+    // まばたき: 目行(9,10)を閉じる差分
+    eyeRows: [9, 10]
   };
 
   /* ---- ハル✍️ 茶髪ポニーテール・白シャツ腕まくり・耳にペン ---- */
   var HARU = {
-    pal: { h:"#8a5a2b", H:"#6b431d", s:"#f2c39a", e:"#2b2118", k:"#4a3a26",
-           w:"#f2f1ea", W:"#d8d6c8", y:"#e5c545", m:"#c47a5a", d:"#3f5d8a" },
+    w: 40,
+    pal: { h:"#8a5a2b", H:"#6b431d", L:"#a5742f", s:"#f2c39a", S:"#deac82", e:"#2b2118",
+           k:"#4a3a26", w:"#f2f1ea", W:"#d8d6c8", y:"#e5c545", m:"#c47a5a", d:"#3f5d8a", D:"#2f477a" },
     map: [
-      "..........hhhhhhhhh.............",
-      "........hhhhhhhhhhhhh...........",
-      ".......hhhhhhhhhhhhhhh..........",
-      "......hhhhhhhhhhhhhhhh.hh.......",
-      "......hhhhhhhhhhhhhhhhhhhh......",
-      "......hhHhhhHhhhhHhhh..hhhh.....",
-      "......hhsssssssssssshh..hhh.....",
-      "......hssssssssssssssh...hh.....",
-      ".....yhsskkssssskksssh...hh.....",
-      ".....yhsseesssssseessh...hh.....",
-      "......hssssssssssssss....hh.....",
-      "......hsssssssmmsssss.....h.....",
-      ".......hssssssssssss......h.....",
-      "........ssssssssssss......h.....",
-      "...........ssss.................",
-      "......www..wwww...www...........",
-      ".....wwwww.wWWw..wwwww..........",
-      ".....wwwwwwwkwwwwwwwww..........",
-      ".....wwwwwwwwkwwwwwwww..........",
-      ".....Wwwwwwwwkwwwwwwww..........",
-      ".....ssWwwwwwkwwwwwWss..........",
-      ".....ss.wwwwwkwwwww.ss..........",
-      ".....ss.wwwwwwwwwww.ss..........",
-      "........wwwwwwwwwww.............",
-      "........wwwwwwwwwww.............",
-      "........wddddddddww.............",
-      "........wddddddddww.............",
-      "........dddddddddd..............",
-      "........dddddddddd..............",
-      "........dddddddddd..............",
-      "........dddddddddd..............",
-      "........dddddddddd.............."
-    ]
+      "...........hhhhhhhhhhh...................",
+      ".........hhhhhhhhhhhhhhh.................",
+      "........hhhLhhhhhLhhhhhh.................",
+      ".......hhhhhhhhhhhhhhhhhh.hh.............",
+      ".......hhhhhhhhhhhhhhhhhhhhhhh...........",
+      ".......hhHhhhHhhhhHhhhhh...hhhhh.........",
+      ".......hhSsssssssssssssSh...hhhh........",
+      ".......hSssssssssssssssssh...hhh........",
+      "....y..hSsskkSsssssSkkssSh...hhh........",
+      "....y..hSsseeSsssssSeessSh...hhh........",
+      ".......hSssssssssssssssssh...hh.........",
+      ".......hSsssssssmmsssssssh...hh.........",
+      "........Ssssssssssssssss....hh.........",
+      ".........sssssssssssssss....h..........",
+      "............ssssssss....................",
+      ".......wwww..wwwwww..wwww...............",
+      "......wwwwww.wWWWWw.wwwwww..............",
+      "......wwwwwwwwwkwwwwwwwwww..............",
+      "......wwwwwwwwwkwwwwwwwwww..............",
+      "......WwwwwwwwwkwwwwwwwwwW..............",
+      "......WwwwwwwwwkwwwwwwwwwW..............",
+      "......SSwwwwwwwkwwwwwwwSSW..............",
+      "......SS.wwwwwwkwwwwwww.SS..............",
+      "......SS.wwwwwwwwwwwwww.SS..............",
+      ".........wwwwwwwwwwwwww.................",
+      ".........wwwwwwwwwwwwww.................",
+      ".........wddddddddddddw.................",
+      ".........wddddddddddddw.................",
+      ".........ddddddDDDDdddd.................",
+      ".........dddddddddddddd.................",
+      ".........dddddddddddddd.................",
+      ".........dddddd..dddddd.................",
+      ".........dddddd..dddddd.................",
+      ".........dddddd..dddddd.................",
+      ".........dddddd..dddddd.................",
+      ".........ddddd....ddddd................."
+    ],
+    eyeRows: [8, 9]
   };
 
-  /* ---- アオイ📝 紺のボブヘア・大きな丸メガネ・カーディガン（小柄） ---- */
+  /* ---- アオイ📝 紺のボブヘア・大きな丸メガネ・カーディガン（小柄・最小身長） ---- */
   var AOI = {
-    pal: { n:"#2b3560", N:"#1d2545", s:"#f6d3ae", e:"#26203a", o:"#f4f2ec",
-           l:"#bcd9e8", c:"#c09a4a", C:"#96762f", w:"#f4f2ec", k:"#6b5320", m:"#c98058" },
+    w: 40,
+    pal: { n:"#2b3560", N:"#1d2545", L:"#3b4880", s:"#f6d3ae", S:"#e6bd94", e:"#26203a",
+           o:"#f4f2ec", l:"#bcd9e8", c:"#c09a4a", C:"#96762f", w:"#f4f2ec", W:"#e2ddd0",
+           k:"#6b5320", m:"#c98058", D:"#7a5f26" },
     map: [
-      "..........nnnnnnnnnn............",
-      "........nnnnnnnnnnnnnn..........",
-      ".......nnnnnnnnnnnnnnnn.........",
-      "......nnnnnnnnnnnnnnnnnn........",
-      "......nnnnnnnnnnnnnnnnnn........",
-      "......nnnNnnNnnnNnnNnnnn........",
-      "......nnnsssssssssssssnn........",
-      "......nn.ooooo..ooooo.nn........",
-      "......nn.oleeooooleeo.nn........",
-      "......nn.ooooo..ooooo.nn........",
-      "......nnnsssssssssssnnnn........",
-      "......nnnssssmmssssssnn.........",
-      "......nnnsssssssssssnnn.........",
-      "......nnn.sssssssss.nnn.........",
-      "......nn....ssss.....nn.........",
-      "........ccwwwwwwwwcc............",
-      ".......ccccwwwwwwcccc...........",
-      ".......cccccwkkwccccc...........",
-      ".......cccccckkcccccc...........",
-      ".......cccccckkcccccc...........",
-      ".......ccccccccCccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc...........",
-      ".......cccccccccccccc..........."
-    ]
+      "...........nnnnnnnnnnnn..................",
+      ".........nnnnnnnnnnnnnnnn................",
+      "........nnnnnnnnnnnnnnnnnn...............",
+      ".......nnnnLnnnnnnnnLnnnnnn..............",
+      ".......nnnnnnnnnnnnnnnnnnnn..............",
+      ".......nnnNnnNnnnnNnnNnnnnn..............",
+      ".......nnnSsssssssssssssSnn..............",
+      ".......nn.ooooo...ooooo.nn...............",
+      ".......nn.oleeoo.ooleeo.nn...............",
+      ".......nn.oeeeoo.ooeeeo.nn...............",
+      ".......nn.ooooo...ooooo.nn...............",
+      ".......nnnSssssssssssssSnnn..............",
+      ".......nnnSsssssmmsssssSnnn..............",
+      ".......nnnSssssssssssssnnn...............",
+      ".......nnn.Ssssssssss.nnn................",
+      ".......nn....ssssss....nn................",
+      ".........ccwwwwwwwwwwcc..................",
+      "........ccccwwwwwwwwcccc.................",
+      "........cccccwwwwwwccccc.................",
+      "........ccccccwkkwcccccc.................",
+      "........ccccccckkccccccc.................",
+      "........ccccccckkccccccc.................",
+      "........ccccccccCcccccccc................",
+      "........cccccccccccccccc.................",
+      "........cccccccDDcccccccc................",
+      "........cccccccccccccccc.................",
+      "........cccccccccccccccc.................",
+      "........cccccc....cccccc.................",
+      "........cccccc....cccccc.................",
+      "........cccccc....cccccc.................",
+      "........ccccc......ccccc................."
+    ],
+    eyeRows: [8, 9]
   };
 
   /* ---- ツムギ📣 ピンクのツインテール・パーカー（元気・少し低め） ---- */
   var TSUMUGI = {
-    pal: { p:"#f08bb0", P:"#d16690", s:"#f4c79c", e:"#3a2030", W:"#f4f2ec",
-           c:"#e2734a", C:"#b5522f", k:"#4a3a26", m:"#d05a5a", t:"#f6df75" },
+    w: 40,
+    pal: { p:"#f08bb0", P:"#d16690", L:"#f7a8c6", s:"#f4c79c", S:"#e0ac82", e:"#3a2030",
+           W:"#f4f2ec", c:"#e2734a", C:"#b5522f", k:"#4a3a26", m:"#d05a5a", t:"#f6df75", D:"#8f3f22" },
     map: [
-      "...............pp...............",
-      "..............pp................",
-      "..........pppppppppp............",
-      "........pppppppppppppp..........",
-      ".......pppppppppppppppp.........",
-      "..pp..ppppppppppppppppp..pp.....",
-      ".pppp.pWppppppppppppWpp.pppp....",
-      ".ppppp.ppsssssssssspp..ppppp....",
-      "..ppppp.pssssssssssp..ppppp.....",
-      "..pppp..pskkssssskkp...pppp.....",
-      ".pppp...pseesssssee.....pppp....",
-      ".ppp....psssssssssss.....ppp....",
-      ".pp.....pssmmmmsssss......pp....",
-      ".pp......ssssssssss.......pp....",
-      ".p..........ssss...........p....",
-      "......ccccccccccccccccc.........",
-      ".....cccccccWccccWcccccc........",
-      ".....ccc.cccWccccWccc.ccc.......",
-      ".....ccc.cccWccccWccc.ccc.......",
-      ".....ccc.cccccccccccc.ccc.......",
-      ".....ccc.cccccccccccc.ccc.......",
-      ".....ccc.cccccccccccc.ccc.......",
-      "......cc.CCCCCCCCCCCC.cc........",
-      ".........CccccccccccC...........",
-      ".........CccccccccccC...........",
-      ".........CCCCCCCCCCCC...........",
-      ".........cccccccccccc...........",
-      ".........cccccccccccc...........",
-      ".........cccccccccccc..........."
-    ]
+      "................pp...pp..................",
+      "...............pp.....pp.................",
+      "..........pppppppppppppp................",
+      "........pppppppLppLppppppp...............",
+      ".......ppppppppppppppppppp...............",
+      "..pp...pppppppppppppppppp...pp...........",
+      ".pppp..pWppppppppppppppWp..pppp..........",
+      ".ppppp.pSsssssssssssssSp..ppppp..........",
+      "..pppp.pSssssssssssssssp..pppp...........",
+      "..pppp.pSsskkSssssSkkssp...pppp..........",
+      ".pppp..pSsseeSssssSeessp....pppp.........",
+      ".ppp...pSsssssssssssssss....ppp.........",
+      ".pp....pSssmmmmmssssssss.....pp.........",
+      ".pp.....Sssssssssssssss......pp.........",
+      ".p........ssssssssss.........p..........",
+      "......cccccccccccccccccccc..............",
+      ".....ccccccccWccccWcccccccc.............",
+      ".....cccc.cccWccccWccc.cccc.............",
+      ".....cccc.cccWccccWccc.cccc.............",
+      ".....cccc.ccccccccccccc.cccc.............",
+      ".....cccc.cccccDDcccccc.cccc.............",
+      ".....cccc.cccccccccccccc.ccc.............",
+      "......ccc.CCCCCCCCCCCCCC.ccc.............",
+      "......cc..CccccccccccccC..cc.............",
+      ".........CccccccccccccccC...............",
+      ".........CCCCCCCCCCCCCCCC...............",
+      ".........cccccccccccccccc...............",
+      ".........ccccccc..ccccccc...............",
+      ".........ccccccc..ccccccc...............",
+      ".........ccccccc..ccccccc...............",
+      ".........cccccc....cccccc..............."
+    ],
+    eyeRows: [9, 10]
   };
 
-  /* ---- リク📊 銀髪前髪長めクール・ベスト＋ネクタイ（長身） ---- */
+  /* ---- リク📊 銀髪前髪長めクール・ベスト＋赤ネクタイ（最長身） ---- */
   var RIKU = {
-    pal: { g:"#ccd3dd", G:"#9aa3b5", s:"#edd0b2", e:"#22304a", w:"#f4f2ec",
-           W:"#d8d6c8", v:"#3d4455", V:"#2b303e", t:"#8c2d3f", m:"#b07a60", k:"#3a3f4c" },
+    w: 40,
+    pal: { g:"#ccd3dd", G:"#9aa3b5", L:"#e2e7ee", s:"#edd0b2", S:"#d6b894", e:"#22304a",
+           w:"#f4f2ec", W:"#d8d6c8", v:"#3d4455", V:"#2b303e", t:"#8c2d3f", T:"#6b1f2e",
+           m:"#b07a60", k:"#3a3f4c" },
     map: [
-      "...........gggggggg.............",
-      ".........gggggggggggg...........",
-      "........gggggggggggggg..........",
-      "........gggggggggggggg..........",
-      "........gggggggggggggg..........",
-      "........gggGGggggggggg..........",
-      "........ggggGGGgggggggg.........",
-      "........gggggGGGgssssgg.........",
-      "........ggggggGGGssssgg.........",
-      "........gggggggGGseessg.........",
-      "........gggggggGssssssg.........",
-      "........ggggggGsssssss..........",
-      "........gggggGssssmsss..........",
-      ".........ggg.gssssssss..........",
-      "..............ssss..............",
-      "..........wwWssssWww............",
-      ".........vwwwwttwwwwv...........",
-      "........vvwwwwttwwwwvv..........",
-      "........vvVwwwttwwwVvv..........",
-      "........vv.wwwttwww.vv..........",
-      "........vvv.wwttww.vvv..........",
-      "........vvv.wwttww.vvv..........",
-      "........vvv.wwttww.vvv..........",
-      "........vv..wwttww..vv..........",
-      "............wwwwww..............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvVVvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............",
-      "..........vvvvvvvvvv............"
-    ]
+      "............gggggggggg...................",
+      "..........ggggggggggggg.................",
+      ".........gggggLgggLggggg.................",
+      ".........ggggggggggggggg.................",
+      ".........ggggggggggggggg.................",
+      ".........gggGGgggggggggg.................",
+      ".........ggggGGGggggggggg................",
+      ".........gggggGGGgSssssgg................",
+      ".........ggggggGGGSssssgg................",
+      ".........gggggggGGSskkSsg................",
+      ".........gggggggGSseeSssg................",
+      ".........ggggggGSssssssss................",
+      ".........gggggGSsssmmssss................",
+      ".........ggggGSssssssssss................",
+      "..........ggg.Ssssssssss.................",
+      "..............Ssssssss...................",
+      "...........wwWSssssssWww.................",
+      "..........vwwwwwttwwwwwv.................",
+      ".........vvwwwwwttwwwwwvv................",
+      ".........vvVwwwwttwwwwVvv................",
+      ".........vv.wwwwttwwww.vv................",
+      ".........vvv.wwwttwwww.vvv...............",
+      ".........vvv.wwwttwww..vvv...............",
+      ".........vvv.wwwttwww..vvv...............",
+      ".........vvv.wwwTTwww..vvv...............",
+      ".........vv..wwwwwwww...vv...............",
+      ".............wwwwwwww....................",
+      "...........vvvvvvvvvvvv..................",
+      "...........vvvvvvvvvvvv..................",
+      "...........vvvVVVVvvvvv..................",
+      "...........vvvvvvvvvvvv..................",
+      "...........vvvvvvvvvvvv..................",
+      "...........vvvvvv..vvvvv.................",
+      "...........vvvvvv..vvvvv.................",
+      "...........vvvvvv..vvvvv.................",
+      "...........vvvvvv..vvvvv.................",
+      "...........vvvvvv..vvvvv.................",
+      "...........vvvvv....vvvv................."
+    ],
+    eyeRows: [9, 10]
   };
 
   /* ---- ユメ📮 金髪ロングゆるふわ・リボン・女性的シルエット ---- */
   var YUME = {
-    pal: { y:"#e9c56b", Y:"#c9a24a", r:"#d4586d", R:"#a83e52", s:"#f6d3ae",
-           e:"#4a3550", w:"#faf6ee", c:"#eec3d2", C:"#d799b2", t:"#d4586d", m:"#cf7a72", k:"#7a5a35" },
+    w: 40,
+    pal: { y:"#e9c56b", Y:"#c9a24a", L:"#f4d888", r:"#d4586d", R:"#a83e52", s:"#f6d3ae",
+           S:"#e6bd94", e:"#4a3550", w:"#faf6ee", c:"#eec3d2", C:"#d799b2", t:"#d4586d",
+           m:"#cf7a72", k:"#7a5a35", D:"#b57a94" },
     map: [
-      ".......rr..yyyyyyyy.............",
-      "......rrrryyyyyyyyyyy...........",
-      ".......rrRyyyyyyyyyyyy..........",
-      "......yyyyyyyyyyyyyyyyy.........",
-      ".....yyyyyyyyyyyyyyyyyy.........",
-      ".....yyyYyyyYyyyyYyyyyyy........",
-      "....yyyy.ssssssssssss.yyyy......",
-      "....yyy.ssssssssssssss.yyy......",
-      "...yyyy.sskksssssskkss.yyyy.....",
-      "...yyyy.sskeessssskees.yyyy.....",
-      "..yyyy..ssssssssssssss..yyyy....",
-      "..yyyy..sssssssssssss...yyyy....",
-      "..yyy...ssssssmmssssss...yyy....",
-      ".yyyy....ssssssssssss....yyyy...",
-      ".yyy.......ssssssss.......yyy...",
-      ".yyy.........ssss.........yyy...",
-      ".yyyy...ccc.wwwwww.ccc...yyyy...",
-      "..yyy..cccccwwwwwwccccc..yyy....",
-      "..yyyy.ccccccwwwwcccccc.yyyy....",
-      ".yyyy..cccccccttccccccc..yyyy...",
-      ".yyy...cccccccttccccccc...yyy...",
-      "..yyy..ccccccccccccccc...yyy....",
-      "..yyyy.ccccccccccccccc..yyyy....",
-      ".yyyy..ccccccccccccccc...yyyy...",
-      ".yyy...ccCCCCCCCCCCCcc....yyy...",
-      "..yy...ccccccccccccccc....yy....",
-      ".......ccccccccccccccc..........",
-      ".......ccccccccccccccc..........",
-      ".......ccccccccccccccc..........",
-      ".......ccccccccccccccc..........",
-      ".......ccccccccccccccc.........."
-    ]
+      "........rr...yyyyyyyy....................",
+      ".......rrrr.yyyyyyyyyyy..................",
+      "........rrRyyyyyyyyyyyyy.................",
+      ".......yyyyyyyyyLyyLyyyyy................",
+      "......yyyyyyyyyyyyyyyyyyy................",
+      "......yyyYyyyYyyyyYyyyyyyy...............",
+      ".....yyyy.SsssssssssssS.yyyy.............",
+      ".....yyy.SssssssssssssssS.yyy............",
+      "....yyyy.SsskkSsssssSkkssS.yyyy..........",
+      "....yyyy.SsseeSsssssSeessS.yyyy..........",
+      "...yyyy..SsssssssssssssssS..yyyy.........",
+      "...yyyy..Ssssssssssssssss...yyyy.........",
+      "...yyy...SsssssmmmssssssS...yyy.........",
+      "..yyyy....SssssssssssssS....yyyy........",
+      "..yyy.......ssssssssss.......yyy........",
+      "..yyy.........ssssss.........yyy........",
+      "..yyyy...ccc.wwwwwwww.ccc...yyyy........",
+      "...yyy..cccccwwwwwwwwccccc..yyy.........",
+      "...yyyy.ccccccwwwwwwcccccc.yyyy.........",
+      "..yyyy..cccccccttttccccccc..yyyy........",
+      "..yyy...cccccccttttccccccc...yyy........",
+      "...yyy..cccccccccccccccccc..yyy.........",
+      "...yyyy.cccccccccccccccccc.yyyy.........",
+      "..yyyy..cccccccccccccccccc..yyyy........",
+      "..yyy...ccCCCCCCCCCCCCCCcc...yyy........",
+      "...yy...cccccccccccccccccc...yy.........",
+      "........ccccccccDDcccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........cccccccccccccccccc..............",
+      "........cccccc......cccccc..............",
+      "........cccccc......cccccc..............",
+      "........cccccc......cccccc..............",
+      "........ccccc........ccccc.............."
+    ],
+    eyeRows: [8, 9]
   };
 
   /* ============================================================
      メンバー配置（3×2デスク）
+       - キャラを一回り大きくしたので配置とデスク寸法も拡張。
   ============================================================ */
-  var FLOOR_Y = 86;
+  var FLOOR_Y = 96;
   var MEMBERS = [
-    { id: "minato",  spr: MINATO,  cx:  62, deskY:  98, name: "🔍 ミナト（記者）",     sleeve: "#8a6a45", skin: "#f4c79c", quirk: "magnify" },
-    { id: "haru",    spr: HARU,    cx: 160, deskY:  98, name: "✍️ ハル（ライター）",   sleeve: "#f2f1ea", skin: "#f2c39a", quirk: "pen" },
-    { id: "aoi",     spr: AOI,     cx: 258, deskY:  98, name: "📝 アオイ（編集）",     sleeve: "#c09a4a", skin: "#f6d3ae", quirk: "glasses" },
-    { id: "tsumugi", spr: TSUMUGI, cx:  62, deskY: 164, name: "📣 ツムギ（広報）",     sleeve: "#e2734a", skin: "#f4c79c", quirk: "jump" },
-    { id: "riku",    spr: RIKU,    cx: 160, deskY: 164, name: "📊 リク（分析）",       sleeve: "#3d4455", skin: "#edd0b2", quirk: "coffee" },
-    { id: "yume",    spr: YUME,    cx: 258, deskY: 164, name: "📮 ユメ（メルマガ）",   sleeve: "#eec3d2", skin: "#f6d3ae", quirk: "letter" }
+    { id: "minato",  spr: MINATO,  cx:  66, deskY: 110, name: "🔍 ミナト（記者）",     sleeve: "#8a6a45", skin: "#f4c79c", quirk: "magnify" },
+    { id: "haru",    spr: HARU,    cx: 170, deskY: 110, name: "✍️ ハル（ライター）",   sleeve: "#f2f1ea", skin: "#f2c39a", quirk: "pen" },
+    { id: "aoi",     spr: AOI,     cx: 274, deskY: 110, name: "📝 アオイ（編集）",     sleeve: "#c09a4a", skin: "#f6d3ae", quirk: "glasses" },
+    { id: "tsumugi", spr: TSUMUGI, cx:  66, deskY: 182, name: "📣 ツムギ（広報）",     sleeve: "#e2734a", skin: "#f4c79c", quirk: "jump" },
+    { id: "riku",    spr: RIKU,    cx: 170, deskY: 182, name: "📊 リク（分析）",       sleeve: "#3d4455", skin: "#edd0b2", quirk: "coffee" },
+    { id: "yume",    spr: YUME,    cx: 274, deskY: 182, name: "📮 ユメ（メルマガ）",   sleeve: "#eec3d2", skin: "#f6d3ae", quirk: "letter" }
   ];
 
-  /* パレットのキャッシュ（通常・薄暗・赤・沈み） */
-  MEMBERS.forEach(function (m) {
-    m.palN = m.spr.pal;
-    m.palD = dimmed(m.spr.pal);
-    m.palR = reddened(m.spr.pal);
-    m.palE = darker(m.spr.pal);
-    m.st = memberState(m.id);
-  });
+  // パレット派生をキャッシュ
+  function rebuildPalettes() {
+    MEMBERS.forEach(function (m) {
+      if (!m._palBuilt) {
+        m.palN = m.spr.pal;
+        m.palD = dimmed(m.spr.pal);
+        m.palR = reddened(m.spr.pal);
+        m.palE = darker(m.spr.pal);
+        m.palW = warmed(m.spr.pal);
+        m._palBuilt = true;
+      }
+      m.st = memberState(m.id);
+    });
+  }
+  rebuildPalettes();
 
   /* ============================================================
      描画ヘルパー
   ============================================================ */
   function px(x, y, w, h, col) { ctx.fillStyle = col; ctx.fillRect(x, y, w, h); }
 
-  function drawMap(map, pal, ox, oy) {
+  // まばたきフラグ blink=true のとき、eyeRows の 'e' を肌色 's' に置換して描く
+  function drawMap(spr, pal, ox, oy, blink) {
+    var map = spr.map;
+    var eyeSet = null;
+    if (blink && spr.eyeRows) { eyeSet = {}; spr.eyeRows.forEach(function (r) { eyeSet[r] = 1; }); }
     for (var j = 0; j < map.length; j++) {
       var row = map[j];
+      var closeThis = eyeSet && eyeSet[j];
       for (var i = 0; i < row.length; i++) {
         var ch = row[i];
         if (ch === ".") continue;
+        if (closeThis && ch === "e") ch = "s"; // 目を閉じる=肌で塗る
         var col = pal[ch];
         if (col) { ctx.fillStyle = col; ctx.fillRect(ox + i, oy + j, 1, 1); }
       }
@@ -514,242 +595,390 @@
     px(x + 6, y + 2, 1, 1, col); px(x + 8, y + 2, 1, 1, col);
   }
 
+  /* 足元の楕円影（キャラの下に敷く生命感） */
+  function drawShadow(cx, y, w) {
+    ctx.globalAlpha = 0.28;
+    ctx.fillStyle = "#0a0715";
+    var half = w / 2;
+    for (var dx = -half; dx <= half; dx++) {
+      var t = dx / half;
+      var hh = Math.round(2.4 * (1 - t * t)); // 楕円状に高さ調整
+      if (hh < 1) continue;
+      ctx.fillRect(Math.round(cx + dx), y - hh, 1, hh * 2);
+    }
+    ctx.globalAlpha = 1;
+  }
+
   /* ============================================================
      背景（夜のオフィス）
+       - 大窓の星空・三日月、たまに流れる流れ星
+       - 床の板目、壁のポスター・時計、本棚、コーヒーコーナー、観葉植物
   ============================================================ */
   var stars = [];
   (function () {
-    // 窓内の星（固定位置・またたきはtickで変化）
-    var sx = [98, 112, 126, 141, 155, 170, 186, 199, 214, 224, 105, 133, 163, 191, 219, 148, 178];
-    var sy = [16, 24, 13, 30, 18, 26, 14, 33, 20, 29, 38, 44, 40, 46, 40, 52, 48];
-    for (var i = 0; i < sx.length; i++) stars.push({ x: sx[i], y: sy[i], ph: i % 5 });
+    var sx = [104, 120, 134, 150, 165, 182, 198, 212, 228, 240, 112, 142, 174, 204, 232, 158, 190];
+    var sy = [18, 27, 15, 33, 20, 29, 16, 36, 22, 32, 42, 48, 44, 50, 44, 56, 52];
+    for (var i = 0; i < sx.length; i++) stars.push({ x: sx[i], y: sy[i], ph: (i * 1.7) % (Math.PI * 2) });
   })();
 
-  function drawRoom(tick) {
-    // 壁と床
-    px(0, 0, 320, FLOOR_Y, "#2a2447");
-    px(0, FLOOR_Y, 320, 212 - FLOOR_Y, "#463a63");
-    px(0, FLOOR_Y, 320, 2, "#2f2548");
-    for (var fx = 0; fx < 320; fx += 32) px(fx, FLOOR_Y + 2, 1, 212 - FLOOR_Y, "#3c3156");
-    for (var fy = FLOOR_Y + 14; fy < 212; fy += 18) px(0, fy, 320, 1, "#3c3156");
+  // 流れ星の状態（時々発生）
+  var shoot = { active: false, x: 0, y: 0, len: 0, life: 0, max: 0, nextAt: 2200 };
 
-    // ---- 大きな窓（紺〜紫の星空・三日月・またたく星） ----
-    px(90, 6, 142, 58, "#6d5fa8");                 // 窓枠
-    px(93, 9, 136, 52, "#141a3f");                 // 夜空(上)
-    px(93, 27, 136, 18, "#1e1d52");
-    px(93, 45, 136, 16, "#2c2260");                // 夜空(下・紫)
+  function drawRoom(t /* ms */, tw /* 秒相当 */) {
+    // ---- 壁と床 ----
+    px(0, 0, CW, FLOOR_Y, "#2a2447");
+    px(0, FLOOR_Y, CW, CH - FLOOR_Y, "#463a63");
+    px(0, FLOOR_Y, CW, 2, "#2f2548");
+    // 床の板目（縦の板 + 横の継ぎ目）
+    for (var fx = 0; fx < CW; fx += 34) px(fx, FLOOR_Y + 2, 1, CH - FLOOR_Y, "#3c3156");
+    for (var fy = FLOOR_Y + 16; fy < CH; fy += 20) px(0, fy, CW, 1, "#3c3156");
+    // 幅木
+    px(0, FLOOR_Y + 2, CW, 3, "#372c52");
+
+    // ---- 大きな窓（紺〜紫の星空・三日月・またたく星・流れ星） ----
+    px(96, 8, 152, 62, "#6d5fa8");                 // 窓枠
+    px(99, 11, 146, 56, "#141a3f");                // 夜空(上)
+    px(99, 30, 146, 20, "#1e1d52");
+    px(99, 50, 146, 15, "#2c2260");                // 夜空(下・紫)
+    // またたく星（sin波で連続補間）
     stars.forEach(function (st) {
-      var tw = ((tick + st.ph * 2) % 7) < 2 ? 1 : 0.35;
-      ctx.globalAlpha = tw;
+      var b = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(tw * 2.2 + st.ph));
+      ctx.globalAlpha = b;
       px(st.x, st.y, 1, 1, "#fff8d8");
-      if (st.ph === 0 && tw === 1) { px(st.x - 1, st.y, 1, 1, "#8f8ec0"); px(st.x + 1, st.y, 1, 1, "#8f8ec0"); }
+      if (b > 0.9) { ctx.globalAlpha = (b - 0.9) * 4; px(st.x - 1, st.y, 1, 1, "#8f8ec0"); px(st.x + 1, st.y, 1, 1, "#8f8ec0"); }
       ctx.globalAlpha = 1;
     });
-    // 三日月（ミニピクセルマップで描画）
+    // 流れ星
+    if (!shoot.active && t > shoot.nextAt) {
+      shoot.active = true; shoot.life = 0; shoot.max = 620;
+      shoot.x = 150 + Math.random() * 70; shoot.y = 14 + Math.random() * 18;
+    }
+    if (shoot.active) {
+      shoot.life += 16;
+      var pr = shoot.life / shoot.max;
+      var hx = shoot.x + pr * 60, hy = shoot.y + pr * 26;
+      // 窓内クリップ
+      for (var s = 0; s < 8; s++) {
+        var txx = Math.round(hx - s * 1.4), tyy = Math.round(hy - s * 0.6);
+        if (txx > 99 && txx < 245 && tyy > 11 && tyy < 66) {
+          ctx.globalAlpha = Math.max(0, (1 - pr)) * (1 - s / 9);
+          px(txx, tyy, 1, 1, "#fff8d8");
+        }
+      }
+      ctx.globalAlpha = 1;
+      if (pr >= 1) { shoot.active = false; shoot.nextAt = t + 3000 + Math.random() * 4000; }
+    }
+    // 三日月
     (function () {
       var moon = ["...mmm..", "..mmm...", ".mmm....", ".mm.....", ".mm.....", ".mmm....", "..mmm...", "...mmm.."];
       for (var mj = 0; mj < moon.length; mj++)
         for (var mi = 0; mi < 8; mi++)
-          if (moon[mj][mi] === "m") px(204 + mi, 13 + mj, 1, 1, "#ffe9a8");
+          if (moon[mj][mi] === "m") px(218 + mi, 15 + mj, 1, 1, "#ffe9a8");
     })();
     // 窓の桟
-    px(160, 9, 2, 52, "#6d5fa8");
-    px(93, 34, 136, 2, "#6d5fa8");
+    px(171, 11, 2, 56, "#6d5fa8");
+    px(99, 37, 146, 2, "#6d5fa8");
 
-    // ---- 壁飾り（王冠・鍵・ハート・星のモチーフ） ----
-    drawCrown(156, 0, "#e5c545");                   // 窓の上に王冠
-    drawKey(46, 40, "#e5c545");                     // 左壁に鍵
-    drawHeart(70, 44, "#d4586d", 1);                // 左壁にハート
-    drawStarP(76, 30, "#e5c545", 1);
-    drawStarP(240, 46, "#e5c545", 1);
-    drawHeart(250, 36, "#d4586d", 1);
+    // ---- 壁のポスター（左右） ----
+    px(20, 12, 24, 30, "#2f2650");                 // 左ポスター枠
+    px(22, 14, 20, 26, "#3a2f63");
+    drawStarP(24, 18, "#e5c545", 1);
+    px(24, 24, 16, 1, "#8f8ec0"); px(24, 28, 12, 1, "#8f8ec0"); px(24, 32, 14, 1, "#8f8ec0");
+    drawHeart(30, 34, "#d4586d", 1);
+    px(298, 12, 26, 26, "#2f2650");                // 右ポスター枠
+    px(300, 14, 22, 22, "#243a63");
+    drawCrown(306, 18, "#e5c545");
+    px(302, 28, 18, 1, "#8f8ec0"); px(302, 31, 14, 1, "#8f8ec0");
+
+    // ---- 壁飾り（王冠・鍵・ハート・星） ----
+    drawCrown(163, 1, "#e5c545");                   // 窓の上に王冠
+    drawStarP(82, 20, "#e5c545", 1);
+    drawHeart(78, 30, "#d4586d", 1);
+    drawStarP(262, 22, "#e5c545", 1);
     // ガーランド（窓の下）
-    for (var g = 96; g < 226; g += 14) {
-      px(g, 64, 12, 1, "#6d5fa8");
-      if ((g / 14 | 0) % 2 === 0) drawHeart(g + 4, 66, "#d4586d", 1);
-      else drawStarP(g + 5, 66, "#e5c545", 1);
+    for (var g = 102; g < 244; g += 15) {
+      px(g, 70, 13, 1, "#6d5fa8");
+      if ((g / 15 | 0) % 2 === 0) drawHeart(g + 5, 72, "#d4586d", 1);
+      else drawStarP(g + 6, 72, "#e5c545", 1);
     }
 
     // ---- 壁掛け時計プレート（時刻はDOMで重ねる） ----
-    px(252, 12, 44, 16, "#17123a");
-    px(253, 13, 42, 14, "#0b0820");
-    px(252, 12, 44, 1, "#6d5fa8"); px(252, 27, 44, 1, "#6d5fa8");
-    px(252, 12, 1, 16, "#6d5fa8"); px(295, 12, 1, 16, "#6d5fa8");
+    px(268, 14, 46, 18, "#17123a");
+    px(269, 15, 44, 16, "#0b0820");
+    px(268, 14, 46, 1, "#6d5fa8"); px(268, 31, 46, 1, "#6d5fa8");
+    px(268, 14, 1, 18, "#6d5fa8"); px(313, 14, 1, 18, "#6d5fa8");
 
     // ---- 本棚（左端） ----
-    px(6, 26, 36, 62, "#5a4030");
-    px(9, 30, 30, 12, "#2a1d14"); px(9, 46, 30, 12, "#2a1d14"); px(9, 62, 30, 12, "#2a1d14");
-    var bookCols = ["#93353f", "#3b6fb5", "#4a8a4a", "#e5c545", "#d4586d", "#6d5fa8", "#c07840"];
+    px(6, 28, 40, 68, "#5a4030");
+    px(9, 32, 34, 13, "#2a1d14"); px(9, 49, 34, 13, "#2a1d14"); px(9, 66, 34, 13, "#2a1d14");
+    var bookCols = ["#93353f", "#3b6fb5", "#4a8a4a", "#e5c545", "#d4586d", "#6d5fa8", "#c07840", "#5aa35a"];
     for (var shelf = 0; shelf < 3; shelf++) {
-      for (var bk = 0; bk < 7; bk++) {
-        var bh = 9 + ((bk * 3 + shelf) % 3);
-        px(10 + bk * 4, 42 + shelf * 16 - bh, 3, bh, bookCols[(bk + shelf * 2) % 7]);
+      for (var bk = 0; bk < 8; bk++) {
+        var bh = 10 + ((bk * 3 + shelf) % 3);
+        px(10 + bk * 4, 45 + shelf * 17 - bh, 3, bh, bookCols[(bk + shelf * 2) % 8]);
       }
     }
-    px(6, 88, 36, 2, "#3a281c");
+    px(6, 82, 40, 2, "#3a281c");
+    // 本棚の上の観葉植物（小）
+    px(16, 22, 8, 6, "#a3562f");
+    px(17, 18, 2, 5, "#3f7a3f"); px(20, 17, 2, 6, "#4a8a4a"); px(14, 20, 2, 3, "#5aa35a");
 
-    // ---- コーヒーメーカー（右端の台の上） ----
-    px(282, 66, 30, 22, "#4a3a58");                // 台
-    px(284, 68, 26, 2, "#5c4a6e");
-    px(288, 46, 18, 20, "#23252e");                // 本体
-    px(290, 48, 14, 4, "#3b6fb5");                 // 表示部
-    px(293, 56, 8, 7, "#e9e5da");                  // ポット
-    px(294, 58, 6, 4, "#6b3a1d");                  // コーヒー
-    if (tick % 6 < 3) { px(296, 42, 1, 3, "#8f8ec0"); px(298, 40, 1, 3, "#8f8ec0"); } // 湯気
+    // ---- コーヒーコーナー（右端の台の上） ----
+    px(300, 74, 34, 22, "#4a3a58");                // 台
+    px(302, 76, 30, 2, "#5c4a6e");
+    px(306, 50, 20, 24, "#23252e");                // 本体
+    px(308, 52, 16, 5, "#3b6fb5");                 // 表示部
+    px(312, 62, 9, 8, "#e9e5da");                  // ポット
+    px(313, 64, 7, 5, "#6b3a1d");                  // コーヒー
+    // マグ（棚上）
+    px(302, 66, 4, 4, "#d4586d"); px(306, 67, 1, 2, "#d4586d");
+    // 湯気（sin波でゆらゆら）
+    (function () {
+      for (var sIdx = 0; sIdx < 3; sIdx++) {
+        var sxp = 314 + sIdx * 3;
+        var yy = 48 - ((tw * 8 + sIdx * 3) % 8);
+        var wob = Math.round(Math.sin(tw * 3 + sIdx) * 1.2);
+        ctx.globalAlpha = 0.5;
+        px(sxp + wob, yy, 1, 2, "#a9a7d4");
+        ctx.globalAlpha = 1;
+      }
+    })();
 
-    // ---- 観葉植物（右） ----
-    px(266, 74, 12, 12, "#a3562f");                // 鉢
-    px(267, 72, 10, 2, "#c0703f");
-    px(268, 56, 3, 18, "#3f7a3f");
-    px(263, 60, 6, 3, "#4a8a4a"); px(274, 58, 7, 3, "#4a8a4a");
-    px(266, 52, 4, 4, "#5aa35a"); px(272, 50, 5, 4, "#5aa35a");
-    px(261, 66, 5, 2, "#3f7a3f");
+    // ---- 観葉植物（大・右） ----
+    px(284, 80, 14, 14, "#a3562f");                // 鉢
+    px(285, 78, 12, 2, "#c0703f");
+    px(290, 60, 3, 20, "#3f7a3f");
+    px(284, 64, 7, 3, "#4a8a4a"); px(293, 62, 8, 3, "#4a8a4a");
+    px(287, 56, 5, 4, "#5aa35a"); px(293, 54, 6, 4, "#5aa35a");
+    px(281, 70, 6, 2, "#3f7a3f");
   }
 
   /* ============================================================
      デスクとキャラの描画
+       - 小物増量: 積み重ねた書類・付箋・デスクライトの光だまり・
+         観葉ミニ・マグの湯気・ノートPCの明滅光
   ============================================================ */
-  function drawDesk(m, tick, allGold) {
-    var x = m.cx - 30, y = m.deskY;
+  function drawDeskLightGlow(cx, y) {
+    // デスクライトの黄色い光だまり（半透明の重ね）
+    ctx.globalAlpha = 0.10;
+    ctx.fillStyle = "#ffe9a8";
+    for (var r = 14; r >= 4; r -= 3) {
+      ctx.fillRect(cx - r, y - 5 - r / 3, r * 2, r);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function drawDesk(m, tw, allGold) {
+    var x = m.cx - 34, y = m.deskY;
     var done = m.st.state === "done" || allGold;
     var top   = done ? "#e2bd54" : "#7a5a3a";
     var topHi = done ? "#f6df8f" : "#93714c";
     var front = done ? "#b08d2e" : "#5c422a";
     var leg   = done ? "#8a6d1d" : "#43301f";
 
-    px(x, y, 60, 4, top);
-    px(x, y, 60, 1, topHi);
-    px(x, y + 4, 60, 12, front);
-    px(x + 2, y + 16, 3, 5, leg); px(x + 55, y + 16, 3, 5, leg);
-    px(x + 34, y + 6, 22, 8, done ? "#8a6d1d" : "#4a3524");    // 引き出し
-    px(x + 43, y + 9, 4, 1, done ? "#f6df8f" : "#93714c");
+    // working時: デスクライトの光だまりを机上に敷く
+    if (m.st.state === "working") drawDeskLightGlow(m.cx + 18, y);
+
+    px(x, y, 68, 4, top);
+    px(x, y, 68, 1, topHi);
+    px(x, y + 4, 68, 13, front);
+    px(x + 2, y + 17, 3, 6, leg); px(x + 63, y + 17, 3, 6, leg);
+    px(x + 40, y + 6, 24, 9, done ? "#8a6d1d" : "#4a3524");    // 引き出し
+    px(x + 50, y + 9, 4, 1, done ? "#f6df8f" : "#93714c");
+
+    // デスクライト（右奥・アーム＋笠）— working時は点灯
+    var lampOn = m.st.state === "working";
+    var lampX = x + 60, lampY = y - 1;
+    px(lampX, lampY - 2, 2, 3, "#3a3050");                // 支柱
+    px(lampX - 4, lampY - 8, 8, 3, lampOn ? "#e5c545" : "#5a5070"); // 笠
+    px(lampX - 3, lampY - 5, 6, 1, lampOn ? "#fff4c8" : "#3a3050"); // 電球
 
     // ノートPC（背面から・working時は画面光が縁からもれて明滅）
-    var lx = m.cx - 8, ly = y - 8;
+    var lx = m.cx - 9, ly = y - 9;
     if (m.st.state === "working") {
-      var glow = tick % 2 === 0 ? "#9fd7ff" : "#4c7aa8";
-      px(lx - 1, ly - 1, 18, 10, glow);
-      ctx.globalAlpha = tick % 2 === 0 ? 0.5 : 0.25;
-      px(lx - 3, ly - 3, 22, 13, glow);
+      var pulse = 0.5 + 0.5 * Math.sin(tw * 6 + m.cx);   // 連続明滅
+      var gr = Math.round(76 + 100 * pulse), gg = Math.round(122 + 90 * pulse), gb = Math.round(168 + 70 * pulse);
+      var glow = rgb2hex(gr, gg, gb);
+      px(lx - 1, ly - 1, 20, 11, glow);
+      ctx.globalAlpha = 0.25 + 0.25 * pulse;
+      px(lx - 3, ly - 3, 24, 14, glow);
       ctx.globalAlpha = 1;
     }
-    px(lx, ly, 16, 9, "#23252e");
-    px(lx + 1, ly + 1, 14, 7, "#31343f");
-    px(lx + 6, ly + 3, 4, 3, "#4a4e5c");           // ロゴ
-    px(lx - 1, ly + 9, 18, 1, "#1a1c22");
+    px(lx, ly, 18, 10, "#23252e");
+    px(lx + 1, ly + 1, 16, 8, "#31343f");
+    px(lx + 7, ly + 4, 4, 3, "#4a4e5c");           // ロゴ
+    px(lx - 1, ly + 10, 20, 1, "#1a1c22");
 
-    // 書類
-    px(x + 44, y - 3, 10, 3, "#e9e5da");
-    px(x + 45, y - 4, 10, 3, "#f4f2ec");
-    px(x + 47, y - 3, 6, 1, "#8f8ec0");
+    // 積み重ねた書類（左）＋付箋
+    px(x + 3, y - 3, 12, 3, "#e9e5da");
+    px(x + 4, y - 5, 12, 3, "#f4f2ec");
+    px(x + 5, y - 7, 12, 3, "#e9e5da");
+    px(x + 7, y - 6, 6, 1, "#8f8ec0");
+    px(x + 14, y - 7, 4, 4, "#f6df75");            // 付箋（黄）
+    px(x + 15, y - 3, 3, 3, "#f0a8c6");            // 付箋（ピンク）
 
-    // マグカップ
-    px(x + 5, y - 4, 5, 4, "#d4586d");
-    px(x + 10, y - 3, 1, 2, "#d4586d");
-    if (m.st.state === "working" && tick % 4 < 2) px(x + 6, y - 7, 1, 2, "#8f8ec0");
-  }
-
-  function drawTypingHands(m, tick) {
-    var hy = m.deskY - 2 - (tick % 2);
-    px(m.cx - 7, hy, 3, 2, m.skin);
-    px(m.cx + 5, hy + (tick % 2 === 0 ? 1 : 0) - 1, 3, 2, m.skin);
-  }
-
-  function drawBanzai(m, topY) {
-    // 万歳の腕（肩から斜め上へ）
-    var shY = topY + Math.floor(m.spr.map.length * 0.52);
-    for (var i = 0; i < 6; i++) {
-      px(m.cx - 9 - i, shY - i * 2, 2, 3, m.sleeve);
-      px(m.cx + 8 + i, shY - i * 2, 2, 3, m.sleeve);
+    // マグカップ（右）＋湯気
+    px(x + 52, y - 4, 6, 4, "#d4586d");
+    px(x + 58, y - 3, 1, 2, "#d4586d");
+    if (m.st.state === "working") {
+      var wy = (tw * 8) % 6;
+      var wob = Math.round(Math.sin(tw * 4 + m.cx) * 1.1);
+      ctx.globalAlpha = 0.55;
+      px(x + 54 + wob, y - 7 - wy, 1, 2, "#c9c4e0");
+      ctx.globalAlpha = 1;
     }
-    px(m.cx - 16, shY - 13, 3, 3, m.skin);
-    px(m.cx + 14, shY - 13, 3, 3, m.skin);
+
+    // ミニ観葉（右手前）
+    px(x + 62, y - 3, 4, 3, "#a3562f");
+    px(x + 63, y - 6, 2, 3, "#4a8a4a"); px(x + 61, y - 5, 1, 2, "#5aa35a");
   }
 
-  function drawQuirk(m, topY, tick) {
-    var fx = m.cx, fy = topY + 9; // 顔のあたり
+  /* ---- アイドル/作業アニメ差分 ---- */
+
+  // タイピングする手（左右が交互に上下、連続）
+  function drawTypingHands(m, tw) {
+    var base = m.deskY - 2;
+    var lo = Math.round(Math.sin(tw * 12) * 1);
+    var ro = Math.round(Math.sin(tw * 12 + Math.PI) * 1);
+    px(m.cx - 8, base + lo, 4, 2, m.skin);
+    px(m.cx + 5, base + ro, 4, 2, m.skin);
+  }
+
+  // 万歳の腕（done）— sin波で少し揺れる
+  function drawBanzai(m, topY, tw) {
+    var shY = topY + Math.floor(m.spr.map.length * 0.52);
+    var sway = Math.round(Math.sin(tw * 3) * 1);
+    for (var i = 0; i < 7; i++) {
+      px(m.cx - 11 - i, shY - i * 2 + sway, 2, 3, m.sleeve);
+      px(m.cx + 9 + i, shY - i * 2 - sway, 2, 3, m.sleeve);
+    }
+    px(m.cx - 19, shY - 15 + sway, 3, 3, m.skin);
+    px(m.cx + 16, shY - 15 - sway, 3, 3, m.skin);
+  }
+
+  // 各キャラ固有のクセ（working中に周期的に出現）
+  function drawQuirk(m, topY, tw) {
+    var fx = m.cx, fy = topY + 10;
     switch (m.quirk) {
-      case "magnify": // ミナト: 虫眼鏡を覗き込む
+      case "magnify": // ミナト: 虫眼鏡を覗き込む（軽く上下）
+        var bob = Math.round(Math.sin(tw * 4) * 1);
         var mg = [".ggg..", "glllg.", "glLlg.", "glllg.", ".ggghh", ".....h"];
         var mgc = { g: "#d8b750", l: "#bcd9e8", L: "#eaf6fc", h: "#6b4a20" };
         for (var qj = 0; qj < mg.length; qj++)
           for (var qi = 0; qi < 6; qi++)
-            if (mg[qj][qi] !== ".") px(fx + 8 + qi, fy - 1 + qj, 1, 1, mgc[mg[qj][qi]]);
-        px(fx + 13, fy + 5, 3, 2, m.skin); // 柄をにぎる手
+            if (mg[qj][qi] !== ".") px(fx + 10 + qi, fy - 1 + qj + bob, 1, 1, mgc[mg[qj][qi]]);
+        px(fx + 15, fy + 5 + bob, 3, 2, m.skin);
         break;
-      case "pen": // ハル: ペン回し
-        var ph = tick % 2;
-        px(fx + 10, fy + 8, 3, 2, m.skin);
-        if (ph === 0) { px(fx + 8, fy + 6, 7, 1, "#e5c545"); px(fx + 8, fy + 5, 1, 1, "#2b2118"); }
-        else { px(fx + 9, fy + 3, 1, 5, "#e5c545"); px(fx + 9, fy + 2, 1, 1, "#2b2118"); }
+      case "pen": // ハル: ペン回し（角度が連続的に回る）
+        var ang = (tw * 6) % (Math.PI * 2);
+        var px0 = fx + 12, py0 = fy + 8;
+        px(px0, py0, 3, 2, m.skin);
+        var dx = Math.round(Math.cos(ang) * 3), dy = Math.round(Math.sin(ang) * 3);
+        px(px0 + 1 - dx, py0 - dy, 1, 1, "#2b2118");         // ペン先
+        px(px0 + 1, py0, 1, 1, "#e5c545");
+        px(px0 + 1 + dx, py0 + dy, 1, 1, "#e5c545");
         break;
-      case "glasses": // アオイ: メガネをクイッ
-        px(fx + 2, fy + 1, 3, 2, m.skin);
-        px(fx - 6, fy - 1, 4, 1, "#ffffff"); // レンズの光
-        px(fx + 2, fy - 1, 4, 1, "#ffffff");
+      case "glasses": // アオイ: メガネをクイッ（光が横に流れる）
+        px(fx + 3, fy + 1, 3, 2, m.skin);
+        var gl = Math.round((Math.sin(tw * 3) + 1) * 3);
+        px(fx - 7 + gl, fy - 2, 3, 1, "#ffffff");
+        px(fx + 2 + gl, fy - 2, 3, 1, "#ffffff");
         break;
-      case "coffee": // リク: コーヒーを一口
-        px(fx + 6, fy + 3, 5, 5, "#f4f2ec");
-        px(fx + 11, fy + 4, 1, 3, "#f4f2ec");
-        px(fx + 7, fy + 4, 3, 1, "#6b3a1d");
-        px(fx + 5, fy + 8, 3, 2, m.skin);
-        if (tick % 2 === 0) { px(fx + 7, fy - 1, 1, 2, "#c9c4e0"); px(fx + 9, fy - 2, 1, 2, "#c9c4e0"); }
+      case "coffee": // リク: コーヒーを一口（湯気ゆらゆら）
+        px(fx + 7, fy + 3, 5, 5, "#f4f2ec");
+        px(fx + 12, fy + 4, 1, 3, "#f4f2ec");
+        px(fx + 8, fy + 4, 3, 1, "#6b3a1d");
+        px(fx + 6, fy + 8, 3, 2, m.skin);
+        var cw = Math.round(Math.sin(tw * 4) * 1);
+        px(fx + 8 + cw, fy - 1, 1, 2, "#c9c4e0"); px(fx + 10 - cw, fy - 2, 1, 2, "#c9c4e0");
         break;
-      case "letter": // ユメ: 手紙を見つめる
-        px(fx - 4, fy + 9, 9, 6, "#faf6ee");
-        px(fx - 4, fy + 9, 9, 1, "#c9b8a0");
-        px(fx - 4, fy + 9, 5, 3, "#e8ddc8"); px(fx, fy + 9, 5, 3, "#e8ddc8");
-        drawHeart(fx - 1, fy + 11, "#d4586d", 1);
-        px(fx - 6, fy + 12, 2, 3, m.skin); px(fx + 5, fy + 12, 2, 3, m.skin);
+      case "letter": // ユメ: 手紙を見つめる（ハートふわ）
+        px(fx - 5, fy + 9, 10, 6, "#faf6ee");
+        px(fx - 5, fy + 9, 10, 1, "#c9b8a0");
+        px(fx - 5, fy + 9, 5, 3, "#e8ddc8"); px(fx, fy + 9, 5, 3, "#e8ddc8");
+        var hb = Math.round(Math.sin(tw * 3) * 1);
+        drawHeart(fx - 1, fy + 10 + hb, "#d4586d", 1);
+        px(fx - 7, fy + 12, 2, 3, m.skin); px(fx + 6, fy + 12, 2, 3, m.skin);
         break;
     }
   }
 
-  function drawMember(m, idx, tick, allDone) {
+  /* ---- 1人分の描画 ---- */
+  function drawMember(m, idx, tw, allDone) {
     var mapH = m.spr.map.length;
     var bottomY = m.deskY + 6;
     var topY = bottomY - mapH;
     var st = m.st.state;
+
+    // 足元の影（キャラごとに固定の楕円）
+    drawShadow(m.cx, bottomY + 1, m.spr.w * 0.6);
+
+    // パレット選択
     var pal = m.palN;
+    if (allDone) pal = m.palW;
     var oy = topY;
-    var quirkOn = st === "working" && ((tick + idx * 3) % 14) < 3;
+
+    // まばたき（連続時間から周期的に。個体差を idx で付ける）
+    var blinkPhase = (tw * 1000 + idx * 900) % 3400;
+    var blink = blinkPhase < 130;   // 約130ms 目を閉じる
+
+    // 固有のクセを出す位相（working）
+    var quirkCycle = (tw + idx * 0.9) % 4.2;
+    var quirkOn = st === "working" && quirkCycle < 1.1;
 
     if (st === "idle") {
       pal = m.palD;
-      oy = topY + ((tick % 8) < 4 ? 0 : 1);          // ゆっくり呼吸
+      // ゆっくり呼吸（sin波で0〜1px上下、連続）
+      oy = topY + (Math.sin(tw * 1.6 + idx) > 0 ? 0 : 1);
+      // たまに伸びをする（3コマ相当の上方向オフセット）
+      var stretch = ((tw + idx * 1.3) % 9);
+      if (stretch < 0.5) oy -= 2;
+      else if (stretch < 1.0) oy -= 1;
     } else if (st === "error") {
-      pal = (tick % 2 === 0) ? m.palR : m.palE;      // 赤点滅
-      oy = topY + 3;                                  // うなだれ
-    } else if (st === "working" && m.quirk === "jump" && quirkOn) {
-      oy = topY - 3;                                  // ツムギ: ぴょんと跳ねる
+      // 赤点滅（sin波でRとEを補間的に切替）＋うなだれ＋小刻み揺れ
+      pal = (Math.sin(tw * 7) > 0) ? m.palR : m.palE;
+      oy = topY + 3 + Math.round(Math.abs(Math.sin(tw * 5)) * 1);
+    } else if (st === "working") {
+      // 軽い前傾の上下（集中している呼吸）
+      oy = topY + (Math.sin(tw * 3 + idx) > 0.3 ? 0 : 1);
+      if (m.quirk === "jump" && quirkOn) {
+        // ツムギ: ぴょんと跳ねる（放物線）
+        var jp = quirkCycle / 1.1;                 // 0..1
+        oy = topY - Math.round(Math.sin(jp * Math.PI) * 4);
+      }
+    } else if (st === "done") {
+      // 喜びで軽く弾む
+      oy = topY - Math.round(Math.abs(Math.sin(tw * 4 + idx)) * 2);
     }
 
-    drawMap(m.spr.map, pal, m.cx - 16, oy);
+    drawMap(m.spr, pal, m.cx - Math.floor(m.spr.w / 2), oy, blink);
 
     if (st === "working") {
-      if (quirkOn && m.quirk !== "jump") drawQuirk(m, oy, tick);
-      else drawTypingHands(m, tick);
+      if (quirkOn && m.quirk !== "jump") drawQuirk(m, oy, tw);
+      else drawTypingHands(m, tw);
     } else if (st === "done") {
-      drawBanzai(m, oy);
+      drawBanzai(m, oy, tw);
     }
 
-    drawDesk(m, tick, allDone);
+    drawDesk(m, tw, allDone);
   }
 
   /* ============================================================
-     パーティクル（ハート・星）
+     パーティクル（ハート・星）— 時間ベースで滑らかに上昇
   ============================================================ */
   var particles = [];
   function spawnHeart(x, y, col) {
-    particles.push({ x: x, y: y, vy: -1.2 - Math.random(), life: 10 + (Math.random() * 5 | 0), max: 15, col: col, kind: "heart" });
+    particles.push({ x: x, y: y, vy: -10 - Math.random() * 8, life: 1.4 + Math.random() * .6, max: 2.0, col: col, kind: "heart", sway: Math.random() * 6.28 });
   }
   function spawnStar(x, y) {
-    particles.push({ x: x, y: y, vy: -0.6 - Math.random() * .8, life: 10 + (Math.random() * 6 | 0), max: 16, col: "#ffe9a8", kind: "star" });
+    particles.push({ x: x, y: y, vy: -7 - Math.random() * 6, life: 1.5 + Math.random() * .7, max: 2.2, col: "#ffe9a8", kind: "star", sway: Math.random() * 6.28 });
   }
-  function stepParticles() {
+  function stepParticles(dt, tw) {
     for (var i = particles.length - 1; i >= 0; i--) {
       var p = particles[i];
-      p.y += p.vy; p.life--;
+      p.y += p.vy * dt;
+      p.x += Math.sin(tw * 3 + p.sway) * 0.3;
+      p.life -= dt;
       if (p.life <= 0) particles.splice(i, 1);
     }
   }
@@ -765,8 +994,8 @@
      DOMオーバーレイ（時計・バッジ・名札・バナー）
   ============================================================ */
   var clockEl = document.getElementById("clock");
-  clockEl.style.left = (254 * S) + "px";
-  clockEl.style.top = (13 * S) + "px";
+  clockEl.style.left = (270 * S) + "px";
+  clockEl.style.top = (15 * S) + "px";
   function updClock() {
     var d = new Date();
     function z(v) { return (v < 10 ? "0" : "") + v; }
@@ -774,63 +1003,148 @@
   }
   updClock(); setInterval(updClock, 1000);
 
-  var allDone = MEMBERS.every(function (m) { return m.st.state === "done"; });
-  if (allDone) document.getElementById("banner").style.display = "block";
+  var bannerEl = document.getElementById("banner");
 
+  // バッジ・名札の DOM を作り、参照を保持して更新できるようにする
+  var overlays = {};
   MEMBERS.forEach(function (m) {
     var mapH = m.spr.map.length;
     var topY = m.deskY + 6 - mapH;
 
-    // 状態バッジ
     var b = document.createElement("div");
     b.className = "badge";
-    if (m.st.state === "idle")   { b.textContent = "💤"; b.classList.add("zzz"); }
-    if (m.st.state === "done")   { b.textContent = "✅"; b.classList.add("check"); }
-    if (m.st.state === "error")  { b.textContent = "⚠️"; b.classList.add("warn"); }
-    b.style.left = ((m.cx + 13) * S) + "px";
-    b.style.top = ((topY + 1) * S) + "px";
-    if (b.textContent) stage.appendChild(b);
+    b.style.left = ((m.cx + 15) * S) + "px";
+    b.style.top = ((topY - 2) * S) + "px";
+    stage.appendChild(b);
 
-    // 名札（名前・役職絵文字・現在のtask）
     var p = document.createElement("div");
-    p.className = "plate " + m.st.state;
-    var stateLabel = { idle: "待機中…", working: "作業中", done: "完了！", error: "トラブル発生" };
-    var task = m.st.task || stateLabel[m.st.state] || "";
-    p.innerHTML = '<span class="nm">' + m.name + '</span><br><span class="tk">' +
-      task.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") + '</span>';
+    p.className = "plate";
     p.style.left = ((m.cx - 42) * S) + "px";
-    p.style.top = ((m.deskY + 23) * S) + "px";
+    p.style.top = ((m.deskY + 26) * S) + "px";
     stage.appendChild(p);
+
+    overlays[m.id] = { badge: b, plate: p, topY: topY };
   });
 
-  /* ============================================================
-     メインループ（380msでコマ切り替え）
-  ============================================================ */
-  var tick = 0;
-  function render() {
-    ctx.clearRect(0, 0, 320, 212);
-    drawRoom(tick);
-    MEMBERS.forEach(function (m, i) { drawMember(m, i, tick, allDone); });
+  var stateLabel = { idle: "待機中…", working: "作業中", done: "完了！", error: "トラブル発生" };
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-    // doneキャラの頭上からハートがふわっと
-    MEMBERS.forEach(function (m, i) {
-      if (m.st.state === "done" && (tick + i) % 3 === 0) {
-        var topY = m.deskY + 6 - m.spr.map.length;
-        spawnHeart(m.cx - 8 + (Math.random() * 16 | 0), topY - 2, ["#ff8fb0", "#d4586d", "#ffb3c8"][tick % 3]);
-      }
+  var allDone = false;
+  function refreshOverlays() {
+    allDone = MEMBERS.every(function (m) { return m.st.state === "done"; });
+    bannerEl.style.display = allDone ? "block" : "none";
+
+    MEMBERS.forEach(function (m) {
+      var ov = overlays[m.id];
+      var st = m.st.state;
+      // バッジ
+      var bt = "";
+      if (st === "idle") bt = "💤";
+      else if (st === "done") bt = "✅";
+      else if (st === "error") bt = "⚠️";
+      ov.badge.textContent = bt;
+      // 名札
+      ov.plate.className = "plate " + st;
+      var task = m.st.task || stateLabel[st] || "";
+      ov.plate.innerHTML = '<span class="nm">' + esc(m.name) + '</span><br><span class="tk">' + esc(task) + '</span>';
     });
+  }
+  refreshOverlays();
+
+  /* ============================================================
+     状態ファイルの定期再取得（2秒ごと）
+       - fetch は file:// で CORS 失敗しうる → try/catch でフォールバック。
+       - 失敗しても既存 window.OFFICE_STATUS を使い続け、アニメは止めない。
+       - 成功時は "window.OFFICE_STATUS = {...};" の中身を安全にパース。
+  ============================================================ */
+  function parseStatusText(text) {
+    // "window.OFFICE_STATUS = { ... };" からオブジェクトリテラル部分を取り出し、
+    // Function で評価（外部通信なし・ローカルの自ファイルのみ対象）。
+    var idx = text.indexOf("=");
+    if (idx < 0) throw new Error("format");
+    var body = text.slice(idx + 1).trim();
+    if (body.charAt(body.length - 1) === ";") body = body.slice(0, -1);
+    // eslint-disable-next-line no-new-func
+    var obj = (new Function("return (" + body + ");"))();
+    return obj;
+  }
+
+  function refetchStatus() {
+    // fetch 非対応・file:// 失敗などを全部握りつぶし、既存値を維持する
+    if (typeof fetch !== "function") return;
+    try {
+      fetch("オフィス状態.js?t=" + Date.now(), { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("http " + res.status);
+          return res.text();
+        })
+        .then(function (text) {
+          var raw = parseStatusText(text);
+          var next = normalizeStatus(raw);
+          if (!next.ok) return; // 不正なら維持
+          STATUS = next;
+          window.OFFICE_STATUS = raw;
+          rebuildPalettes();     // m.st を更新
+          applyHeader();
+          refreshOverlays();
+        })
+        .catch(function () {
+          // file:// CORS 失敗など → 既存の window.OFFICE_STATUS を使い続ける（何もしない）
+        });
+    } catch (e) {
+      // 同期例外も握りつぶす（アニメ継続を最優先）
+    }
+  }
+  setInterval(refetchStatus, 2000);
+
+  /* ============================================================
+     メインループ（requestAnimationFrame・時間ベース）
+       - リロードなし。位相は経過秒 tw で計算し、常に滑らか。
+  ============================================================ */
+  var startT = null;
+  var lastT = null;
+  var heartAcc = 0, festAcc = 0;
+
+  function frame(now) {
+    if (startT === null) { startT = now; lastT = now; }
+    var t = now - startT;          // 経過ms
+    var tw = t / 1000;             // 経過秒
+    var dt = Math.min(0.05, (now - lastT) / 1000); // フレーム時間（上限で暴走防止）
+    lastT = now;
+
+    ctx.clearRect(0, 0, CW, CH);
+    drawRoom(t, tw);
+    MEMBERS.forEach(function (m, i) { drawMember(m, i, tw, allDone); });
+
+    // doneキャラの頭上からハートがふわっと（時間ベースで一定間隔）
+    heartAcc += dt;
+    if (heartAcc > 0.35) {
+      heartAcc = 0;
+      MEMBERS.forEach(function (m) {
+        if (m.st.state === "done") {
+          var topY = m.deskY + 6 - m.spr.map.length;
+          spawnHeart(m.cx - 8 + (Math.random() * 16 | 0), topY - 2,
+                     ["#ff8fb0", "#d4586d", "#ffb3c8"][(Math.random() * 3) | 0]);
+        }
+      });
+    }
     // 全員完了: 画面全体にハートと星が舞う
-    if (allDone && tick % 2 === 0) {
-      spawnStar(Math.random() * 300 + 8, Math.random() * 100 + 100);
-      spawnHeart(Math.random() * 300 + 8, Math.random() * 100 + 100, "#ff8fb0");
+    if (allDone) {
+      festAcc += dt;
+      if (festAcc > 0.12) {
+        festAcc = 0;
+        spawnStar(Math.random() * 320 + 8, Math.random() * 110 + 110);
+        spawnHeart(Math.random() * 320 + 8, Math.random() * 110 + 110, "#ff8fb0");
+      }
     }
 
-    stepParticles();
+    stepParticles(dt, tw);
     drawParticles();
-    tick++;
+
+    requestAnimationFrame(frame);
   }
-  render();
-  setInterval(render, 380);
+  requestAnimationFrame(frame);
+
 })();
 </script>
 </body>
