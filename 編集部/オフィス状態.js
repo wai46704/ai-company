@@ -1,12 +1,12 @@
 window.OFFICE_STATUS = {
-  updated: "2026-07-07 00:35",
-  message: "👑 本日の業務完了！お疲れさまでした",
+  updated: "2026-07-07 デモ表示",
+  message: "🗝️ Nオフィス執務室へようこそ（プレビュー）",
   members: {
-    minato:  { state: "done", task: "記事案1本 提案完了！" },
-    haru:    { state: "done", task: "出口戦略リライト 完成！" },
-    aoi:     { state: "done", task: "保険記事の校閲 完了！" },
-    tsumugi: { state: "done", task: "単発ネタ2本 完成！" },
-    riku:    { state: "done", task: "検証データ分析 完了！" },
-    yume:    { state: "done", task: "転職戦略のメルマガ原稿 完成！" }
+    minato:  { state: "working", task: "記事案をリサーチ中" },
+    haru:    { state: "working", task: "記事を執筆中" },
+    aoi:     { state: "idle",    task: "校閲待ち" },
+    tsumugi: { state: "done",    task: "X告知 完成！" },
+    riku:    { state: "working", task: "SEOデータを分析中" },
+    yume:    { state: "done",    task: "メルマガ原稿 完成！" }
   }
 };
