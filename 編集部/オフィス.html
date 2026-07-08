@@ -289,7 +289,10 @@
       "........cccccc......cccccc.............."
     ],
     // まばたき: 目行(9,10)を閉じる差分
-    eyeRows: [9, 10]
+    eyeRows: [9, 10],
+    // done(万歳)時: 肩から下に下がったコート腕の行(17〜25)は
+    // 中央の胴体(列12〜21)だけ残し、両サイドの腕は描かない。
+    doneArms: { rows: [17, 25], keep: [12, 21] }
   };
 
   /* ---- ハル✍️ 茶髪ポニーテール・白シャツ腕まくり・耳にペン ---- */
@@ -335,7 +338,10 @@
       ".........dddddd..dddddd.................",
       ".........ddddd....ddddd................."
     ],
-    eyeRows: [8, 9]
+    eyeRows: [8, 9],
+    // done(万歳)時: 腕まくりの袖・手が横に出る行(15〜23)は
+    // 中央の胴体(列11〜19)だけ残し、両サイドの下がった腕は描かない。
+    doneArms: { rows: [15, 23], keep: [11, 19] }
   };
 
   /* ---- アオイ📝 紺のボブヘア・大きな丸メガネ・カーディガン（小柄・最小身長） ---- */
@@ -550,16 +556,21 @@
   function px(x, y, w, h, col) { ctx.fillStyle = col; ctx.fillRect(x, y, w, h); }
 
   // まばたきフラグ blink=true のとき、eyeRows の 'e' を肌色 's' に置換して描く
-  function drawMap(spr, pal, ox, oy, blink) {
+  // hideArms を渡すと、その行範囲(rows)の中央(keep)以外の列を描かない
+  //  → done(万歳)時に「下がった腕」を消して、上げた腕だけを見せるために使う。
+  function drawMap(spr, pal, ox, oy, blink, hideArms) {
     var map = spr.map;
     var eyeSet = null;
     if (blink && spr.eyeRows) { eyeSet = {}; spr.eyeRows.forEach(function (r) { eyeSet[r] = 1; }); }
     for (var j = 0; j < map.length; j++) {
       var row = map[j];
       var closeThis = eyeSet && eyeSet[j];
+      var armRow = hideArms && j >= hideArms.rows[0] && j <= hideArms.rows[1];
       for (var i = 0; i < row.length; i++) {
         var ch = row[i];
         if (ch === ".") continue;
+        // done時: 腕の行では中央の胴体(keep)以外＝下がった腕の列を消す
+        if (armRow && (i < hideArms.keep[0] || i > hideArms.keep[1])) continue;
         if (closeThis && ch === "e") ch = "s"; // 目を閉じる=肌で塗る
         var col = pal[ch];
         if (col) { ctx.fillStyle = col; ctx.fillRect(ox + i, oy + j, 1, 1); }
@@ -951,7 +962,10 @@
       oy = topY - Math.round(Math.abs(Math.sin(tw * 4 + idx)) * 2);
     }
 
-    drawMap(m.spr, pal, m.cx - Math.floor(m.spr.w / 2), oy, blink);
+    // done時のみ、doneArms を持つキャラ(ミナト/ハル)の下がった腕を消す。
+    // 他4人は doneArms 未定義なので従来どおり全ピクセルを描画する。
+    var hideArms = (st === "done") ? m.spr.doneArms : null;
+    drawMap(m.spr, pal, m.cx - Math.floor(m.spr.w / 2), oy, blink, hideArms);
 
     if (st === "working") {
       if (quirkOn && m.quirk !== "jump") drawQuirk(m, oy, tw);
