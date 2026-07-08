@@ -804,21 +804,29 @@
     px(lampX - 4, lampY - 8, 8, 3, lampOn ? "#e5c545" : "#5a5070"); // 笠
     px(lampX - 3, lampY - 5, 6, 1, lampOn ? "#fff4c8" : "#3a3050"); // 電球
 
-    // ノートPC（背面から・working時は画面光が縁からもれて明滅）
+    // ノートPC（working時は開いて画面光が明滅／done時は畳んで机に伏せる＝退勤）
     var lx = m.cx - 9, ly = y - 9;
-    if (m.st.state === "working") {
-      var pulse = 0.5 + 0.5 * Math.sin(tw * 6 + m.cx);   // 連続明滅
-      var gr = Math.round(76 + 100 * pulse), gg = Math.round(122 + 90 * pulse), gb = Math.round(168 + 70 * pulse);
-      var glow = rgb2hex(gr, gg, gb);
-      px(lx - 1, ly - 1, 20, 11, glow);
-      ctx.globalAlpha = 0.25 + 0.25 * pulse;
-      px(lx - 3, ly - 3, 24, 14, glow);
-      ctx.globalAlpha = 1;
+    if (done) {
+      // 閉じたノートPC（天板を上にして畳んだ状態）
+      px(lx - 1, y - 5, 20, 5, "#23252e");           // 本体（横長スラブ）
+      px(lx - 1, y - 5, 20, 1, "#3a3e4b");           // 天板ふちのハイライト
+      px(lx + 6, y - 4, 6, 2, "#4a4e5c");            // ロゴ
+      px(lx - 1, y - 1, 20, 1, "#14161b");           // 合わせ目の影
+    } else {
+      if (m.st.state === "working") {
+        var pulse = 0.5 + 0.5 * Math.sin(tw * 6 + m.cx);   // 連続明滅
+        var gr = Math.round(76 + 100 * pulse), gg = Math.round(122 + 90 * pulse), gb = Math.round(168 + 70 * pulse);
+        var glow = rgb2hex(gr, gg, gb);
+        px(lx - 1, ly - 1, 20, 11, glow);
+        ctx.globalAlpha = 0.25 + 0.25 * pulse;
+        px(lx - 3, ly - 3, 24, 14, glow);
+        ctx.globalAlpha = 1;
+      }
+      px(lx, ly, 18, 10, "#23252e");
+      px(lx + 1, ly + 1, 16, 8, "#31343f");
+      px(lx + 7, ly + 4, 4, 3, "#4a4e5c");           // ロゴ
+      px(lx - 1, ly + 10, 20, 1, "#1a1c22");
     }
-    px(lx, ly, 18, 10, "#23252e");
-    px(lx + 1, ly + 1, 16, 8, "#31343f");
-    px(lx + 7, ly + 4, 4, 3, "#4a4e5c");           // ロゴ
-    px(lx - 1, ly + 10, 20, 1, "#1a1c22");
 
     // 積み重ねた書類（左）＋付箋
     px(x + 3, y - 3, 12, 3, "#e9e5da");
@@ -962,17 +970,14 @@
       oy = topY - Math.round(Math.abs(Math.sin(tw * 4 + idx)) * 2);
     }
 
-    // done時のみ、doneArms を持つキャラ(ミナト/ハル)の下がった腕を消す。
-    // 他4人は doneArms 未定義なので従来どおり全ピクセルを描画する。
-    var hideArms = (st === "done") ? m.spr.doneArms : null;
-    drawMap(m.spr, pal, m.cx - Math.floor(m.spr.w / 2), oy, blink, hideArms);
+    // 腕マスクは廃止（万歳をやめたため不要）。全キャラ常に全ピクセルを描画する。
+    drawMap(m.spr, pal, m.cx - Math.floor(m.spr.w / 2), oy, blink, null);
 
     if (st === "working") {
       if (quirkOn && m.quirk !== "jump") drawQuirk(m, oy, tw);
       else drawTypingHands(m, tw);
-    } else if (st === "done") {
-      drawBanzai(m, oy, tw);
     }
+    // done時は特別な腕描画をしない（自然な着席姿勢のまま。PCを閉じ、✅・ハート・金色の机で完了を表現）
 
     drawDesk(m, tw, allDone);
   }
