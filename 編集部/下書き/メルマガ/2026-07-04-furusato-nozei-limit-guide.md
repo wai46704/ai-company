@@ -26,4 +26,3 @@
 https://naoki-blog.com/blog/furusato-nozei-limit-guide/
 
 それでは、また次回のメールでお会いしましょう。
-</content>
