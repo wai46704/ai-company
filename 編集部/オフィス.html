@@ -347,9 +347,9 @@
   /* ---- アオイ📝 紺のボブヘア・大きな丸メガネ・カーディガン（小柄・最小身長） ---- */
   var AOI = {
     w: 40,
-    pal: { n:"#2b3560", N:"#1d2545", L:"#3b4880", s:"#f6d3ae", S:"#e6bd94", e:"#26203a",
-           o:"#f4f2ec", l:"#bcd9e8", c:"#c09a4a", C:"#96762f", w:"#f4f2ec", W:"#e2ddd0",
-           k:"#6b5320", m:"#c98058", D:"#7a5f26" },
+    pal: { n:"#47569e", N:"#33407a", L:"#6273c4", s:"#f6d3ae", S:"#e6bd94", e:"#2f2942",
+           o:"#f4f2ec", l:"#bcd9e8", c:"#d8b45e", C:"#b28f3d", w:"#f4f2ec", W:"#e2ddd0",
+           k:"#8a6d2b", m:"#c98058", D:"#9a7a34" },
     map: [
       "...........nnnnnnnnnnnn..................",
       ".........nnnnnnnnnnnnnnnn................",
@@ -1114,7 +1114,15 @@
       // 同期例外も握りつぶす（アニメ継続を最優先）
     }
   }
-  setInterval(refetchStatus, 2000);
+  // 自動更新の仕組み:
+  //  - http(s):// でサーバー経由なら fetch で状態ファイルを取り直す（リロード無し・滑らか）
+  //  - file:// で直接開いた場合は fetch が CORS でブロックされるため、
+  //    状態ファイルの変更を拾えるよう定期的にページをリロードする（4秒ごと）
+  if (location.protocol === "file:") {
+    setInterval(function () { location.reload(); }, 4000);
+  } else {
+    setInterval(refetchStatus, 2000);
+  }
 
   /* ============================================================
      メインループ（requestAnimationFrame・時間ベース）
