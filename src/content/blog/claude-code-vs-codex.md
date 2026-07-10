@@ -81,3 +81,4 @@ AIがプログラミングを手伝ってくれる時代。今、特に注目さ
 
 - [時代遅れのセキュリティ対策6選と新常識](/blog/outdated-security-myths/)
 - [貯金が増えても不安が消えない人へ｜究極のお金の使い方](/blog/best-way-to-spend-money/)
+- [資産形成の落とし穴を回避せよ！「自己投資」と「金融投資」の黄金バランス](/blog/jiko-toshi-vs-kinyu-toshi-balance/)

@@ -108,3 +108,4 @@ IDとパスワードだけの守りには限界があります。銀行や証券
 
 - [Claude Code vs. Codex｜右腕はどちらか徹底比較](/blog/claude-code-vs-codex/)
 - [初めてのクレジットカード｜学生・主婦向けおすすめ5選](/blog/credit-card-beginners-guide/)
+- [【2026】SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
