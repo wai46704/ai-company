@@ -228,7 +228,9 @@
     for (var k in pal) { var c = hex2rgb(pal[k]); out[k] = fn(c[0], c[1], c[2]); }
     return out;
   }
-  function dimmed(pal)   { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .45, g * .45, b * .58 + 18); }); }
+  // 待機中(idle)用: ごくわずかに暗くするだけ（待機中は💤マークで分かるため、
+  // 色を落としすぎると「その子だけ暗い」と目立ってしまう。以前は45%まで暗くしていた）
+  function dimmed(pal)   { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .85, g * .85, b * .90 + 6); }); }
   function reddened(pal) { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .65 + 105, g * .38, b * .38); }); }
   function darker(pal)   { return transformPal(pal, function (r, g, b) { return rgb2hex(r * .7, g * .62, b * .68); }); }
   // done時: ほんのり温かく（金色ライト下）
