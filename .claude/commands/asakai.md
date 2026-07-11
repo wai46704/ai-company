@@ -18,23 +18,25 @@ description: Nオフィス AI編集部の朝会を開催（AI社員6名を並列
 - `src/content/blog/*.md` … 直近の公開記事
 - `編集部/データ/` … Search Consoleエクスポート等の有無
 
-## 2. AI社員6名を並列起動（Agentツール・全員バックグラウンド）
+## 2. AI社員7名を並列起動（Agentツール・全員バックグラウンド）
 
 **起動の直前に、執務室ビューの状態を更新する。**
 `編集部/オフィス状態.js` の `window.OFFICE_STATUS` を書き換える:
 - `message`: 「🗝️ 朝会開催中！全社員が業務にあたっています」
 - `updated`: 現在日時（YYYY-MM-DD HH:MM）
-- 全社員の `state` を `"working"` にし、`task` にその社員の今日の作業内容を短く書く（例: minato→「記事案リサーチ中」、haru→「◯◯の執筆中」。仕事が無い社員は state: "idle"、task: "本日は業務なし" のままでよい）
+- **既存6名（minato/haru/aoi/tsumugi/riku/yume）の** `state` を `"working"` にし、`task` にその社員の今日の作業内容を短く書く（例: minato→「記事案リサーチ中」、haru→「◯◯の執筆中」。仕事が無い社員は state: "idle"、task: "本日は業務なし" のままでよい）
+- ※カエデ（kaede）は執務室ビューにまだドット絵が無い（7人目は未実装）ため、オフィス状態.js には追加しない。カエデの状況はテキスト報告のみで扱う
 
 社長に「編集部/オフィス.html をブラウザで開くと、社員が働く様子を見られます」と一言案内する（初回のみ丁寧に、2回目以降は簡潔に）。
 
-以下の6名を **1つのメッセージで同時に** 起動する（run_in_background: true）:
+以下の7名を **1つのメッセージで同時に** 起動する（run_in_background: true）:
 - subagent_type: minato-research（リサーチ）
 - subagent_type: haru-writer（執筆）
 - subagent_type: aoi-editor（校閲）※ハルと同時起動のため、校閲対象は「起動時点で存在する下書き」のみでよいと伝える
 - subagent_type: tsumugi-sns（SNS）
 - subagent_type: riku-seo（SEO分析）
 - subagent_type: yume-newsletter（メルマガ）
+- subagent_type: kaede-illustrator（イラスト／画像プロンプト）※まだ画像が無い記事の生成プロンプトを作る
 
 各社員へのプロンプトには必ず含めること:
 - 手順1で確認した「今日の状況」（新docxの有無・直近公開記事・データ有無・社長メモの内容）
@@ -59,6 +61,7 @@ description: Nオフィス AI編集部の朝会を開催（AI社員6名を並列
 📣 ツムギ: （1〜2行要約）
 📊 リク: （1〜2行要約）
 📮 ユメ: （1〜2行要約）
+🎨 カエデ: （1〜2行要約）
 
 ## 📥 社長の承認・判断が必要なこと
 👉 Notionの「📥 社長の承認待ち」ビューでも同じ一覧が見られます: https://app.notion.com/p/cbf55f9fb5574cb580184ebc4f1d23b8
