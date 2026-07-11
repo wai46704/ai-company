@@ -9,7 +9,8 @@ interface Props {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-const { title, pubDate, category, description } = post.data;
+// heroImage は任意項目。設定されている記事だけ、先頭にアイキャッチ画像を表示する
+const { title, pubDate, category, description, heroImage } = post.data;
 
 const formattedDate = pubDate.toLocaleDateString('ja-JP', {
   year: 'numeric',
@@ -20,6 +21,10 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
 
 <BaseLayout title={title} description={description}>
   <article class="blog-post">
+    {/* アイキャッチ画像（heroImage が設定されている記事のみ・記事の一番上に表示） */}
+    {heroImage && (
+      <img src={heroImage} alt={title} class="post-hero" loading="eager" />
+    )}
     <header class="post-header">
       <div class="post-meta">
         <span class="post-category">{category}</span>
@@ -52,6 +57,15 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
   .blog-post {
     max-width: 680px;
     margin: 0 auto;
+  }
+
+  /* アイキャッチ画像：横幅いっぱい・角丸で、記事の先頭に表示 */
+  .post-hero {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-card);
+    margin-bottom: 28px;
   }
 
   .post-header {
