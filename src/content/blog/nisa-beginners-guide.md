@@ -125,6 +125,7 @@ emoji: "💰"
 
 ## あわせて読みたい
 
+- [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
 - [「全額投資で人生逆転」の甘い罠｜リスク許容度ガイド](/blog/risk-tolerance-guide/)
 - [「自己投資」と「金融投資」の黄金バランス](/blog/jiko-toshi-vs-kinyu-toshi-balance/)
