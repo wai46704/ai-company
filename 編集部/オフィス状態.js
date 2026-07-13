@@ -1,12 +1,12 @@
 window.OFFICE_STATUS = {
-  updated: "2026-07-12 09:45",
+  updated: "2026-07-13 09:35",
   message: "👑 本日の業務完了！お疲れさまでした",
   members: {
-    minato:  { state: "done",    task: "新記事案2本を提案完了！" },
-    haru:    { state: "done",    task: "お盆帰省記事に体験談を統合完了！" },
-    aoi:     { state: "done",    task: "ボーナス活用プランの校閲 完了！（必須修正1件）" },
-    tsumugi: { state: "done",    task: "単発ネタ2本 完成！" },
-    riku:    { state: "done",    task: "SEO改善を実施＋インデックス課題を発見！" },
-    yume:    { state: "done",    task: "新NISA出口戦略のメルマガ原稿 完成！" }
+    minato:  { state: "done",    task: "新記事案1本を提案完了！" },
+    haru:    { state: "done",    task: "お盆帰省記事の推奨修正を反映完了！" },
+    aoi:     { state: "idle",    task: "本日は業務なし" },
+    tsumugi: { state: "done",    task: "単発ネタ1本 完成！" },
+    riku:    { state: "done",    task: "テンプレート残骸404の原因を特定・解消済みと確認！" },
+    yume:    { state: "done",    task: "夏ボーナス活用プランのメルマガ原稿 完成！" }
   }
 };
