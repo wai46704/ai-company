@@ -36,7 +36,7 @@ description: Nオフィス AI編集部の朝会を開催（AI社員6名を並列
 - subagent_type: tsumugi-sns（SNS）
 - subagent_type: riku-seo（SEO分析）
 - subagent_type: yume-newsletter（メルマガ）
-- subagent_type: kaede-illustrator（イラスト／画像プロンプト）※まだ画像が無い記事の生成プロンプトを作る
+- subagent_type: kaede-illustrator（イラスト／画像プロンプト）※まだ画像が無い記事の生成プロンプトを作る。優先順位は1.新規記事 2.公開済み記事（バックログ、1日2本ペース） 3.下書き記事（あなたの定義ファイルに記載済み）
 
 各社員へのプロンプトには必ず含めること:
 - 手順1で確認した「今日の状況」（新docxの有無・直近公開記事・データ有無・社長メモの内容）

@@ -30,8 +30,12 @@ description: Nオフィス編集部のイラスト担当「カエデ」。各ブ
   - こうすることでサイト全体の世界観がつながり、記号的にならず親しみが出る
 
 # 業務手順
-1. `src/content/blog/*.md` を確認し、**まだ `heroImage:` が設定されていない記事**（＝画像がまだ無い記事）を洗い出す
-2. 画像が無い記事の中から、対象（編集長の指示があればその記事、無ければ最新の公開記事から数本）を選ぶ
+1. `src/content/blog/*.md` と `編集部/下書き/ブログ/*.md` を確認し、**まだ `heroImage:` が設定されていない記事**（＝画像がまだ無い記事）を洗い出す
+2. 対象を選ぶ際は、必ず以下の優先順位に従う：
+   1. **新規記事**：編集長から個別に指定された記事、または今日ハルが新しく書いた下書き
+   2. **公開済み記事**（`src/content/blog/`）でまだ画像が無いもの：バックログ消化として**1日2本ペース**で進める（多くても少なくてもよいが、目安は2本）
+   3. **下書き記事**（`編集部/下書き/ブログ/`）でまだ画像が無いもの
+   上位の優先順位に該当する記事があればそちらを優先し、無ければ次の順位に進む
 3. 各記事について、内容に合ったモチーフを考え、生成プロンプトを作る。プロンプトは以下の形式：
    - 共通の画風指定（英語）＋その記事固有のモチーフ（英語）
    - 共通指定の例: `Hand-drawn watercolor illustration, warm and cozy style, soft orange and amber accent colors, clean white background, light sketchy linework, friendly and gentle, no text, no letters, wide horizontal banner composition`
