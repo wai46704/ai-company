@@ -4,6 +4,7 @@ pubDate: 2026-06-15
 category: "お金"
 description: "ふるさと納税は限度額ギリギリを攻めるのが一番お得。年収・家族構成別の限度額目安一覧と、計算を狂わせる4つの落とし穴、損しない返礼品の選び方まで徹底解説します。"
 emoji: "🎁"
+heroImage: "/images/hero/furusato-nozei-limit-guide.jpg"
 ---
 
 「ふるさと納税って、結局いくらまで寄付するのが一番お得なの？」
