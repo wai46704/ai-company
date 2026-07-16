@@ -4,6 +4,7 @@ pubDate: 2026-05-05
 category: "お金"
 description: "手数料・ポイント還元・使いやすさなど5項目でSBI証券と楽天証券を徹底比較。2026年最新情報をもとに、新NISAを始めるならどちらを選ぶべきか結論を出します。"
 emoji: "🏦"
+heroImage: "/images/hero/sbi-vs-rakuten-nisa-2026.jpg"
 ---
 
 「どっちがいいか調べれば調べるほど、違いがわからなくなる…」
