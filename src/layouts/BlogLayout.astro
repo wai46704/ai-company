@@ -35,6 +35,19 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
     <div class="post-content">
       <slot />
     </div>
+
+    {/* 筆者情報ボックス：全記事の末尾に自動表示（E-E-A-T対策・信頼性の明示） */}
+    <aside class="author-box">
+      <div class="author-avatar">N</div>
+      <div class="author-info">
+        <p class="author-label">この記事を書いた人</p>
+        <p class="author-name">Naoki</p>
+        <p class="author-bio">
+          FP（ファイナンシャル・プランニング）・簿記・行政書士を学んだ50代会社員。製造現場でのPC管理経験も活かし、「知っているかどうかで差がつくお金とIT」の話を、同じ目線でわかりやすく発信しています。
+        </p>
+        <a href="/about/" class="author-link">プロフィールを見る →</a>
+      </div>
+    </aside>
   </article>
 
   <nav class="post-nav">
@@ -66,6 +79,54 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
     height: auto;
     border-radius: var(--radius-card);
     margin-bottom: 28px;
+  }
+
+  /* 筆者情報ボックス：記事末尾のプロフィール表示 */
+  .author-box {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-top: 48px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .author-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--gradient-hero);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .author-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+  .author-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .author-bio {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .author-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #667eea;
   }
 
   .post-header {
