@@ -118,6 +118,8 @@ emoji: "🎬"
 
 ## あわせて読みたい
 
+- [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
+- [投資を始める前に整える3つの土台｜リスク許容度・自己投資・稼ぐ力](/blog/toshi-mindset-guide/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
