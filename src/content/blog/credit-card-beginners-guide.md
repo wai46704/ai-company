@@ -144,5 +144,5 @@ emoji: "💳"
 ## あわせて読みたい
 
 - [【年収別】ふるさと納税の限度額と返礼品の選び方](/blog/furusato-nozei-limit-guide/)
-- [格安SIMでスマホ代を年6万円節約｜乗り換えと選び方](/blog/mvno-sim-switch-guide/)
-- [貯金が増えても不安が消えない人へ｜究極のお金の使い方](/blog/best-way-to-spend-money/)
+- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
+- [2026年夏のボーナス活用プラン｜増やす・守る・使うの配分術](/blog/summer-bonus-2026-allocation/)

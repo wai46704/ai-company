@@ -101,5 +101,5 @@ emoji: "💰"
 ## あわせて読みたい
 
 - [「今の自動車保険、高くない？」相場より高いと感じたら確認すべき3つのこと](/blog/car-insurance-review-guide/)
-- [格安SIMでスマホ代を年6万円節約｜乗り換え手順と失敗しない選び方](/blog/mvno-sim-switch-guide/)
+- [2026年サブスク値上げラッシュ｜「サブスク疲れ」を解消する見直し術](/blog/subscription-fatigue-2026-guide/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)

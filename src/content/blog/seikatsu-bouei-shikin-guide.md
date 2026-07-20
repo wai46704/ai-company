@@ -143,6 +143,6 @@ emoji: "🛡️"
 
 ## あわせて読みたい
 
-- [病気やケガで働けなくなったら？お金の不安を解消するリスク管理術](/blog/income-protection-risk-guide/)
+- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [自動車保険、高くない？見直しで確認すべき3つのこと](/blog/car-insurance-review-guide/)
-- [「全額投資で人生逆転」の甘い罠｜リスク許容度ガイド](/blog/risk-tolerance-guide/)
+- [【完全版】新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)

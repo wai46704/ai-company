@@ -163,6 +163,6 @@ emoji: "🚗"
 
 ## あわせて読みたい
 
-- [格安SIMでスマホ代を年6万円節約｜乗り換えと選び方](/blog/mvno-sim-switch-guide/)
+- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [【年収別】ふるさと納税の限度額と返礼品の選び方](/blog/furusato-nozei-limit-guide/)

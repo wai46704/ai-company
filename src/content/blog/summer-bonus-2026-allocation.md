@@ -110,5 +110,5 @@ heroImage: "/images/hero/summer-bonus-2026-allocation.jpg"
 ## あわせて読みたい
 
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
-- [資産形成の落とし穴を回避せよ！「自己投資」と「金融投資」の黄金バランス](/blog/jiko-toshi-vs-kinyu-toshi-balance/)
+- [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [【完全版】新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)

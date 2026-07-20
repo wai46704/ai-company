@@ -97,6 +97,6 @@ heroImage: "/images/hero/obon-parents-money-talk.jpg"
 
 ## あわせて読みたい
 
-- [老後不安をゼロにする「3つの柱」の作り方｜お金の悩みの8割を解決](/blog/rogo-fuan-zero-3pillars/)
-- [病気やケガで働けなくなったら？お金の不安を解消するリスク管理術](/blog/income-protection-risk-guide/)
+- [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
+- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
