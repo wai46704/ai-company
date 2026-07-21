@@ -130,6 +130,8 @@ heroImage: "/images/hero/kouteki-hoshou-guide.jpg"
 
 ## あわせて読みたい
 
+- [人生のお金は3幕で考える｜貯め時・老後の3本柱・使い方](/blog/life-money-plan-guide/)
+- [投資を始める前に整える3つの土台｜リスク許容度・自己投資・稼ぐ力](/blog/toshi-mindset-guide/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [自動車保険、高くない？見直しで確認すべき3つのこと](/blog/car-insurance-review-guide/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
