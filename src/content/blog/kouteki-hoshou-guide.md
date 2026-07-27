@@ -130,6 +130,7 @@ heroImage: "/images/hero/kouteki-hoshou-guide.jpg"
 
 ## あわせて読みたい
 
+- [【2026年8月改正】高額療養費、自己負担上限アップと年間上限新設](/blog/kougakuryouyouhi-2026-kaisei/)
 - [人生のお金は3幕で考える｜貯め時・老後の3本柱・使い方](/blog/life-money-plan-guide/)
 - [投資を始める前に整える3つの土台｜リスク許容度・自己投資・稼ぐ力](/blog/toshi-mindset-guide/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
