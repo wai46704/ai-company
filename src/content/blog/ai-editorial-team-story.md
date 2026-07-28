@@ -5,6 +5,8 @@ category: "開発"
 description: "プログラミング経験ゼロの50代会社員が、Claude CodeでAI社員6人の編集部を結成。「朝会」の一言で記事・校閲・SNS・SEOが同時に動く仕組みと、失敗も含めた運用の実際を当事者が紹介します。"
 emoji: "🏢"
 heroImage: "/images/hero/ai-editorial-team-story.jpg"
+series: "AI編集部の成長記録"
+episode: 1
 ---
 
 ## はじめに――書いているのは「AI社員」です

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -9,14 +10,24 @@ interface Props {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-// heroImage は任意項目。設定されている記事だけ、先頭にアイキャッチ画像を表示する
-const { title, pubDate, category, description, heroImage } = post.data;
+// heroImage・series・episode は任意項目。設定されている記事だけ、それぞれの要素を表示する
+const { title, pubDate, category, description, heroImage, series, episode } = post.data;
 
 const formattedDate = pubDate.toLocaleDateString('ja-JP', {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 });
+
+// 連載記事のとき（series が設定されているとき）だけ、同じ連載の全話を集めて話数順に並べる。
+// これで記事末尾に「この連載の一覧」を自動表示でき、話が増えても手作業でリンクを足す必要がない。
+let seriesEpisodes: CollectionEntry<'blog'>[] = [];
+if (series) {
+  const allPosts = await getCollection('blog');
+  seriesEpisodes = allPosts
+    .filter((p) => p.data.series === series)
+    .sort((a, b) => (a.data.episode ?? 0) - (b.data.episode ?? 0));
+}
 ---
 
 <BaseLayout title={title} description={description}>
@@ -30,11 +41,34 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
         <span class="post-category">{category}</span>
         <time datetime={pubDate.toISOString()}>{formattedDate}</time>
       </div>
+      {/* 連載ラベル：series が設定された記事だけ「📖 連載〈連載名〉第N回」を表示 */}
+      {series && (
+        <p class="series-label">📖 連載〈{series}〉{episode ? `第${episode}回` : ''}</p>
+      )}
       <h1 class="post-title">{title}</h1>
     </header>
     <div class="post-content">
       <slot />
     </div>
+
+    {/* 連載の全話リスト：series が設定された記事だけ自動表示（話が増えても手作業不要） */}
+    {series && seriesEpisodes.length > 0 && (
+      <aside class="series-box">
+        <p class="series-box-title">📖 連載〈{series}〉</p>
+        <ol class="series-list">
+          {seriesEpisodes.map((ep) => (
+            <li class={ep.slug === post.slug ? 'series-item current' : 'series-item'}>
+              {ep.slug === post.slug ? (
+                <span class="series-current-mark">▶ この記事</span>
+              ) : (
+                <a href={`/blog/${ep.slug}/`}>{ep.data.title}</a>
+              )}
+              {ep.slug === post.slug && <span class="series-current-title">{ep.data.title}</span>}
+            </li>
+          ))}
+        </ol>
+      </aside>
+    )}
 
     {/* 筆者情報ボックス：全記事の末尾に自動表示（E-E-A-T対策・信頼性の明示） */}
     <aside class="author-box">
@@ -79,6 +113,56 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
     height: auto;
     border-radius: var(--radius-card);
     margin-bottom: 28px;
+  }
+
+  /* 連載ラベル：タイトルの上に表示する小さな帯 */
+  .series-label {
+    display: inline-block;
+    margin: 8px 0 4px;
+    padding: 4px 12px;
+    background: var(--gradient-hero);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 999px;
+  }
+
+  /* 連載の全話リスト：記事末尾のボックス */
+  .series-box {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .series-box-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .series-list {
+    margin: 0;
+    padding-left: 1.4em;
+  }
+  .series-item {
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+  .series-item a {
+    color: #667eea;
+    font-weight: 600;
+  }
+  /* 今読んでいる記事は太字＋マーカーで強調（リンクにはしない） */
+  .series-item.current {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .series-current-mark {
+    display: inline-block;
+    margin-right: 6px;
+    color: var(--color-dev, #667eea);
   }
 
   /* 筆者情報ボックス：記事末尾のプロフィール表示 */
