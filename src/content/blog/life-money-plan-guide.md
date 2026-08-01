@@ -122,6 +122,6 @@ heroImage: "/images/hero/life-money-plan-guide.jpg"
 - [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
 - [投資を始める前に整える3つの土台｜リスク許容度・自己投資・稼ぐ力](/blog/toshi-mindset-guide/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
-- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)

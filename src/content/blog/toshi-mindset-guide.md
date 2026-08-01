@@ -126,7 +126,7 @@ SNSを開けば「個別株で資産3倍」「一瞬で億り人」といった�
 
 - [人生のお金は3幕で考える｜貯め時・老後の3本柱・使い方](/blog/life-money-plan-guide/)
 - [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
-- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)

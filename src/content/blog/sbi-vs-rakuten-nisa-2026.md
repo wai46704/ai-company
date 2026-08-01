@@ -131,7 +131,7 @@ SBI証券は、かつては「画面が古くて使いにくい」と言われ�
 
 ## あわせて読みたい
 
-- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [2026年夏のボーナス活用プラン｜増やす・守る・使うの配分術](/blog/summer-bonus-2026-allocation/)

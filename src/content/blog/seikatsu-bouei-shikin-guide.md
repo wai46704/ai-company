@@ -146,4 +146,4 @@ heroImage: "/images/hero/seikatsu-bouei-shikin-guide.jpg"
 
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [自動車保険、高くない？見直しで確認すべき3つのこと](/blog/car-insurance-review-guide/)
-- [【完全版】新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [【完全版】新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)

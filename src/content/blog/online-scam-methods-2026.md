@@ -145,4 +145,4 @@ SIMスワップ詐欺は、**スマホに現れる「異変」で気づける**�
 
 - [「まだやってるの？」時代遅れのセキュリティ対策6選と、本当にやるべき新常識](/blog/outdated-security-myths/)
 - [お盆の帰省で親とお金の話｜最低限確認したい5つのこと](/blog/obon-parents-money-talk/)
-- [【完全版】新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [【完全版】新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)

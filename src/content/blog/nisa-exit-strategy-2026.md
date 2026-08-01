@@ -94,6 +94,6 @@ heroImage: "/images/hero/nisa-exit-strategy-2026.jpg"
 
 ## あわせて読みたい
 
-- [新NISAの始め方3ステップ｜損しない初心者の最短ルート](/blog/nisa-beginners-guide/)
+- [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
