@@ -166,4 +166,4 @@ heroImage: "/images/hero/car-insurance-review-guide.jpg"
 
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
-- [【年収別】ふるさと納税の限度額と返礼品の選び方](/blog/furusato-nozei-limit-guide/)
+- [【年収別】ふるさと納税の限度額はいくら？上限内で選ぶ返礼品のコツ](/blog/furusato-nozei-limit-guide/)

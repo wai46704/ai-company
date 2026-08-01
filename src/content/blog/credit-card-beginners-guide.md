@@ -144,6 +144,6 @@ heroImage: "/images/hero/credit-card-beginners-guide.jpg"
 
 ## あわせて読みたい
 
-- [【年収別】ふるさと納税の限度額と返礼品の選び方](/blog/furusato-nozei-limit-guide/)
+- [【年収別】ふるさと納税の限度額はいくら？上限内で選ぶ返礼品のコツ](/blog/furusato-nozei-limit-guide/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [2026年夏のボーナス活用プラン｜増やす・守る・使うの配分術](/blog/summer-bonus-2026-allocation/)
