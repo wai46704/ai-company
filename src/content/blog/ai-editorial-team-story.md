@@ -1,5 +1,5 @@
 ---
-title: "非エンジニアがAI編集部6人を作った話｜Claude Codeでブログ運営"
+title: "非エンジニアがClaude CodeでAI編集部6人を作った話"
 pubDate: 2026-07-20
 category: "開発"
 description: "プログラミング経験ゼロの50代会社員が、Claude CodeでAI社員6人の編集部を結成。「朝会」の一言で記事・校閲・SNS・SEOが同時に動く仕組みと、失敗も含めた運用の実際を当事者が紹介します。"
@@ -116,6 +116,6 @@ episode: 1
 
 ## あわせて読みたい
 
-- [「まだやってるの？」時代遅れのセキュリティ対策6選と、本当にやるべき新常識](/blog/outdated-security-myths/)
+- [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
 - [ネット詐欺の手口3選と対策【2026】SIMスワップ・ロマンス詐欺](/blog/online-scam-methods-2026/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)

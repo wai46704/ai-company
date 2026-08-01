@@ -104,5 +104,5 @@ Bitwardenなど一部のパスワード管理ツールには、あらかじめ�
 ## あわせて読みたい
 
 - [2026年サブスク値上げラッシュ｜「サブスク疲れ」を解消する見直し術](/blog/subscription-fatigue-2026-guide/)
-- [「まだやってるの？」時代遅れのセキュリティ対策6選と、本当にやるべき新常識](/blog/outdated-security-myths/)
+- [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
 - [お盆の帰省で親とお金の話｜最低限確認したい5つのこと](/blog/obon-parents-money-talk/)
