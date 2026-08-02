@@ -3,7 +3,7 @@ window.OFFICE_STATUS = {
   message: "👑 本日の業務完了！お疲れさまでした",
   members: {
     minato:  { state: "done", task: "体験談を足すべき記事 上位3本を特定！" },
-    haru:{ state: "done", task: "お盆記事に体験談を加筆完了！" },
+    haru:{ state: "done", task: "お盆・自動車保険の2記事に体験談を加筆完了！" },
     aoi:     { state: "done", task: "公開20記事の体験談監査 完了！要修正1件を発見" },
     tsumugi: { state: "done", task: "告知2案＋単発ネタ2本 完成！（出典確認済み）" },
     riku:    { state: "done", task: "内部リンク棚卸し完了！孤立記事3本を発見" },
