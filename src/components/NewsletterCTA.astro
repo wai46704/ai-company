@@ -1,0 +1,92 @@
+---
+// ===== メルマガ登録のおすすめブロック =====
+// 記事を読み終えた読者に「続きはメールでも受け取れます」と伝えるための小さなカード。
+// 埋め込みフォーム（iframe）は使わず、Substackの購読ページへのリンク1本だけにしている。
+// （iframeを使わないので、ページの読み込みが遅くなったり表示がガタつくことがない）
+// 使い方: BlogLayout.astro で読み込み、筆者情報ボックスの直後に <NewsletterCTA /> と書く。
+
+// メルマガ購読ページのURL。将来URLが変わったら、まずこの1行を直す。
+// （同じURLを Footer.astro / about.astro / contact.astro でも使っているので、
+//   変更するときは「substack」で検索して全部そろえること）
+const newsletterUrl = 'https://naokiaicompany.substack.com/';
+---
+
+<aside class="newsletter-box">
+  <p class="newsletter-heading">📮 メールでも受け取れます</p>
+  <p class="newsletter-text">
+    ブログに書ききれなかった補足や、その週に気になったお金・ITの話を、
+    <strong>週1回</strong>だけメールでお届けしています。
+    登録は無料で、合わないと感じたらいつでも解除できます。
+  </p>
+  <a href={newsletterUrl} target="_blank" rel="noopener" class="newsletter-button">
+    無料で購読する →
+  </a>
+  <p class="newsletter-note">
+    ※ 配信には Substack を利用しています。お名前や住所の入力は不要です。
+  </p>
+</aside>
+
+<style>
+  /* カードの外枠：記事末尾の筆者情報ボックスと同じ見た目にそろえ、サイトから浮かないようにする */
+  .newsletter-box {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* 見出し：小さい文字なので、読みやすさを優先して普通の濃い文字色にする */
+  .newsletter-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  /* 説明文：筆者情報ボックスの紹介文と同じ大きさ・行間にそろえる */
+  .newsletter-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  /* 購読ボタン：トップページの「記事を読む →」ボタンと同じ配色・形にそろえている。
+     指で押しやすいよう、上下の余白はトップページ（10px）より少し大きい12pxにしている */
+  .newsletter-button {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--gradient-hero);
+    color: white;
+    border-radius: 24px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .newsletter-button:hover {
+    opacity: 0.85;
+  }
+
+  /* 補足の注意書き：押しつけがましくならないよう、いちばん小さく控えめに表示する */
+  .newsletter-note {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* スマホ表示：左右の余白を詰め、ボタンを横幅いっぱいにして押しやすくする */
+  @media (max-width: 480px) {
+    .newsletter-box {
+      padding: 18px;
+    }
+
+    .newsletter-button {
+      display: block;
+      text-align: center;
+    }
+  }
+</style>

@@ -47,15 +47,17 @@ const contacts = [
   </div>
 
   <section class="newsletter">
-    <h2 class="newsletter-title">📮 Substackでも発信中</h2>
+    <h2 class="newsletter-title">📮 メルマガ（無料）</h2>
     <p class="newsletter-description">
-      お金とITのお役立ち情報を Substack でも発信しています。よろしければのぞいてみてください。
+      お金とITのお役立ち情報を、週1回メールでお届けしています。登録は無料で、いつでも解除できます。
     </p>
-    <a href="https://substack.com/@naokiaicompany" target="_blank" rel="noopener" class="contact-card newsletter-link">
+    {/* リンク先はSubstackの購読ページ。以前はSubstack全体のプロフィールページを指していて、
+        登録フォームまでたどり着けなかったため修正した */}
+    <a href="https://naokiaicompany.substack.com/" target="_blank" rel="noopener" class="contact-card newsletter-link">
       <span class="contact-emoji">📰</span>
       <div>
-        <h3 class="contact-label">Substack</h3>
-        <p class="contact-description">Naokiの発信ページはこちら</p>
+        <h3 class="contact-label">メルマガを購読する</h3>
+        <p class="contact-description">週1回・無料・いつでも解除できます</p>
       </div>
     </a>
   </section>
@@ -123,8 +125,5 @@ const contacts = [
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 20px;
-  }
-  .newsletter-embed iframe {
-    border-radius: var(--radius-card);
   }
 </style>
