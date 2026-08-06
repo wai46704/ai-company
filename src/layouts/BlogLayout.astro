@@ -31,7 +31,14 @@ if (series) {
 }
 ---
 
-<BaseLayout title={title} description={description}>
+{/* 記事ページはOGPを「記事」として出す。カード画像にはその記事のアイキャッチをそのまま使う */}
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  type="article"
+  publishedTime={pubDate}
+>
   <article class="blog-post">
     {/* アイキャッチ画像（heroImage が設定されている記事のみ・記事の一番上に表示） */}
     {heroImage && (
