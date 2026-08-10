@@ -538,11 +538,12 @@ https://naoki-blog.com/blog/fixed-cost-defense-guide-2026/
 | 対象URL | `https://naoki-blog.com/blog/ai-editorial-team-story-02/` |
 | **次の確認日** | **2026-08-15**（`fixed-cost-defense-guide-2026` と同じタイミングで確認） |
 
-これで8/15の確認対象は少なくとも2件です。
+これで8/15の確認は**3サンプル**になります。
 
 | URL | リクエスト日 |
 |---|---|
 | `fixed-cost-defense-guide-2026` | 2026-08-08 |
+| `zaishoku-roureinenkin-2026` | 2026-08-10（スクリーンショットで確認済み） |
 | `ai-editorial-team-story-02` | 2026-08-11 |
 
-⚠️ **`zaishoku-roureinenkin-2026`（2026-08-10公開）については、インデックス登録をリクエストしたかどうかの確認が取れていません。** 未実施であれば、8/15の確認のついでにリクエストすることをおすすめします。
+「クロール割り当てが小さい」という仮説を、リクエスト経過日数の違う3件で比較できます。
