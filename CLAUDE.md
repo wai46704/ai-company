@@ -16,7 +16,7 @@ Astro製の個人ブログサイト。GitHub Pagesに静的ホスティング。
 
 - **コンテンツ管理:** `src/content/blog/*.md` に frontmatter 付き Markdown を追加するだけで記事公開
 - **スタイリング:** `src/styles/global.css` の CSS 変数でカラーパレットを一元管理
-- **カテゴリカラー:** `src/components/PostCard.astro` 内の `categoryStyles` オブジェクトで定義（開発・日常・デザイン）。新カテゴリ追加時はここに追記する
+- **カテゴリカラー:** `src/components/PostCard.astro` 内の `categoryStyles` オブジェクトで定義。新カテゴリ追加時はここに追記する（未登録のカテゴリを使うとカードが既定のグレー系になる）
 - **デプロイ:** `main` ブランチへの push で GitHub Actions が自動ビルド → GitHub Pages に配信
 
 ## 記事追加方法
@@ -27,11 +27,30 @@ Astro製の個人ブログサイト。GitHub Pagesに静的ホスティング。
 ---
 title: "記事タイトル"
 pubDate: 2026-01-01
-category: "開発"   # 開発 / 日常 / デザイン
+category: "お金"   # 下の一覧から選ぶ
 description: "記事の概要（一覧カードに表示）"
-emoji: "💻"        # カードバナーの絵文字
+emoji: "💰"        # カードバナーの絵文字
+heroImage: "/images/hero/<slug>.jpg"   # アイキャッチ画像（任意）
 ---
 ```
+
+### カテゴリ一覧
+
+`src/components/PostCard.astro` の `categoryStyles` に登録済みのもの。
+
+| カテゴリ | 用途 | 記事数（2026-08-13時点） |
+|---|---|---|
+| **お金** | 家計・投資・保険・年金・税金 | 18本 |
+| **セキュリティ** | 詐欺対策・PC/スマホの防御 | 3本 |
+| **開発** | AI編集部の運営記録など | 2本 |
+| 日常 | （現在は未使用） | 0本 |
+| デザイン | （現在は未使用） | 0本 |
+
+### 任意の frontmatter
+
+- `heroImage`: アイキャッチ画像のパス。**画像本体は `public/images/hero/` に置く。**
+  記事は `src/`、画像は `public/` と離れているため、**画像の追加漏れ（未追跡のまま）が起きやすい。公開前に `git status` で `public/` を必ず確認する**
+- `series` / `episode`: 連載記事に付ける（例: `series: "AI編集部の成長記録"` ＋ `episode: 2`）
 
 ## デプロイ設定
 
