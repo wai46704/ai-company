@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## よく使うコマンド
 
 ```bash
-npm run dev      # 開発サーバー起動（http://localhost:4321/ai-company/）
+npm run dev      # 開発サーバー起動（http://localhost:4321/）
 npm run build    # 静的サイトをビルド → dist/ に出力
 npm run preview  # ビルド結果をローカルでプレビュー
 ```
@@ -54,7 +54,22 @@ heroImage: "/images/hero/<slug>.jpg"   # アイキャッチ画像（任意）
 
 ## デプロイ設定
 
-`astro.config.mjs` の `site`（GitHubユーザー名）と `base`（リポジトリ名）を実際の値に設定すること。
+設定は `astro.config.mjs` にあり、**すでに独自ドメインで運用中**（初期セットアップは完了済み）。
+
+| 設定 | 値 | 意味 |
+|---|---|---|
+| `site` | `https://naoki-blog.com` | 独自ドメイン。`public/CNAME` とセットで効く |
+| `base` | **未設定** | 独自ドメインなのでサブパス不要。だから開発サーバーも `/` で開く |
+| `output` | `static` | 静的サイト生成 |
+| `trailingSlash` | `always` | **全URLの末尾にスラッシュが必要。** 内部リンクを `/blog/xxx`（スラッシュ無し）で書くと301転送が発生する |
+
+`.github/workflows/deploy.yml` が `main` への push で自動ビルド → GitHub Pages に配信する。
+
+### 旧記事のリダイレクト
+
+`astro.config.mjs` の `redirects` に、統廃合で非公開にした旧記事のURLを現行記事へ転送する設定がある（2026-08時点で10件）。
+
+⚠️ **Astroは転送用のスタブHTMLに自動で `<meta name="robots" content="noindex">` を入れる。** そのためSearch Consoleの「noindexタグによって除外されました」は**転送の件数まで増えるのが正常**で、不具合ではない。
 
 ## やってほしいこと
 
