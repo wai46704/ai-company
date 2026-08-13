@@ -98,3 +98,4 @@ heroImage: "/images/hero/nisa-exit-strategy-2026.jpg"
 - [SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [【2026年改正】在職老齢年金の基準額が月65万円に｜働き損は古い](/blog/zaishoku-roureinenkin-2026/)
+- [退職金、まとめて投資？分けて投資？50代からの新NISA「入り口」戦略](/blog/taishokukin-nisa-nyuguchi/)

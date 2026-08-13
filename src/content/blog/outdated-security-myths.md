@@ -116,3 +116,4 @@ IDとパスワードだけの守りには限界があります。銀行や証券
 - [お盆の帰省で親とお金の話｜最低限確認したい5つのこと](/blog/obon-parents-money-talk/)
 - [初めてのクレジットカード｜学生・主婦向けおすすめ5選](/blog/credit-card-beginners-guide/)
 - [【2026】SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
+- [「デジタル終活」が必要な理由｜家族に遺さない4ステップ整理術](/blog/digital-shukatsu-2026/)

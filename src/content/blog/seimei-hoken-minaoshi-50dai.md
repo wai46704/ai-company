@@ -124,5 +124,6 @@ heroImage: "/images/hero/seimei-hoken-minaoshi-50dai.jpg"
 ## あわせて読みたい
 
 - [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
+- [【2026年8月改正】高額療養費、自己負担上限アップと年間上限新設](/blog/kougakuryouyouhi-2026-kaisei/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
