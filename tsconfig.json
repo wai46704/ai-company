@@ -1,9 +1,8 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
+  // .astro/types.d.ts はAstroが自動生成する型定義。
+  // ドットで始まるフォルダは既定の検索対象から外れるため、明示的に指定する必要がある。
+  "include": [".astro/types.d.ts", "**/*"],
+  // dist はビルド結果なので型チェックの対象にしない。
+  "exclude": ["dist"]
 }
