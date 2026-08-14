@@ -1,13 +1,13 @@
 window.OFFICE_STATUS = {
-  updated: "2026-08-14 01:15",
-  message: "👑 本日の業務完了！お疲れさまでした",
+  updated: "2026-08-15 09:15",
+  message: "🗝️ 朝会開催中！全社員が業務にあたっています",
   members: {
-    minato:  { state: "done", task: "教育訓練給付の調査完了！記事案は本日なし" },
-    haru:    { state: "done", task: "連載第3回『調べるほどやらないに傾いた話』完成！" },
-    aoi:     { state: "done", task: "校閲完了！記事の目玉の誤りと共済の事実誤認を発見！" },
-    tsumugi: { state: "done", task: "告知4本＋単発ネタ2本 完成！誤情報2件も阻止！" },
-    riku:    { state: "done", task: "変更5日ぶんを全点検！副作用ゼロを確認！" },
-    yume:    { state: "done", task: "メルマガ「持病があるのに医療保険をやめた話」完成！" }
+    minato:  { state: "done", task: "本日の記事案は0本（滞留7テーマの消化を優先）" },
+    haru:    { state: "done", task: "50代資格の記事、下書き完成！" },
+    aoi:     { state: "working", task: "連載第3回の下書きを校閲中" },
+    tsumugi: { state: "working", task: "Substack Notesの手応えを踏まえて検討中" },
+    riku:    { state: "working", task: "8/15付Search Consoleを分析中" },
+    yume:    { state: "idle", task: "本日は待機（8/14作成済み・週1運用のため）" }
     /* カエデはドット絵未実装のためここには追加しません（テキスト報告のみ）*/
   }
 };
