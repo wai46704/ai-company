@@ -26,3 +26,6 @@ Thumbs.db
 
 # Superpowers
 .superpowers/
+
+# リクの一時作業ファイル（xlsx展開等）
+編集部/データ/_tmp_riku/
