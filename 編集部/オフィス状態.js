@@ -1,13 +1,14 @@
 window.OFFICE_STATUS = {
-  updated: "2026-08-15 09:15",
+  updated: "2026-08-16 09:40",
   message: "👑 本日の業務完了！お疲れさまでした",
   members: {
-    minato:  { state: "done", task: "本日の記事案は0本（滞留7テーマの消化を優先）" },
-    haru:    { state: "done", task: "50代資格の記事、下書き完成！" },
-    aoi:     { state: "done", task: "校閲完了！捏造引用を含む必須修正4件を発見" },
-    tsumugi: { state: "done", task: "AIニュース3本＋セキュリティネタ 完成！" },
-    riku:    { state: "done", task: "分析完了！ただしデータが8/7で止まっており測定不能と判明" },
+    minato:  { state: "done", task: "記事案2本！「10年ルール」の通称の落とし穴も発見" },
+    haru:    { state: "done", task: "連載第3回に体験談3か所を組み込み完了！対応表つき" },
+    aoi:     { state: "done", task: "校閲完了！必須修正7件（FPの断定と記録の食い違い）" },
+    tsumugi: { state: "done", task: "告知2案＋単発ネタ2本 完成！" },
+    riku:    { state: "done", task: "分析完了！連載の順路が片方向という不備を発見" },
     yume:    { state: "idle", task: "本日は待機（8/14作成済み・週1運用のため）" }
+    /* カエデ: 画像プロンプト2本完成（50代資格・連載第3回） */
     /* カエデはドット絵未実装のためここには追加しません（テキスト報告のみ）*/
   }
 };
