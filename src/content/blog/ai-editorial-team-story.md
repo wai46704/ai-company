@@ -116,6 +116,7 @@ episode: 1
 
 ## あわせて読みたい
 
+- [【第2回】AIが書いた数字と体験談を全部疑った話｜AI編集部の成長記録](/blog/ai-editorial-team-story-02/)
 - [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
 - [ネット詐欺の手口3選と対策【2026】SIMスワップ・ロマンス詐欺](/blog/online-scam-methods-2026/)
 - [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
