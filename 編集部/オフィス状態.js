@@ -1,6 +1,6 @@
 window.OFFICE_STATUS = {
   updated: "2026-08-15 09:15",
-  message: "🗝️ 朝会開催中！全社員が業務にあたっています",
+  message: "👑 本日の業務完了！お疲れさまでした",
   members: {
     minato:  { state: "done", task: "本日の記事案は0本（滞留7テーマの消化を優先）" },
     haru:    { state: "done", task: "50代資格の記事、下書き完成！" },
