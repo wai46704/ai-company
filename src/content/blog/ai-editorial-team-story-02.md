@@ -150,5 +150,6 @@ AI編集部は今日も動いています。ただし前より少し疑い深く
 ## あわせて読みたい
 
 - [非エンジニアがClaude CodeでAI編集部6人を作った話](/blog/ai-editorial-team-story/)
+- [【第3回】調べるほど「やらない」に傾いた話｜AI編集部の成長記録](/blog/ai-editorial-team-story-03/)
 - [ネット詐欺の手口3選と対策【2026】SIMスワップ・ロマンス詐欺](/blog/online-scam-methods-2026/)
 - [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
