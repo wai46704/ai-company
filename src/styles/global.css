@@ -1,15 +1,10 @@
 /* ===== CSS変数 ===== */
 :root {
-  /* カテゴリグラデーション */
-  --gradient-dev:    linear-gradient(135deg, #667eea, #764ba2);
-  --gradient-daily:  linear-gradient(135deg, #f093fb, #f5576c);
-  --gradient-design: linear-gradient(135deg, #4facfe, #00f2fe);
+  /* ヒーロー共通グラデーション（カテゴリ別の配色は PostCard.astro の categoryStyles に集約済み） */
   --gradient-hero:   linear-gradient(135deg, #667eea, #f093fb);
 
-  /* カテゴリカラー（バッジ用） */
+  /* 連載ラベル等で使う基調色（カテゴリバッジの色は PostCard.astro の categoryStyles 側） */
   --color-dev:    #667eea;
-  --color-daily:  #f093fb;
-  --color-design: #4facfe;
 
   /* テキスト */
   --text-primary:   #1a1a1a;
