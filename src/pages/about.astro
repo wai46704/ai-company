@@ -2,37 +2,52 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About" description="Naokiのプロフィールページ">
+<BaseLayout title="About｜運営者Naokiについて" description="naoki-blog.com運営者Naokiのプロフィール。簿記2級に合格した50代の会社員が、終身保険の解約・格安SIM・新NISAなど『自分でやってみた』実体験をもとにお金の情報を発信しています。">
   <h1 class="page-title">About</h1>
 
   <section class="about-section">
     <div class="profile-header">
-      <div class="avatar">N</div>
+      <img src="/images/naoki-avatar.png" alt="Naokiのプロフィールアイコン" class="avatar" />
       <div>
-        <h2 class="profile-name">Naoki</h2>
-        <p class="profile-tagline">お金やITに関する情報を発信するブログ</p>
+        <h2 class="profile-name">Naoki（なおき）</h2>
+        <p class="profile-tagline">お金と暮らしの「自分でやってみた」を発信する会社員</p>
       </div>
     </div>
     <p class="profile-bio">
-      はじめまして。Naokiです。もうすぐ50代になる会社員で、30歳から製造工場で生産・倉庫管理・PCメンテナンス・生産技術に携わってきました。
-      それ以前は、新聞販売店で配達・営業・集金を担当したり、中華料理店で調理をしたり、産業用機械メーカーで工作機械を使った部品作製をしていた時期もあります。
-    </p>
-    <p class="profile-bio">
-      30代で足底筋膜炎を患い、一時フリーターをしていた期間に、自分の生活とお金を見つめ直すきっかけがありました。そこから
-      <strong>FP（ファイナンシャル・プランニング）、簿記、行政書士</strong>を独学で勉強し、税金・保険・家計・資産形成といった「暮らしとお金」の知識を体系的に学びました。
-      この経験が、当ブログでお金の記事を書く土台になっています。
-    </p>
-    <p class="profile-bio">
-      「お金の話は難しくて損をしやすい」——そんな普通の会社員だからこそ分かるつまずきポイントを、専門用語をできるだけ避けて、同じ目線で解説することを心がけています。
+      はじめまして。当ブログ「naoki-blog.com」を運営しているNaoki（実名）です。もうすぐ50代になる会社員で、30歳から製造業で生産・倉庫管理・PCメンテナンス・生産技術に携わってきました。
+      それ以前は新聞販売店で配達・営業・集金、中華料理店で調理、産業用機械メーカーで部品作製など、いろいろな現場を経験してきた、どこにでもいる会社員です。
     </p>
   </section>
 
   <section class="about-section">
-    <h2 class="section-heading">学んできたこと・発信テーマ</h2>
+    <h2 class="section-heading">評論ではなく、「自分でやってみた」記録です</h2>
+    <p class="profile-bio">
+      お金の記事は世の中にあふれていますが、当ブログの一番の特徴は
+      <strong>筆者自身が実際に「やってみた・やめてみた結果と数字」</strong>で書いていることです。
+      専門家が制度を解説するだけの記事とは違い、同じ立場の会社員として、迷って決めた過程まで正直に書いています。たとえば——
+    </p>
+    <ul class="bio-list">
+      <li>払い続けていた終身保険を解約し、<strong>返戻金13万円</strong>を受け取った</li>
+      <li>格安SIMに乗り換えて、スマホ代を<strong>年7万円ほど</strong>下げた</li>
+      <li>50代から新NISAの「入り口〜出口（取り崩し方）」を自分で決めた</li>
+      <li>固定費と生活防衛資金を実際に組み直した</li>
+    </ul>
+    <p class="profile-bio">
+      これらは資格の有無に関係なく、<strong>同じ50代・同じ会社員だからこそ等身大で書ける一次情報</strong>です。記事に出てくる金額は、すべて筆者自身の実額です。
+    </p>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">お金まわりの学び（正直に書きます）</h2>
+    <p class="profile-bio">
+      30代で足を痛めて働けない時期があり、自分の生活とお金を見つめ直したのが学びのきっかけでした。その後、独学で
+      <strong>簿記2級に合格</strong>。あわせてFPや行政書士の勉強も独学で続け、税金・保険・社会保障のしくみを学んできました
+      （FP・行政書士は試験に合格はしていませんが、学んだ知識は記事の裏取りに役立てています）。
+      資格を看板にするより、実際に手を動かした経験のほうを大事にしています。
+    </p>
     <ul class="skill-list">
-      <li class="skill-item">FP（ファイナンシャル・プランニング）</li>
-      <li class="skill-item">簿記</li>
-      <li class="skill-item">行政書士の学習</li>
+      <li class="skill-item">簿記2級（合格）</li>
+      <li class="skill-item">FP・行政書士（独学で学習）</li>
       <li class="skill-item">税金・社会保険のしくみ</li>
       <li class="skill-item">家計管理・資産形成</li>
       <li class="skill-item">PC・ITセキュリティ</li>
@@ -42,13 +57,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="about-section">
     <h2 class="section-heading">このブログの方針</h2>
     <p class="profile-bio">
-      当ブログでは、ファイナンシャル・プランニングや簿記の学習で得た知識をベースに、新NISA・ふるさと納税・保険の見直し・生活防衛資金など、
-      <strong>「知っているかどうかで数万円〜数十万円の差が出るお金の話」</strong>を中心に発信しています。
-      また、製造現場でのPCメンテナンス経験を活かし、初心者がつまずきやすいIT・セキュリティの話題も取り上げています。
+      <strong>「知っているかどうかで数万円〜数十万円の差が出るお金の話」</strong>を、専門用語をできるだけ避けて、同じ会社員の目線で解説しています。
+      新NISA・ふるさと納税・保険の見直し・生活防衛資金などが中心です。製造現場でのPCメンテナンス経験を活かし、初心者がつまずきやすいIT・セキュリティの話題も取り上げています。
     </p>
     <p class="profile-bio">
       ※ 当ブログは個人の学習・実体験にもとづく情報提供を目的としており、特定の金融商品の勧誘や、税務・投資の最終判断を代行するものではありません。
       実際のお手続きの際は、必要に応じて専門家や公式情報をご確認ください。
+    </p>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">運営者情報</h2>
+    <p class="profile-bio">
+      運営者：Naoki（実名）／個人運営<br />
+      開設：2026年<br />
+      ご連絡：<a href="/contact/" class="external-link">お問い合わせページ</a>からお願いします
     </p>
   </section>
 
@@ -89,13 +112,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    object-fit: cover;
     background: var(--gradient-hero);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 800;
     flex-shrink: 0;
   }
 
@@ -114,6 +132,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .profile-bio {
     color: var(--text-secondary);
     line-height: 1.9;
+  }
+
+  /* 実体験の箇条書き（普通の中黒リスト。資格タグのチップとは別スタイル） */
+  .bio-list {
+    color: var(--text-secondary);
+    line-height: 1.9;
+    padding-left: 1.3em;
+    margin: 12px 0;
+  }
+
+  .bio-list li {
+    margin-bottom: 8px;
   }
 
   .section-heading {
