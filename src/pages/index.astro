@@ -4,10 +4,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 
 const allPosts = await getCollection('blog');
-const latestPosts = allPosts
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 4);
 
+// 公開日の新しい順に並べた全記事（この配列を最新記事とカテゴリタブの両方で使う）
+const sortedPosts = allPosts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// 「最新記事」枠に出す2本
+const latestPosts = sortedPosts.slice(0, 2);
+
+// カテゴリタブの定義。
+// label = タブに表示する名前 / category = 記事frontmatterのcategory値（nullは「すべて」）
+// ※「開発」カテゴリは連載「AI編集部の成長記録」が中心のため、タブ名だけ「AI・開発」と表示する
+const tabs = [
+  { id: 'all',      label: 'すべて',       category: null },
+  { id: 'money',    label: 'お金',         category: 'お金' },
+  { id: 'security', label: 'セキュリティ', category: 'セキュリティ' },
+  { id: 'dev',      label: 'AI・開発',     category: '開発' },
+];
+
+// 各タブに表示する記事（最大6本）を先に用意しておく。
+// 全タブ分をHTMLに出力し、CSSで表示を切り替える方式にしているため、
+// JavaScriptがなくても動き、検索エンジンからも全記事が見える。
+const tabPosts = tabs.map(tab => ({
+  ...tab,
+  posts: (tab.category
+    ? sortedPosts.filter(post => post.data.category === tab.category)
+    : sortedPosts
+  ).slice(0, 6),
+}));
 ---
 
 <BaseLayout title="ホーム" description="クレジットカードの選び方や固定費の見直し、SNS上の投資詐欺対策など、お金とセキュリティに関わる実践的な知識を、初心者にもわかりやすい言葉でAIも活用しながら発信するブログです。">
@@ -28,6 +52,44 @@ const latestPosts = allPosts
     <div class="posts-grid">
       {latestPosts.map(post => <PostCard post={post} />)}
     </div>
+  </section>
+
+  {/*
+    カテゴリ別タブ。JavaScriptを使わず、隠したラジオボタンとCSSだけで切り替える。
+    各タブの記事はすべてHTMLに出力済みで、表示/非表示をCSSが担当する。
+  */}
+  <section class="category-section">
+    <h2 class="section-title">カテゴリ</h2>
+
+    {/* 切り替えのためのラジオボタン（画面には見えない） */}
+    {tabPosts.map((tab, index) => (
+      <input
+        type="radio"
+        name="category-tab"
+        id={`tab-${tab.id}`}
+        class="tab-radio"
+        checked={index === 0}
+      />
+    ))}
+
+    {/* タブのボタン部分（ラジオボタンのラベルとして機能する） */}
+    <div class="tab-labels">
+      {tabPosts.map(tab => (
+        <label for={`tab-${tab.id}`} class={`tab-label tab-label-${tab.id}`}>
+          {tab.label}
+        </label>
+      ))}
+    </div>
+
+    {/* タブごとの記事一覧。選ばれたタブのものだけCSSで表示される */}
+    {tabPosts.map(tab => (
+      <div class={`tab-panel tab-panel-${tab.id}`}>
+        <div class="posts-grid">
+          {tab.posts.map(post => <PostCard post={post} />)}
+        </div>
+      </div>
+    ))}
+
     <div class="more-link-wrapper">
       <a href="/blog/" class="more-link">すべての記事を見る →</a>
     </div>
@@ -98,6 +160,73 @@ const latestPosts = allPosts
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+
+  /* ===== カテゴリタブ（JavaScript不使用・CSSだけで切り替え） ===== */
+  .category-section {
+    margin-top: 48px;
+  }
+
+  /* 切り替え用のラジオボタンは画面から隠す（キーボード操作は残す） */
+  .tab-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .tab-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  /* タブのボタン。クリックすると対応するラジオボタンが選ばれる */
+  .tab-label {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    user-select: none;
+  }
+
+  .tab-label:hover {
+    border-color: #667eea;
+    color: #667eea;
+  }
+
+  /* 記事一覧は既定で非表示。選ばれたタブのぶんだけ下で表示する */
+  .tab-panel {
+    display: none;
+  }
+
+  /* 選ばれているタブのボタンを強調する */
+  #tab-all:checked ~ .tab-labels .tab-label-all,
+  #tab-money:checked ~ .tab-labels .tab-label-money,
+  #tab-security:checked ~ .tab-labels .tab-label-security,
+  #tab-dev:checked ~ .tab-labels .tab-label-dev {
+    background: var(--gradient-hero);
+    border-color: transparent;
+    color: white;
+  }
+
+  /* 選ばれているタブの記事一覧を表示する */
+  #tab-all:checked ~ .tab-panel-all,
+  #tab-money:checked ~ .tab-panel-money,
+  #tab-security:checked ~ .tab-panel-security,
+  #tab-dev:checked ~ .tab-panel-dev {
+    display: block;
+  }
+
+  /* キーボード操作でタブを選べるよう、フォーカス時に枠を出す */
+  .tab-radio:focus-visible ~ .tab-labels .tab-label {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
   }
 
   .more-link-wrapper {
