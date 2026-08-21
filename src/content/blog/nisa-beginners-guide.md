@@ -125,7 +125,6 @@ heroImage: "/images/hero/nisa-beginners-guide.jpg"
 ## あわせて読みたい
 
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
-- [SBI証券vs楽天証券｜新NISAで選ぶならどっち？](/blog/sbi-vs-rakuten-nisa-2026/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [2026年夏のボーナス活用プラン｜増やす・守る・使うの配分術](/blog/summer-bonus-2026-allocation/)
 - [AIが書いた数字と体験談を全部疑った話｜AI編集部の成長記録](/blog/ai-editorial-team-story-02/)

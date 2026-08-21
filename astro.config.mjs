@@ -19,5 +19,7 @@ export default defineConfig({
     '/blog/kougaku-ryoyouhi-reform-2026/':      '/blog/kouteki-hoshou-guide/',
     '/blog/mvno-sim-switch-guide/':             '/blog/fixed-cost-defense-guide-2026/',
     '/blog/claude-code-vs-codex/':              '/blog/',
+    '/blog/sbi-vs-rakuten-nisa-2026/':          '/blog/nisa-beginners-guide/',
+    '/blog/credit-card-beginners-guide/':       '/blog/fixed-cost-defense-guide-2026/',
   },
 });
