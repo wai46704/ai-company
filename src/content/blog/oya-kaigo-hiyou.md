@@ -168,3 +168,4 @@ heroImage: "/images/hero/oya-kaigo-hiyou.jpg"
 - [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
 - [【2026年8月改正】高額療養費、自己負担上限アップと年間上限新設](/blog/kougakuryouyouhi-2026-kaisei/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
+- [「デジタル終活」が必要な理由｜家族に遺さない4ステップ整理術](/blog/digital-shukatsu-2026/)

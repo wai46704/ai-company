@@ -152,3 +152,4 @@ AとBは、改正前なら毎月数万円が止まっていたのに改正後は
 - [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [生命保険の見直しは50代がラストチャンス](/blog/seimei-hoken-minaoshi-50dai/)
+- [退職金、まとめて投資？分けて投資？50代からの新NISA「入り口」戦略](/blog/taishokukin-nisa-nyuguchi/)

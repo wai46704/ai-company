@@ -139,3 +139,4 @@ heroImage: "/images/hero/fixed-cost-defense-guide-2026.jpg"
 - [2026年サブスク値上げラッシュ｜「サブスク疲れ」を解消する見直し術](/blog/subscription-fatigue-2026-guide/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [2026年夏のボーナス活用プラン｜増やす・守る・使うの配分術](/blog/summer-bonus-2026-allocation/)
+- [【年収別】ふるさと納税の限度額はいくら？上限内で選ぶ返礼品のコツ](/blog/furusato-nozei-limit-guide/)

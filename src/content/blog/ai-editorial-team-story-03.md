@@ -125,4 +125,4 @@ Etsyが公式に開示しているランキング要因の一覧にも、**「�
 
 - [非エンジニアがClaude CodeでAI編集部6人を作った話](/blog/ai-editorial-team-story/)
 - [AIが書いた数字と体験談を全部疑った話](/blog/ai-editorial-team-story-02/)
-- [投資を始める前に整える3つの土台｜リスク許容度・自己投資・稼ぐ力](/blog/toshi-mindset-guide/)
+- [退職金、まとめて投資？分けて投資？50代からの新NISA「入り口」戦略](/blog/taishokukin-nisa-nyuguchi/)
