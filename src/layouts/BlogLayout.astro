@@ -80,12 +80,12 @@ if (series) {
 
     {/* 筆者情報ボックス：全記事の末尾に自動表示（E-E-A-T対策・信頼性の明示） */}
     <aside class="author-box">
-      <div class="author-avatar">N</div>
+      <img src="/images/naoki-avatar.png" alt="Naokiのプロフィールアイコン" class="author-avatar" />
       <div class="author-info">
         <p class="author-label">この記事を書いた人</p>
         <p class="author-name">Naoki</p>
         <p class="author-bio">
-          FP（ファイナンシャル・プランニング）・簿記・行政書士を学んだ50代会社員。製造現場でのPC管理経験も活かし、「知っているかどうかで差がつくお金とIT」の話を、同じ目線でわかりやすく発信しています。
+          簿記2級に合格した50代の会社員。終身保険の解約や格安SIMへの乗り換えなど、実際に自分でやってみた結果と数字をもとに、「知っているかどうかで差がつくお金とIT」の話を同じ目線で発信しています。
         </p>
         <a href="/about/" class="author-link">プロフィールを見る →</a>
       </div>
@@ -193,13 +193,8 @@ if (series) {
     width: 52px;
     height: 52px;
     border-radius: 50%;
+    object-fit: cover;
     background: var(--gradient-hero);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.3rem;
-    font-weight: 800;
     flex-shrink: 0;
   }
   .author-label {

@@ -94,6 +94,19 @@ const tabPosts = tabs.map(tab => ({
       <a href="/blog/" class="more-link">すべての記事を見る →</a>
     </div>
   </section>
+
+  {/* このブログについて：誰が書いているサイトかをトップでも示す（信頼性の明示） */}
+  <section class="about-blog">
+    <img src="/images/naoki-avatar.png" alt="Naokiのプロフィールアイコン" class="about-blog-avatar" />
+    <div class="about-blog-info">
+      <p class="about-blog-label">このブログについて</p>
+      <p class="about-blog-text">
+        簿記2級に合格した50代の会社員 <strong>Naoki</strong> が運営しています。終身保険の解約（返戻金13万円）や格安SIMへの乗り換えなど、
+        <strong>実際に自分でやってみた結果と数字</strong>をもとに、お金とIT・セキュリティの話を同じ目線で発信しています。
+      </p>
+      <a href="/about/" class="about-blog-link">運営者について詳しく →</a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -245,9 +258,63 @@ const tabPosts = tabs.map(tab => ({
     opacity: 0.7;
   }
 
+  /* ===== このブログについて（運営者情報） ===== */
+  .about-blog {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-top: 56px;
+    padding: 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .about-blog-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--gradient-hero);
+    flex-shrink: 0;
+  }
+
+  .about-blog-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .about-blog-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  .about-blog-link {
+    color: #667eea;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+  }
+
+  .about-blog-link:hover {
+    opacity: 0.7;
+  }
+
   @media (max-width: 640px) {
     .posts-grid {
       grid-template-columns: 1fr;
+    }
+
+    /* 幅が狭いときは縦積みにする */
+    .about-blog {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
   }
 </style>

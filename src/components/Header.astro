@@ -24,11 +24,13 @@ const searchIndex = JSON.stringify(allPosts.map(post => ({
       {navLinks.map(link => (
         <a href={link.href} class="nav-link">{link.label}</a>
       ))}
-      <button id="search-btn" class="search-btn" aria-label="検索">
+      <button id="search-btn" class="search-btn" aria-label="記事を検索">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/>
           <line x1="21" y1="21" x2="16.65" y2="16.65"/>
         </svg>
+        {/* 検索ボタンだと気づかれやすいよう文字も添える（狭い画面ではCSSで隠す） */}
+        <span class="search-btn-label">検索</span>
       </button>
     </nav>
   </div>
@@ -93,19 +95,37 @@ const searchIndex = JSON.stringify(allPosts.map(post => ({
   /* 検索ボタン */
   .search-btn {
     background: none;
-    border: none;
+    border: 1px solid var(--border-color);
     cursor: pointer;
     color: var(--text-secondary);
     display: flex;
     align-items: center;
-    padding: 4px;
-    border-radius: 6px;
-    transition: color 0.2s, background 0.2s;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
   }
 
   .search-btn:hover {
-    color: var(--text-primary);
-    background: var(--border-color);
+    color: #667eea;
+    border-color: #667eea;
+  }
+
+  .search-btn-label {
+    line-height: 1;
+  }
+
+  /* 画面が狭いときはアイコンだけにして、ナビが崩れないようにする */
+  @media (max-width: 520px) {
+    .search-btn-label {
+      display: none;
+    }
+
+    .search-btn {
+      padding: 5px 8px;
+    }
   }
 
   /* 検索オーバーレイ */
