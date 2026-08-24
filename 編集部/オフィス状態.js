@@ -1,13 +1,13 @@
 window.OFFICE_STATUS = {
-  updated: "2026-08-22 08:00",
+  updated: "2026-08-25 06:00",
   message: "👑 本日の業務完了！お疲れさまでした",
   members: {
-    minato:  { state: "done", task: "財形貯蓄の記事案を1本提案！既存テーマの飽和で本日は1本のみ" },
-    haru:    { state: "done", task: "標準報酬月額記事に子育て支援金0.23%の項目を追記完了" },
-    aoi:     { state: "done", task: "下書き3本を最終確認完了！新たな懸念は見つからず" },
-    tsumugi: { state: "done", task: "Substack Notes 3本・X単発2本を作成！Notes中心に方針転換" },
-    riku:    { state: "done", task: "内部リンク補強4件を実装レベルまで詳細化！社長の一言で反映可能" },
-    /* カエデ: 完了。文字混入2本の修正プロンプト完成＋トンマナ基準を更新（ドット絵未実装のためテキスト報告のみ） */
-    yume:    { state: "done", task: "親の介護費用のメルマガ原稿を作成完了！体験談から書き出す形に" }
+    minato:  { state: "done", task: "記事案2本を提案！相続登記の義務化・医療費控除の先延ばし" },
+    haru:    { state: "done", task: "難病記事を公開できる状態に整備完了！コメント5件削除・差し替え案作成" },
+    aoi:     { state: "done", task: "連載第4回に必須修正9件！タイトルと本文の食い違いを発見" },
+    tsumugi: { state: "done", task: "Notes3本・X4本を作成！リンク有無のA/Bテストを継続" },
+    riku:    { state: "done", task: "検索パフォーマンスが3回ぶりに復活！幽霊URL12件の正体も判明" },
+    /* カエデ: 完了。連載第4回のプロンプト作成＋在庫4本の棚卸し（ドット絵未実装のためテキスト報告のみ） */
+    yume:    { state: "idle", task: "本日は待機（週1運用・前回8/22作成）" }
   }
 };
