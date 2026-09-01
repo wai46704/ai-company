@@ -1,13 +1,13 @@
 window.OFFICE_STATUS = {
-  updated: "2026-08-30 07:30",
+  updated: "2026-09-02 09:00",
   message: "👑 本日の業務完了！お疲れさまでした",
   members: {
-    minato:  { state: "done", task: "標準報酬月額の下書きを一次情報で鮮度確認！数値の食い違いゼロ" },
-    haru:    { state: "done", task: "連載第4回を全文点検！L36の矛盾は解消済み・時制の食い違いもゼロと確認" },
-    aoi:     { state: "done", task: "連載第4回に必須修正5件！匿名化が事実上破れていると発見" },
-    tsumugi: { state: "done", task: "Notes3本・X4本を作成！難病記事の告知が本日の目玉・数値チェック合格" },
-    riku:    { state: "done", task: "公開作業に副作用なしと実測！AdSenseは新データ待ちの見解" },
-    /* カエデ: 完了。在庫5本を実測棚卸し。標準報酬月額のプロンプトを最新ルールへ更新、画像未設定は0件と判明 */
-    yume:    { state: "done", task: "難病記事のメルマガ原稿を作成！免責文あり・体験談から入る形に" }
+    minato:  { state: "done", task: "新規記事案2本を提案！iDeCo掛金上限・ねんきん定期便の見込み額" },
+    haru:    { state: "done", task: "承認済み記事案2本を執筆完了！自動車保険見積もり・年末調整の控除" },
+    aoi:     { state: "done", task: "新規校閲対象なし。既存記事の情報鮮度を棚卸し・要更新2件を発見" },
+    tsumugi: { state: "done", task: "Notes3本・X2本を作成！連載第4回の未告知を発見" },
+    riku:    { state: "done", task: "9/2付データを分析！AdSense再申請の判定はまだ早いと結論" },
+    /* カエデ: 完了。新規プロンプトなし、バックログ棚卸しのみ。標準報酬月額プロンプトの失効を発見・訂正 */
+    yume:    { state: "idle", task: "本日は業務なし（前回8/30作成・週1運用のため）" }
   }
 };
