@@ -42,12 +42,13 @@ src/
   components/
     Header.astro       ← ナビゲーションバー
     Footer.astro       ← フッター
-    PostCard.astro     ← 記事一覧用カードコンポーネント（カテゴリ配色もここに集約）
+    PostCard.astro     ← 記事一覧用カードコンポーネント（カテゴリ配色もここに集約）。heroImageがあればカード上部に軽量サムネイル（/images/hero-thumb/、幅480px）を表示し、無ければ従来の絵文字バナーにフォールバック（2026-09追加）
     NewsletterCTA.astro ← メルマガ登録の誘導（BlogLayoutに組込・後から追加）
   styles/
     global.css         ← CSS変数・リセット・共通スタイル
 public/
-  images/hero/         ← 記事アイキャッチ（heroImage の実体）
+  images/hero/         ← 記事アイキャッチ（heroImage の実体。記事詳細ページ用）
+  images/hero-thumb/   ← カード表示用の軽量サムネイル（幅480px・同名ファイル。PostCard.astroが参照。2026-09追加）
   images/              ← その他の静的画像
   CNAME                ← 独自ドメイン設定（GitHub Pages）
   favicon.svg

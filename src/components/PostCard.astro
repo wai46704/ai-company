@@ -6,7 +6,12 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { title, pubDate, category, description, emoji } = post.data;
+const { title, pubDate, category, description, emoji, heroImage } = post.data;
+
+// カード表示にはヒーロー画像の軽量サムネイル（幅480px）を使う。
+// サムネイルは /images/hero/<slug>.jpg → /images/hero-thumb/<slug>.jpg の同名ファイルとして
+// 事前生成済み（元画像は記事詳細ページでそのまま使うため触らない）。
+const thumbImage = heroImage?.replace('/images/hero/', '/images/hero-thumb/');
 
 const categoryStyles: Record<string, { gradient: string; color: string }> = {
   '開発':    { gradient: 'linear-gradient(135deg, #667eea, #764ba2)', color: '#667eea' },
@@ -29,9 +34,15 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
 ---
 
 <a href={`/blog/${post.slug}/`} class="post-card">
-  <div class="card-banner" style={`background: ${style.gradient}`}>
-    <span class="card-emoji">{emoji}</span>
-  </div>
+  {thumbImage ? (
+    <div class="card-banner-img">
+      <img src={thumbImage} alt="" loading="lazy" class="card-hero" width="480" height="160" />
+    </div>
+  ) : (
+    <div class="card-banner" style={`background: ${style.gradient}`}>
+      <span class="card-emoji">{emoji}</span>
+    </div>
+  )}
   <div class="card-body">
     <span class="card-category" style={`color: ${style.color}; background: ${style.color}20`}>
       {category}
@@ -67,6 +78,18 @@ const formattedDate = pubDate.toLocaleDateString('ja-JP', {
 
   .card-emoji {
     font-size: 2rem;
+  }
+
+  .card-banner-img {
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .card-hero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .card-body {
