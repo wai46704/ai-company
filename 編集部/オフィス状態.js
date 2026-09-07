@@ -1,13 +1,13 @@
 window.OFFICE_STATUS = {
-  updated: "2026-09-06 11:00",
+  updated: "2026-09-08 09:00",
   message: "👑 本日の業務完了！お疲れさまでした",
   members: {
-    minato:  { state: "done", task: "本日は条件を満たす記事案なし（候補6件を検討し全て見送り）" },
-    haru:    { state: "done", task: "既存下書き2本の必須修正を反映完了" },
-    aoi:     { state: "done", task: "公開済み2本の情報の古さを発見！固定費防衛ガイド・ふるさと納税限度額" },
-    tsumugi: { state: "done", task: "Notes2本・単発ネタ2本を作成完了" },
-    riku:    { state: "done", task: "9/4修正の反映を検証済み！オーファンページはゼロに" },
-    /* カエデ: 完了。Windows10記事の画像プロンプトを現行ルールに更新 */
-    yume:    { state: "done", task: "メルマガ原稿1本を作成完了！資格3つの体験談" }
+    minato:  { state: "done", task: "本日は条件を満たす記事案なし（既出・滞留案との重複を回避）" },
+    haru:    { state: "done", task: "本日は執筆対象なし（新規承認案なし・既存2本はヒアリング待ち）" },
+    aoi:     { state: "done", task: "自動車保険・医療保険の2本、反映修正を検証し「公開OK」に" },
+    tsumugi: { state: "done", task: "Notes3本・単発ネタ2本を作成完了" },
+    riku:    { state: "done", task: "AdSense再申請の判定基準を確認！「再申請できる状態」" },
+    /* カエデ: 執務室ビューに未実装のためstate管理なし */
+    yume:    { state: "idle", task: "本日は業務なし（週1運用・前回9/6作成のため待機）" }
   }
 };
