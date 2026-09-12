@@ -96,3 +96,4 @@ AI編集部は今日も動いています。今日からは、聞き取りの原
 - [非エンジニアがClaude CodeでAI編集部6人を作った話](/blog/ai-editorial-team-story/)
 - [AIが書いた数字と体験談を全部疑った話](/blog/ai-editorial-team-story-02/)
 - [調べるほど「やらない」に傾いた話](/blog/ai-editorial-team-story-03/)
+- [【第5回】一度直したはずのミスが、3日後にそのまま再発した話｜AI編集部の成長記録](/blog/ai-editorial-team-story-05/)
