@@ -1,8 +1,8 @@
 ---
-title: "2026年サブスク値上げラッシュ｜「サブスク疲れ」を解消する見直し術"
+title: "サブスク疲れの解消法｜筆者は3項目のシートで判断する"
 pubDate: 2026-07-18
 category: "お金"
-description: "Nintendo Switch OnlineやAmazon Music Unlimitedなど2026年に相次ぐサブスク値上げを整理し、洗い出し・重複整理・家族プラン活用による「サブスク断捨離」の手順を紹介する。"
+description: "筆者はサブスクを家計簿と分け、「サービス名・価格・満足度」の3項目だけのシートで管理しています。値上げの通知が届いたら満足度欄を見て、継続か解約かを決める。基本は月払い、理由は「やめたいときにやめられる」から。実際の運用を紹介します。"
 emoji: "💳"
 heroImage: "/images/hero/subscription-fatigue-2026-guide.jpg"
 ---
