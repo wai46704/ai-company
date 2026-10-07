@@ -1,0 +1,144 @@
+---
+// 編集方針ページ（/editorial-policy/）
+// このブログがAIを使って記事を作っていることと、人間（筆者）が何を決めているかを、
+// 読者に正直に説明するためのページ。2026-10-02新設。
+// 文案はハルが連載「AI編集部の成長記録」の記述だけをもとに作成し、社長が確認したもの
+// （文案と根拠対応表：編集部/下書き/editorial-policy_文案_2026-09-30.md）。
+// 体制やルールを変えたら、このページも同じ作業の中で直すこと。
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// 最終更新日（内容を変えたらここも更新する）
+const lastUpdated = '2026年10月2日';
+---
+
+<BaseLayout
+  title="編集方針｜AIの使い方と、記事ができるまで"
+  description="naoki-blog.comはAIを使って記事を作っています。AIに任せる範囲、体験談と数字の確かめ方、公開の判断、誤りの訂正について説明します。"
+>
+  <div class="policy-page container">
+
+    <header class="policy-header">
+      <h1 class="policy-title">編集方針</h1>
+      <p class="policy-updated">最終更新日：{lastUpdated}</p>
+    </header>
+
+    <div class="policy-body">
+
+      <section>
+        <p>このページでは、naoki-blog.com がどのように記事を作っているかをご説明します。当ブログは、AIを使って記事を作っています。そのことを隠さず、どこまでをAIに任せ、どこからを人間が決めているのかを、ここに書いておきます。</p>
+      </section>
+
+      <section>
+        <h2>運営体制</h2>
+        <p>当ブログを運営している人間は、筆者のNaoki（<a href="/about/">プロフィール</a>）ひとりです。記事づくりには、AIアシスタントの「Claude（クロード）」を使った「AI編集部」という仕組みを使っています。調べもの、執筆、校閲、SNS投稿案などの役割ごとにAIを割り当て、下書きを作らせています。記事のアイキャッチ画像は、画像生成AIで作っています。</p>
+      </section>
+
+      <section>
+        <h2>AIの役割と限界</h2>
+        <p>AIが担うのは、調べもの・下書き・校閲など、記事づくりの補助までです。AIが作ったものはすべて「下書き」として扱い、記事を公開するかどうかは筆者本人が判断します。</p>
+        <p>AIは、もっともらしい間違いを書くことがあります。実際にこれまで、金額の桁が1つ違っていたり、出来事の時期がずれていたりしたことがありました。こうした経験から、以下のルールを決めて運用しています。</p>
+      </section>
+
+      <section>
+        <h2>体験談の扱い</h2>
+        <p>記事に出てくる体験談は、筆者本人への聞き取りで得たものだけを使います。AIが体験談や数字を創作することは禁止しています。</p>
+        <p>聞き取りの回答は、要約する前の元の文のまま、記事ごとに保存しています。記事の一文ごとに、筆者のどの発言にもとづくかを突き合わせ、対応する発言がない文は書かないルールにしています。記録と照らし合わせて確かめられない箇所は、推測で済ませず、筆者本人に確認するルールです。</p>
+      </section>
+
+      <section>
+        <h2>数字・制度の裏取り</h2>
+        <p>数字や制度の説明は、省庁などの公式発表や、当事者である企業の発表まで遡って確認します。まとめサイトなどの又聞きの情報だけを根拠にはしません。</p>
+        <p>確認した資料は、発行元・資料名・確認日まで記録するルールにしています。一部の記事では、本文の中に出典へのリンクを示し、記事の末尾に確認日つきの「参考資料」を載せています。この示し方を、ほかの記事にも順に広げているところです。</p>
+      </section>
+
+      <section>
+        <h2>公開の判断</h2>
+        <p>記事を公開するかどうかは、筆者本人が判断しています。校閲担当のAIが「本人に確認が必要」と指摘した箇所は、編集の判断で飛ばさず、本人に確認するルールにしています。</p>
+      </section>
+
+      <section>
+        <h2>誤りの訂正</h2>
+        <p>こうした手順を取っていても、誤りをゼロにできるとは言い切れません。過去には、公開したあとで筆者本人が記事の誤りに気づいたこともありました。</p>
+        <p>誤りに気づいた場合は、記事を訂正します。内容を更新した記事には、更新した日付を示します。記事の誤りにお気づきの際は、<a href="/contact/">お問い合わせページ</a>からお知らせいただけると助かります。</p>
+      </section>
+
+      <section>
+        <h2>お金の記事について</h2>
+        <p>当ブログのお金に関する記事は、筆者個人の学習と実体験にもとづく情報提供を目的としています。特定の金融商品の勧誘や、税金・投資の最終的な判断を代わりに行うものではありません。実際のお手続きの際は、必要に応じて専門家や公式情報をご確認ください。</p>
+      </section>
+
+      <section>
+        <h2>舞台裏をもっと詳しく</h2>
+        <p>AI編集部の仕組みや、これまでに起きた失敗とその対策は、連載「AI編集部の成長記録」で詳しく書いています。まずは第1回からどうぞ。各回の記事の中に、連載の全話一覧があります。</p>
+        <p><a href="/blog/ai-editorial-team-story/">非エンジニアがClaude CodeでAI編集部6人を作った話（連載第1回）</a></p>
+      </section>
+
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  /* 見た目はプライバシーポリシーのページ（privacy.astro）と揃えている */
+  .policy-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 20px 80px;
+  }
+
+  .policy-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .policy-title {
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .policy-updated {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .policy-body {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .policy-body section h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 3px solid #667eea;
+  }
+
+  .policy-body section p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  .policy-body section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .policy-body a {
+    color: #667eea;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .policy-body a:hover {
+    opacity: 0.8;
+  }
+</style>

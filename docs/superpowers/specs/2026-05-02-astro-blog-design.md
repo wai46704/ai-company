@@ -82,7 +82,9 @@ astro.config.mjs
 ### 記事詳細（`/blog/[slug]`）
 - `BlogLayout` を使用
 - `heroImage` があれば本文の一番上にアイキャッチ画像を表示
-- 本文の下に**筆者情報ボックス**（アバター画像・名前・簡単な紹介・Aboutへのリンク）を全記事に自動表示（E-E-A-T対策）
+- メタ行にカテゴリ・公開日を表示。`updatedDate` がある記事だけ「更新日 YYYY年M月D日」も表示（2026-09追加）
+- 本文の下に**筆者情報ボックス**（アバター画像・名前・簡単な紹介・記事の作り方の一文・「プロフィールを見る」「編集方針を見る（`/editorial-policy/`）」リンク）を全記事に自動表示（E-E-A-T対策）
+- `<head>` に `article:published_time`（＋`updatedDate` があれば `article:modified_time`）と、JSON-LD（schema.org `BlogPosting`。author/publisher は Person「Naoki」）を出力（`BaseLayout` の `type="article"` のときだけ。2026-09追加）
 - Markdownを本文としてレンダリング
 - 本文下に `NewsletterCTA`（メルマガ登録の誘導）
 - `series` があれば「📖 連載〈連載名〉第N回」ラベルと、同じ連載の**全話リストを自動生成**（`episode` 昇順・現在の記事に「▶ この記事」表示。話が増えても手作業不要）
@@ -102,6 +104,7 @@ astro.config.mjs
 {
   title: string        // 記事タイトル
   pubDate: Date        // 公開日
+  updatedDate?: Date   // 更新日（任意）。内容を更新したときだけ入れる。記事ページの表示・modified_time・JSON-LDの dateModified に使う
   category: string     // カテゴリ（主力は「お金」「セキュリティ」。他に開発・日常・デザイン）
   description: string  // 記事概要（一覧カードに表示）
   emoji: string        // カードバナーに使う絵文字
@@ -111,7 +114,7 @@ astro.config.mjs
 }
 ```
 
-> 実装は `src/content/config.ts`。`heroImage` / `series` / `episode` は運用開始後に追加した任意項目（未設定の既存記事はこれまで通り表示される）。
+> 実装は `src/content/config.ts`。`heroImage` / `series` / `episode` / `updatedDate` は運用開始後に追加した任意項目（未設定の既存記事はこれまで通り表示される）。
 
 ---
 
@@ -179,4 +182,6 @@ export default defineConfig({
 - sitemap 自動生成（`@astrojs/sitemap`）
 - 旧記事の301リダイレクト（`redirects`）
 - プライバシーポリシーページ（`privacy.astro`）
+- 更新日（`updatedDate`）と記事の構造化データ（JSON-LD `BlogPosting`）（2026-09）
+- フッターに About・お問い合わせ・編集方針へのリンク（編集方針ページ `/editorial-policy/` は文案待ちで未作成。2026-09時点）
 - カテゴリ「お金」「セキュリティ」の追加

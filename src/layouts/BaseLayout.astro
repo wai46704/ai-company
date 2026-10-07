@@ -12,6 +12,8 @@ interface Props {
   type?: 'website' | 'article';
   // 記事の公開日。type が 'article' のときだけ使う
   publishedTime?: Date;
+  // 記事の更新日（frontmatter の updatedDate）。内容を更新した記事だけ渡される。type が 'article' のときだけ使う
+  modifiedTime?: Date;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   image,
   type = 'website',
   publishedTime,
+  modifiedTime,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -33,6 +36,36 @@ const DEFAULT_OG_IMAGE = '/images/title/Cozy Sunlit Workspace with Colorful Note
 // OGP画像は「https://〜」から始まる絶対URLでないとSNS側が読み込めないため、
 // new URL でサイトのドメインを付ける（ファイル名の空白もここで自動的にエンコードされる）
 const ogImageURL = new URL(image ?? DEFAULT_OG_IMAGE, Astro.site);
+
+// 筆者（兼 運営者）の情報。個人運営のブログなので、会社（Organization）ではなく人（Person）として扱う
+const AUTHOR_PERSON = {
+  '@type': 'Person',
+  name: 'Naoki',
+  url: 'https://naoki-blog.com/about/',
+};
+
+// 構造化データ（JSON-LD）：検索エンジンに「これはブログ記事で、誰がいつ書いたか」を
+// 機械が読める形で伝えるためのもの。記事ページ（type が 'article'）のときだけ作り、それ以外は null。
+const articleJsonLd =
+  type === 'article'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title,
+        description,
+        // 公開日。記事ページでは必ず publishedTime が渡される想定
+        datePublished: publishedTime?.toISOString(),
+        // 更新日。updatedDate が無い記事は公開日と同じにする（Googleの推奨どおり必ず値を入れる）
+        dateModified: (modifiedTime ?? publishedTime)?.toISOString(),
+        author: AUTHOR_PERSON,
+        publisher: AUTHOR_PERSON,
+        // OGP画像と同じ絶対URL（https://〜）を使う
+        image: ogImageURL.href,
+        // この記事の正式なURL（canonical と同じ）
+        mainEntityOfPage: canonicalURL.href,
+        inLanguage: 'ja',
+      }
+    : null;
 ---
 
 <!DOCTYPE html>
@@ -57,6 +90,20 @@ const ogImageURL = new URL(image ?? DEFAULT_OG_IMAGE, Astro.site);
     <meta property="og:locale" content="ja_JP" />
     {publishedTime && (
       <meta property="article:published_time" content={publishedTime.toISOString()} />
+    )}
+    {/* 更新日：内容を更新した記事（updatedDate がある記事）だけ出す */}
+    {modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime.toISOString()} />
+    )}
+
+    {/* 構造化データ（JSON-LD）：記事ページだけ出力。set:html で中身をそのまま書き出す。
+        念のため「<」を < に置き換え、タイトル等に「</script>」が入っても
+        タグが途中で閉じないようにしている（JSONとしての意味は変わらない） */}
+    {articleJsonLd && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify(articleJsonLd).replace(/</g, '\\u003c')}
+      />
     )}
 
     {/* X（旧Twitter）用。summary_large_image を指定すると大きな画像付きカードになる */}

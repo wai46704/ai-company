@@ -11,14 +11,20 @@ interface Props {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
-// heroImage・series・episode は任意項目。設定されている記事だけ、それぞれの要素を表示する
-const { title, pubDate, category, description, heroImage, series, episode } = post.data;
+// heroImage・series・episode・updatedDate は任意項目。設定されている記事だけ、それぞれの要素を表示する
+const { title, pubDate, updatedDate, category, description, heroImage, series, episode } = post.data;
 
-const formattedDate = pubDate.toLocaleDateString('ja-JP', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+// 日付を「2026年9月30日」の形にそろえる関数（公開日と更新日で同じ書き方にするため共通化）
+const formatJaDate = (date: Date) =>
+  date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+const formattedDate = formatJaDate(pubDate);
+// 更新日は updatedDate が入っている記事だけ作る（無い記事は undefined のまま＝表示しない）
+const formattedUpdatedDate = updatedDate ? formatJaDate(updatedDate) : undefined;
 
 // 連載記事のとき（series が設定されているとき）だけ、同じ連載の全話を集めて話数順に並べる。
 // これで記事末尾に「この連載の一覧」を自動表示でき、話が増えても手作業でリンクを足す必要がない。
@@ -38,6 +44,7 @@ if (series) {
   image={heroImage}
   type="article"
   publishedTime={pubDate}
+  modifiedTime={updatedDate}
 >
   <article class="blog-post">
     {/* アイキャッチ画像（heroImage が設定されている記事のみ・記事の一番上に表示） */}
@@ -48,6 +55,12 @@ if (series) {
       <div class="post-meta">
         <span class="post-category">{category}</span>
         <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+        {/* 更新日：frontmatter に updatedDate がある記事だけ表示する */}
+        {updatedDate && (
+          <span class="post-updated">
+            更新日 <time datetime={updatedDate.toISOString()}>{formattedUpdatedDate}</time>
+          </span>
+        )}
       </div>
       {/* 連載ラベル：series が設定された記事だけ「📖 連載〈連載名〉第N回」を表示 */}
       {series && (
@@ -87,7 +100,15 @@ if (series) {
         <p class="author-bio">
           簿記2級に合格した50代の会社員。終身保険の解約や格安SIMへの乗り換えなど、実際に自分でやってみた結果と数字をもとに、「知っているかどうかで差がつくお金とIT」の話を同じ目線で発信しています。
         </p>
-        <a href="/about/" class="author-link">プロフィールを見る →</a>
+        {/* 記事の作り方の説明（AIとの分担・体験談の出どころ・本人確認）。読者の信頼のために全記事に出す */}
+        <p class="author-bio">
+          記事はAIの編集部と一緒に作り、体験談は筆者本人への聞き取りだけを使い、公開するかどうかは筆者本人が判断しています。
+        </p>
+        {/* プロフィールと編集方針へのリンクを横に並べる（狭い画面では折り返す） */}
+        <div class="author-links">
+          <a href="/about/" class="author-link">プロフィールを見る →</a>
+          <a href="/editorial-policy/" class="author-link">編集方針を見る →</a>
+        </div>
       </div>
     </aside>
 
@@ -213,6 +234,12 @@ if (series) {
     color: var(--text-secondary);
     line-height: 1.7;
     margin-bottom: 8px;
+  }
+  /* 「プロフィールを見る」「編集方針を見る」を横並びにする入れ物 */
+  .author-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
   }
   .author-link {
     font-size: 0.85rem;
