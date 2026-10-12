@@ -1,6 +1,7 @@
 ---
 title: "【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方"
 pubDate: 2026-06-02
+updatedDate: 2026-10-07
 category: "お金"
 description: "「貯金が増えない」「クビになったらどうしよう」「暴落が怖くて投資できない」——その不安をすべて解消する「生活防衛資金」の正しい作り方を職種別シミュレーション付きで解説します。"
 emoji: "🛡️"
@@ -37,13 +38,13 @@ heroImage: "/images/hero/seikatsu-bouei-shikin-guide.jpg"
 
 ### 会社員の場合：生活費の「3〜6ヶ月分」
 
-会社員は自営業に比べて収入が安定しており、万が一の際も「失業保険」や「傷病手当金」などの公的制度が充実しています。そのため、生活費の3〜6ヶ月分が目安です。
+会社員は自営業に比べて収入が安定しており、万が一の際も「失業保険」や「傷病手当金」などの公的制度が充実しています（出典：[ハローワークインターネットサービス「基本手当について」](https://www.hellowork.mhlw.go.jp/insurance/insurance_basicbenefit.html)、[全国健康保険協会（協会けんぽ）「傷病手当金」](https://www.kyoukaikenpo.or.jp/benefit/injury_and_sickness_allowance/index.html)）。そのため、生活費の3〜6ヶ月分が一般によく言われる目安です。
 
 > **計算例**：月々の生活費が20万円 → **20万円 × 3〜6ヶ月 ＝ 60万〜120万円**
 
 ### 自営業・フリーランスの場合：生活費の「1〜2年分」
 
-自営業者は仕事が突然なくなるリスクが高く、公的な保障も手薄です。より慎重に生活費の1〜2年分を確保しておきましょう。
+自営業者は仕事が突然なくなるリスクが高く、公的な保障も手薄です。一般には生活費の1〜2年分が目安とされます。より慎重に確保しておきましょう。
 
 > **計算例**：月々の生活費が25万円 → **300万円〜600万円**
 
@@ -78,6 +79,8 @@ heroImage: "/images/hero/seikatsu-bouei-shikin-guide.jpg"
 | 医療保険・車両保険・学資保険 | 不要になるケースが多い（車両保険は新車の最初の数年が例外） |
 | 掛け捨て生命保険（家族持ち）・火災保険・自動車保険（対人対物） | 必要 |
 
+医療費については、公的医療保険の「高額療養費制度」により、病院や薬局の窓口で支払う自己負担に、年齢や所得に応じた上限額が設けられています（出典：[厚生労働省「高額療養費制度を利用される皆さまへ」](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/juuyou/kougakuiryou/index.html)）。
+
 車両保険については、筆者は車の価値ではなく「運転の慣れ」を基準に、新車の1年目だけ付けて2年目に外しました。その判断の経緯は[自動車保険が高いと感じたら](/blog/car-insurance-review-guide/)に書いています。
 
 保険料という固定費を削れるため、貯金のスピードはさらに加速します。
@@ -104,8 +107,10 @@ heroImage: "/images/hero/seikatsu-bouei-shikin-guide.jpg"
 
 | 借金の種類 | 対応 |
 |---|---|
-| 消費者金融・リボ払い（金利10〜15%以上） | **最優先で返済**（生活防衛資金より利回りが高い） |
+| 消費者金融・リボ払い（年15%前後の高金利が多い。消費者金融の上限は借入額に応じて年15〜20%） | **最優先で返済**（生活防衛資金より利回りが高い） |
 | 奨学金などの低金利 | 生活防衛資金の確保を優先してもOK |
+
+（出典：[金融庁「貸金業法のキホン」](https://www.fsa.go.jp/policy/kashikin/kihon.html)）
 
 ### 投資と並行してもいい？
 
@@ -144,11 +149,18 @@ heroImage: "/images/hero/seikatsu-bouei-shikin-guide.jpg"
 
 なお、この記事は生活防衛資金についての一般的な考え方の整理と筆者個人の方針の紹介を目的としたものであり、特定の金融機関・商品の利用を推奨するものではありません。必要な金額は収入や家族構成によって異なりますので、実際の金額設定はご自身の状況を踏まえてご検討ください。
 
+## 参考資料
+
+- [ハローワークインターネットサービス「基本手当について」](https://www.hellowork.mhlw.go.jp/insurance/insurance_basicbenefit.html)（確認日：2026年10月7日）
+- [全国健康保険協会（協会けんぽ）「傷病手当金」](https://www.kyoukaikenpo.or.jp/benefit/injury_and_sickness_allowance/index.html)（確認日：2026年10月7日）
+- [厚生労働省「高額療養費制度を利用される皆さまへ」](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/iryouhoken/juuyou/kougakuiryou/index.html)（確認日：2026年10月7日）
+- [金融庁「貸金業法のキホン」](https://www.fsa.go.jp/policy/kashikin/kihon.html)（確認日：2026年10月7日）
+
 ---
 
 ## あわせて読みたい
 
-- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
+- [固定費を月2万円ほど下げた見直し手順｜保険・スマホ・光回線](/blog/fixed-cost-defense-guide-2026/)
 - [自動車保険、高くない？見直しで確認すべき3つのこと](/blog/car-insurance-review-guide/)
 - [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [非エンジニアがClaude CodeでAI編集部6人を作った話](/blog/ai-editorial-team-story/)

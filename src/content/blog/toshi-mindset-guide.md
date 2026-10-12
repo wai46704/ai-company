@@ -132,4 +132,4 @@ SNSを開けば「個別株で資産3倍」「一瞬で億り人」といった�
 - [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
-- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
+- [固定費を月2万円ほど下げた見直し手順｜保険・スマホ・光回線](/blog/fixed-cost-defense-guide-2026/)

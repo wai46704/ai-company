@@ -216,6 +216,6 @@ heroImage: "/images/hero/car-insurance-review-guide.jpg"
 
 ## あわせて読みたい
 
-- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
+- [固定費を月2万円ほど下げた見直し手順｜保険・スマホ・光回線](/blog/fixed-cost-defense-guide-2026/)
 - [「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
 - [【年収別】ふるさと納税の限度額はいくら？上限内で選ぶ返礼品のコツ](/blog/furusato-nozei-limit-guide/)

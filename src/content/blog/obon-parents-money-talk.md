@@ -143,5 +143,5 @@ heroImage: "/images/hero/obon-parents-money-talk.jpg"
 
 - [親の介護費用、実家はいくら準備できているのか｜まず自分で調べた](/blog/oya-kaigo-hiyou/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
-- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
+- [固定費を月2万円ほど下げた見直し手順｜保険・スマホ・光回線](/blog/fixed-cost-defense-guide-2026/)
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)

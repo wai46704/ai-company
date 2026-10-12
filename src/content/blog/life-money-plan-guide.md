@@ -124,5 +124,5 @@ heroImage: "/images/hero/life-money-plan-guide.jpg"
 - [新NISAの出口戦略｜筆者は70歳から定率取り崩しに決めた理由](/blog/nisa-exit-strategy-2026/)
 - [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
 - [【保存版】もう不安にならない「最強の盾」生活防衛資金の作り方](/blog/seikatsu-bouei-shikin-guide/)
-- [【2026年7月】値上げに負けない固定費防衛ガイド](/blog/fixed-cost-defense-guide-2026/)
+- [固定費を月2万円ほど下げた見直し手順｜保険・スマホ・光回線](/blog/fixed-cost-defense-guide-2026/)
 - [【2026年改正】在職老齢年金の基準額が月65万円に｜働き損は古い](/blog/zaishoku-roureinenkin-2026/)
