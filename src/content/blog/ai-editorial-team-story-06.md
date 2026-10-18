@@ -100,3 +100,4 @@ episode: 6
 - [AIが2箇所止めた。当たったのは1箇所だった](/blog/ai-editorial-team-story-04/)
 - [一度直したはずのミスが、3日後にそのまま再発した話](/blog/ai-editorial-team-story-05/)
 - [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
+- [【第7回】AIが社長のメールアドレスを勝手に名乗った話｜AI編集部の成長記録](/blog/ai-editorial-team-story-07/)
