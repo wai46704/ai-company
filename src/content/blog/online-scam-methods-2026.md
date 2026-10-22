@@ -186,6 +186,7 @@ SIMスワップ詐欺は、**スマホに現れる「異変」で気づける**�
 
 ## あわせて読みたい
 
+- [宅配便を装うSMS詐欺｜スミッシングの見分け方【実体験】](/blog/smishing-nimotsu-gosou-2026/)
 - [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
 - [お盆の帰省で親とお金の話｜最低限確認したい5つのこと](/blog/obon-parents-money-talk/)
 - [新NISAの始め方3ステップ｜初心者がつまずかない最短ルート](/blog/nisa-beginners-guide/)
