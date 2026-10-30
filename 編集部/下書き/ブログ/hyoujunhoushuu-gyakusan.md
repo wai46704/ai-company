@@ -178,7 +178,7 @@ emoji: "🧮"
 
 ## 最後は、ねんきんネットで答え合わせ
 
-逆算は「その場で確かめられる方法」であって、公式の記録ではありません。正確な標準報酬月額は日本年金機構の**ねんきんネット**で月ごとに確認できます（出典：[日本年金機構「『ねんきんネット』による年金記録の確認」](https://www.nenkin.go.jp/n_net/utilization/confirmation.html)）。年金事務所の窓口や、勤務先の人事・総務に聞く手も。
+逆算は「その場で確かめられる方法」であって、公式の記録ではありません。正確な標準報酬月額は日本年金機構の**ねんきんネット**で確認できます（出典：[日本年金機構「『ねんきんネット』による年金記録の確認」](https://www.nenkin.go.jp/denshibenri_kojin/n_net/utilization/confirmation.html)）。年金事務所の窓口や、勤務先の人事・総務に聞く手も。
 
 おすすめは、**①給与明細で逆算してあたりをつける → ②ねんきんネットで答え合わせ**の順番。先に自分で数字を出しておくと、記録を見たときの理解がまるで違います。
 
@@ -206,7 +206,7 @@ emoji: "🧮"
 - [日本年金機構「日本年金機構からのお知らせ 令和8年3月号」](https://www.nenkin.go.jp/service/kounen/info/oshirase/backnumber.files/zenkoku202603.pdf)（確認日：2026年10月24日）
 - [日本年金機構「厚生年金保険料額表」](https://www.nenkin.go.jp/service/kounen/hokenryo/ryogaku/ryogakuhyo/20200825.html)（確認日：2026年8月13日）
 - [日本年金機構「厚生年金保険の保険料」](https://www.nenkin.go.jp/service/kounen/hokenryo/hoshu/20150515-01.html)（確認日：2026年10月24日）
-- [日本年金機構「『ねんきんネット』による年金記録の確認」](https://www.nenkin.go.jp/n_net/utilization/confirmation.html)（確認日：2026年8月13日）
+- [日本年金機構「『ねんきんネット』による年金記録の確認」](https://www.nenkin.go.jp/denshibenri_kojin/n_net/utilization/confirmation.html)（確認日：2026年8月13日）
 - [協会けんぽ「協会けんぽの介護保険料率について」](https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/002/index.html)（確認日：2026年8月13日）
 - [協会けんぽ「令和8年度の協会けんぽの保険料率は3月分（4月納付分）から改定されます」](https://www.kyoukaikenpo.or.jp/about/business/insurance_rate/rate_prefectures/r08/index.html)（確認日：2026年10月24日）
 - [こども家庭庁「子ども・子育て支援金制度について」](https://www.cfa.go.jp/policies/kodomokosodateshienkinseido)（確認日：2026年8月22日）
@@ -214,8 +214,9 @@ emoji: "🧮"
 
 ---
 
-### 関連記事
+## あわせて読みたい
 
 - [【2026年改正】在職老齢年金の基準額が月65万円に｜働き損は古い](/blog/zaishoku-roureinenkin-2026/)
 - [病気・ケガでもお金で詰まないために｜公的保障の全体像](/blog/kouteki-hoshou-guide/)
 - [人生のお金は3幕で考える｜貯め時・老後の3本柱・使い方の哲学](/blog/life-money-plan-guide/)
+- [【2026年8月改正】高額療養費、自己負担上限アップと年間上限新設](/blog/kougakuryouyouhi-2026-kaisei/)
