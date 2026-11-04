@@ -136,6 +136,7 @@ episode: 7
 - [非エンジニアがClaude CodeでAI編集部6人を作った話](/blog/ai-editorial-team-story/)
 - [調べるほど「やらない」に傾いた話](/blog/ai-editorial-team-story-03/)
 - [画像生成AIに「描くな」と書いても、描かれた](/blog/ai-editorial-team-story-06/)
+- [Googleの「リダイレクト」通知は正常だった話｜AI編集部の成長記録](/blog/ai-editorial-team-story-08/)
 - [時代遅れのセキュリティ対策6選｜本当にやるべき新常識5選](/blog/outdated-security-myths/)
 - [「デジタル終活」が必要な理由｜家族に遺さない4ステップ整理術](/blog/digital-shukatsu-2026/)
 - [ネット詐欺の手口3選と対策【2026】SIMスワップ・ロマンス詐欺](/blog/online-scam-methods-2026/)
