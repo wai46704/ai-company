@@ -174,3 +174,86 @@
 - Q-F（任意）：Ysox…png／陽だまり…png のどちらかが、Hermesの最初の画像（FLUX.2 klein 9B）か
 - 新規：Canva で生成した失敗画像を記事に載せること自体、Canva の利用規約上問題ないか（記事の主張と揃えるため。編集部で規約を確認するか）
 - 新規：タイトルを社長決定時の「最初の1枚が使えなかった」から「最初の1枚を見送った」に変えた件の了承
+
+## 再校閲（2026-11-26）
+- 校閲者: アオイ
+- 対象: 2026-11-26 に編集長が変更した5か所のみ（Hermesの説明2段落／「道具（サービス）側の規約も読んだ」節／確認記録の例の行／参考資料の追加分／Z-Image節の節名参照）
+- 判定: **要修正**（必須3件・推奨6件）
+- HTMLコメント: なし（`<!--` 0件）。太字は `<strong>` タグなので崩れなし
+
+### 必須修正
+1. **「何も選ばなければFLUX.2 klein 9Bが使われる」が、falを使う場合に限った話になっていない**（「社長は、別の道具『Hermes』で作り直した」節の2段落目）
+   - 原文：Image Generationページの既定は `fal-ai/flux-2/klein/9b`（falを使う設定の既定）。一方、Nous Tool Gatewayページには「Leave it unset and a paid subscription gets Krea 3; the free tool pool gets FLUX 2 Klein 9B.」とあり、**Nous Portalの有料プラン経由で何も選ばなければ Krea 3** になる。
+   - 修正案：「Hermesの案内ページを見ると、画像を作るときに使うモデルは何種類かから選べます。falというサービスを使う設定で何も選ばなければ、『FLUX.2 klein 9B』が使われる、と書かれています（出典：…Image Generation）。」
+   - あわせて「このモデルの名前は、次の節でもう一度出てきます。」は、「社長は既定のまま使った」と読者に推測させる。社長が既定のままだったかは記録にないので、確認が取れるまでは削るのが安全（下の「社長に確認」Q1）。
+2. **「画像は fal か Nous Portal を通して作られます」が言い切りすぎ**（新節3段落目）
+   - 原文：Image Generationページには、fal・Nous Subscriptionのほかに OpenAI・xAI・Krea・OpenRouter・Meta などの経路も載っている。今回の2つのモデル（`fal-ai/flux-2/klein/9b`、`fal-ai/z-image/turbo`）は fal のカタログのモデルで、使う経路は「自分のfalの鍵で直接」か「Nous Portalの有料プラン（Tool Gateway）経由」。Tool Gatewayページでは、Nous経由でも fal のモデルは fal に回される（"a FAL catalog id goes to FAL"）。
+   - 修正案：「Hermesの案内によると、Hermesは画像を自分で作るのではなく、外部のサービスに頼んで作ります。今回使った2つのモデルは、fal（画像生成AIを動かす外部のサービス）のモデルです。この場合、自分でfalと契約して直接使うか、Nous Researchのサービス『Nous Portal』の有料プラン経由で使うか（中では fal が動きます）のどちらかになります。どちらを通るかで読む規約が変わるので、両方を読みました。」
+3. **「商用で使うことを禁じる一文は見当たらなかった」「使うことを禁じる決まりは見当たらなかった」が、Nous Portalの規約に対して強すぎる**（新節の表の下の段落と、その次の太字の段落）
+   - 原文：Nous Portal規約 12.2「Content Owned by Nous Research」に、サービス上の「Content」（定義に pictures, images を含む）は「personal, non-commercial use」に限ってダウンロードを許す、という条文がある。見出しは「Nous側が持つコンテンツ」で、AI Outputs（出力は利用者のもの）とは別の条文と読むのが自然だが、**「非商用」と書かれた一文は規約の中に存在する**。この記事自身が FLUX のライセンスで「条文どうしの関係を読み解く必要がある」と書いているので、ここで「一文も無い」と書くと記事の中で筋が合わなくなる。
+   - 修正案（179行目）：「編集部が読んだ範囲では、どちらの規約にも、<strong>作った画像（出力）</strong>を商用で使うことを禁じる一文は見当たりませんでした。Nous Portalの規約には『非商用』という言葉の出てくる条文もありますが、これはNous Research側が持っているコンテンツについての条文で、出力については『利用者のもの』とする条文が別にあります。一方で、falの規約には、出力が誰のものかをはっきり定めた一文は見つかりませんでした。」
+   - 修正案（181行目の太字）：「<strong>モデルのライセンスも、道具側の規約も原文を読んだ。編集部が読んだ範囲では、Z-Image-Turboで作った画像をブログに載せることを禁じる決まりは見当たらなかった。ただし、最後の責任は使う側にある。</strong>」（何を使うことか、を明記。「読んだ範囲では」を入れる）
+
+### 推奨修正
+1. 表のNous Portal行「出力は利用者のもの」→「出力は（Nous Researchとの関係では）利用者のもの」。原文は "As between you and Nous Research"。他人との関係まで保証する条文ではないため。
+2. 表のNous Portal行「使い道が合っているかの判断は利用者の責任」→「使い道が合っているか、法律に合っているかの判断は利用者の責任」（原文は "suitability ... for your intended use, and ... complies with all applicable laws"）。
+3. 表のfal行に「使うのは自己責任」「出力について利用者に権利が生じることも保証しない」を足すと原文に近い（ToS 4(c) "use of the AI Features is at their own risk"、API Services Terms "or otherwise entitle Client to any Intellectual Property Rights in any Output Content"）。また fal 規約 14(c) に「AIの学習に使われた元の素材をそっくりまねた内容を作る・使うことの禁止」がある。字数に余裕があれば一言。
+4. 「Nous Researchの有料サービス『Nous Portal』」：Nous Portalはアカウント・サービスの名前で、画像生成の経由（Tool Gateway）が有料プランの機能。無料枠（free tool pool）もある。「Nous Researchのサービス『Nous Portal』の有料プラン」とすると正確。
+5. falの規約 4(a) では、サービスの利用許可が「personal or internal business use（個人・社内の業務での利用）」と書かれている。これはサービスへのアクセスの話で、出力の使い道の制限とは読みにくいが、上の必須3と同じく「書いていない」と言い切らない理由になる。本文で触れる必要はないが、編集部の確認記録には残しておくとよい。
+6. 新節のすぐ近くに一言「これは編集部が規約を読んだ記録で、法律上の判断ではありません」を入れると、表が法律の助言に見えにくくなる（冒頭26行目に同趣旨の断り書きがあるので、任意）。
+- 確認記録の例の行（228行目）：「fal・Nous Portalとも原文を確認」は、社長がどちらを使ったかを書いていないので事実として問題なし。社長の回答（Q1）が来たら「経由：○○」を足すと記録として完成する。
+- Z-Image節の節名参照（152行目）：見出し「道具（サービス）側の規約も読んだ」と完全一致。OK。
+
+### 裏取り結果（2026-11-26 に原文を開いて照合）
+| 箇所 | 原文 | 結果 |
+|---|---|---|
+| Hermes＝Nous Research製のAIエージェント | Hermes Agent ドキュメント | 一致 |
+| 既定モデル FLUX.2 klein 9B | Image Generation：`fal-ai/flux-2/klein/9b (default)`。Tool Gateway：有料プランで未選択なら Krea 3 | falの場合のみ一致（必須1） |
+| z-image/turbo も選べる | Image Generation：`fal-ai/z-image/turbo` | 一致 |
+| fal か Nous Portal を通る | 他の経路（OpenAI・xAI・Krea・OpenRouter・Meta）もあり | 今回の2モデルに限れば一致（必須2） |
+| Nous Portal 規約 更新日 | Last update: November 10, 2026 | 一致 |
+| Nous：出力は利用者のもの／モデル等の権利はNous／非侵害を保証しない／適否は利用者の責任 | AI Outputs 条項 | 一致（"As between you and Nous Research" の限定が訳に無い→推奨1） |
+| Nous：外部サービスの規約に従う | Third-Party Terms（禁止事項5、12条等） | 一致 |
+| fal 規約 更新日 | Last Updated: September 8, 2026 | 一致 |
+| fal：合法・非侵害の形で使う／非侵害を保証しない／外部素材に別規約 | 4(c)、16条、14(b) | 一致 |
+| fal：出力の所有を定める一文が無い | ToS 全文で "Output Content" を全件確認。所有の定めなし（入力は利用者所有 6(b)、利用データは会社所有 6(c) のみ）。API Services Terms も同様で、むしろ「権利が生じることも保証しない」 | 一致 |
+| 商用利用を禁じる一文が無い | fal：出力についての禁止なし（4(a)に「personal or internal business use」の文言あり）。Nous：12.2 に「personal, non-commercial use」の条文あり（Nous側のContent） | 言い切りは不正確（必須3） |
+| Canva AI Product Terms | effective as of 26 June 2026。"you own your Output"（Canvaとの関係で。Canvaライブラリ素材を含む出力は除く）、"any lawful purpose ... at your own risk" | 一致。なお同規約は「AIで作ったものを人が作ったと誤解させること」を禁止している。本記事は「Canvaで生成した」と明記しているので整合 |
+| 参考資料の日付（Canva 6/26発効、Nous 11/10更新、fal 9/8更新） | 各原文 | 一致。TechCrunch の確認日を11/26に変えた件は今回開いていない（編集長の再確認があれば可） |
+
+### 社長に確認しないと決められないこと（聞かずに一覧化。編集長が `編集部/申し送り.md` に集約）
+- Q1：Hermesで画像を作ったとき、**falの鍵で直接**使ったか、**Nous Portal（有料プラン）経由**だったか。あわせて、最初はモデルを**選ばず既定のまま**だったか（＝FLUX.2 klein 9Bになった理由）。回答で、読むべき規約が1つに絞れ、本文の「このモデルの名前は…」の一文を残すか決められる
+- Q2：Nous Portal経由だった場合、有料プランか無料枠か（有料プランの既定は Krea 3 なので、FLUXは自分で選んだことになる）
+
+---
+
+## 編集長の対応（2026-11-26）
+
+### 社長回答の反映（記録：`編集部/データ/ヒアリング回答/ai-editorial-team-story-09.md`）
+- タイトル「画像の『商用OK』を確かめ、最初の1枚を見送った話」→ 了承済み（変更なし）
+- 3.08 pm＝Canva 2回目、3.17 pm＝3回目 → 確定。本文の「失敗画像＝2回目」はそのまま
+- Hermesの説明は編集部に一任 → 「Nous Research製のAIエージェント。画像生成も頼める。モデルは何種類かから選べる」だけにし、仕組みには踏み込まない
+
+### 未確認だった点の調査結果（確認日：2026-11-26。社長の個人情報は外部に送っていない）
+| 項目 | 結果 | 出典 |
+|---|---|---|
+| (a) Hermes経由の画像生成サービスの規約 | 今回の2モデル（FLUX.2 klein 9B／Z-Image-Turbo）は fal のモデル。経路は「自分でfalを契約」か「Nous Portal有料プラン経由」。**Nous Portal規約（2026-11-10更新）**：規約順守・料金支払いを条件に、出力はNous Researchとの関係では利用者のもの／非侵害は保証しない／使い道・法令適合は利用者の責任／第三者サービスの規約に従う。別に12.2（Nous側が持つコンテンツは personal, non-commercial use に限る）がある。**fal規約（2026-09-08更新）**：出力は適法かつ第三者の権利を侵害しない形で使う／オリジナル性・非侵害・利用者への権利付与は保証しない／出力の所有を定める一文は見当たらない。両規約とも「出力の商用利用を禁じる一文」は見当たらず。**社長がどちらの経路を使ったかは記録になく未確定** | portal.nousresearch.com/terms、fal.ai/legal/terms-of-service、hermes-agent.nousresearch.com の Image Generation／Tool Gateway |
+| (b) Canvaで作った画像をブログに載せてよいか | **Canva AI Product Terms（2026-06-26発効）**：Outputはあなたのもの（Licensed Contentを含む場合を除く）／規約とAcceptable Use Policyを守る限り any lawful purpose に使える／自己責任。失敗画像の掲載はこの規約の範囲と判断（断定はせず本文に要約と出典を記載） | canva.com/policies/ai-product-terms/ |
+| (c) TechCrunchのURL | Firecrawlで開けた（HTTP 200）。見出し「Canva releases its first image generation model」、Ivan Mehta、2026-10-22 12:00 PM PDT。出典はそのまま残し、確認日を2026年11月26日に更新 | techcrunch.com/2026/10/22/… |
+
+### 本文の変更
+- Hermes節にHermesの短い説明を追加
+- 旧「まだ確認できていないこと」を「道具（サービス）側の規約も読んだ」に置き換え（fal・Nous Portalの要点表、Canva AI Product Termsの要約）
+- 1行記録の例を「サービス側の規約：fal・Nous Portalとも原文を確認（確認日：2026年11月26日）」に
+- 参考資料に6件追加（Canva AI Product Terms／Hermes Image Generation／Tool Gateway／Nous Portal規約／fal規約、TechCrunchは確認日更新）
+
+### アオイ再校閲（2026-11-26）への対応
+- 要修正1：既定モデルの段落を削除（社長指示「仕組みに踏み込まない」にも合う。「次の節でもう一度出てきます」も削除）
+- 要修正2：「今回使った2つのモデルの画像は…falを自分で契約して使うか、Nous Portalの有料プランを通して使う形」に範囲を絞った
+- 要修正3：対象を「利用者が作った画像（出力）」に絞り、Nous Portal 12.2 の「非商用」条文があることを一言添えた。太字は「Z-Image-Turboで作った画像をブログに載せることを禁じる決まりは見当たらなかった」に具体化し、「法律上の判断ではない」を追記
+- 推奨のうち反映：Nous行に「Nous Researchとの関係では」「法律に合っているかも利用者の責任」、fal行に「利用者に権利が生じることも保証しない」、「有料サービス」→「サービスの有料プラン」
+- 未反映：fal 4(a) の文言は本メモ上記に記録のみ
+
+### 社長に確認したいこと（まだ聞いていない。任意。答えが無くても記事は成立）
+- Q1：Hermesで画像を作ったとき、自分のfalの鍵で直接使ったか、Nous Portal経由だったか（読む規約を1つに絞れる）
+- Q2：最初の画像（FLUX.2 klein 9B）は、モデルを自分で選んだか、既定のままだったか

@@ -102,6 +102,8 @@ Canva Craftは、Canvaが2026年10月22日に発表した、Canva自社初の画
 
 Canvaで見切りをつけたあと、社長は別の道具「Hermes」で画像を生成しました。
 
+Hermes（正式名はHermes Agent）は、Nous Researchという会社が作ったAIエージェント（頼んだ作業をこなしてくれるAIの道具）です。調べものなどのほかに、画像の生成も頼めます。画像を作るときは、使うモデルを何種類かから選べます（出典：[Nous Research「Image Generation｜Hermes Agent」](https://hermes-agent.nousresearch.com/docs/user-guide/features/image-generation)）。
+
 最初に出てきた画像は、きれいな絵でした。ここで終われば「よかった、完成」となるところです。
 
 ところが、ここで一度立ち止まりました。<strong>「この画像を、ブログに載せて規約違反にならないか」</strong>を調べ直したのです。
@@ -145,7 +147,7 @@ Z-Imageのライセンスは、<strong>Apache License 2.0</strong>です。開�
 
 Apache License 2.0は、複製・公開表示・配布などを無償で許す、一般的なオープンソース（中身が公開されていて、決められた条件のもとで誰でも使えるもの）のライセンスです。非商用ライセンスのように、使う目的を非商用に限る決まりはありません。ただし、ライセンスには守るべき条件も書かれています。「無条件で何でもできる」という意味ではない点には、気をつけてください。
 
-もう一つ、大事な点があります。このライセンスは、<strong>モデルそのもの</strong>についての約束です。作った画像の扱いは、道具（サービス）側の規約もあわせて見る必要があります。これは、後の「まだ確認できていないこと」で書きます。
+もう一つ、大事な点があります。このライセンスは、<strong>モデルそのもの</strong>についての約束です。作った画像の扱いは、道具（サービス）側の規約もあわせて見る必要があります。これは、後の「道具（サービス）側の規約も読んだ」の節で書きます。
 
 こうして作り直した絵を、採用しました。<strong>机と壁のある水彩画の1枚</strong>です。11月22日、年末調整の記事と一緒に公開しています。気になる方は、[年末調整の記事](/blog/iryouhoken-kaiyaku-nencho-koujo/)の一番上の絵を見てみてください。
 
@@ -157,17 +159,26 @@ Apache License 2.0は、複製・公開表示・配布などを無償で許す�
 
 載せる前に確かめたので、公開前に別の画像へ切り替えられました。確認は、手間でもあります。ただ、今回は確認が「安心」につながりました。
 
-## まだ確認できていないこと
+## 道具（サービス）側の規約も読んだ
 
-ここで、正直に書いておくべきことがあります。
+ここまでで確かめたのは、「モデルのライセンス」です。FLUX.2 klein 9Bは非商用、Z-ImageはApache 2.0。どちらも、開発元が公開している原文で確かめました。
 
-<strong>Hermes（画像を作る道具、つまりサービス側）の利用規約は、まだ確認できていません。</strong>
+ただ、モデルのライセンスと、そのモデルを動かす道具（サービス）の利用規約は、<strong>別のもの</strong>です。そこで記事を書くにあたって、道具側の規約も読みました（2026年11月26日）。
 
-今回、編集部が確かめたのは、「モデルのライセンス」です。FLUX.2 klein 9Bは非商用、Z-ImageはApache 2.0。ここまでは、開発元が公開している原文で確かめました。
+Hermesの案内によると、今回使った2つのモデルの画像は、Hermesが直接作るのではありません。fal（画像生成AIを動かす外部のサービス）を自分で契約して使うか、Nous Researchのサービス「Nous Portal」の有料プランを通して使う形になります（出典：[Nous Research「Image Generation｜Hermes Agent」](https://hermes-agent.nousresearch.com/docs/user-guide/features/image-generation)、[Nous Research「Nous Tool Gateway｜Hermes Agent」](https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-gateway)）。どちらを通るかで読む規約が変わるので、両方を読みました。
 
-ただ、モデルのライセンスと、そのモデルを動かす道具（サービス）の利用規約は、<strong>別のもの</strong>です。モデルのライセンスで商用が許されていても、サービス側の規約で別の決まりが設けられている場合があります。逆の場合もあります。
+| サービス | 規約に書かれていたこと（要点） |
+|---|---|
+| Nous Portal | 規約を守り料金を払っていれば、作られたもの（出力）は、Nous Researchとの関係では利用者のもの。ただし、モデルなどの権利はNous Research側に残る。出力が他人の権利を侵害しないことは保証しない。使い道が合っているか、法律に合っているかの判断は利用者の責任。外部サービスを使うときは、その規約にも従う |
+| fal | 出力は、法律を守り、他人の権利を侵害しない形で使うこと。出力が他人の権利を侵害しないことも、利用者に権利が生じることも保証しない。外部の素材には、別の規約がかかる場合がある |
 
-ですから、この記事では「Z-Imageを使ったから安心」「問題ない」とは言いません。「モデルのライセンスは確かめた。サービス側の規約は別で、まだ確認中」というのが、今の正確な状況です。
+（出典：[Nous Research「Terms of Service - Nous Portal」](https://portal.nousresearch.com/terms)、[fal「Terms of Service」](https://fal.ai/legal/terms-of-service)）
+
+編集部が読んだ範囲では、どちらの規約にも、<strong>利用者が作った画像（出力）</strong>を商用で使うことを禁じる一文は見当たりませんでした。なお、Nous Portalの規約には「非商用」の言葉が出てくる条文もあります。ただしそれは、Nous Research側が持っているコンテンツについての条文で、利用者が作った出力についての条文とは別のものです。また、falの規約には、出力が誰のものかをはっきり定めた一文が見つかりませんでした。そして、どちらも<strong>「使い方の責任は利用者にある」</strong>という立場です。
+
+ですから、この記事では「Z-Imageを使ったから安心」「問題ない」とは言いません。今の正確な状況は、次のとおりです。<strong>編集部が読んだ範囲では、Z-Image-Turboで作った画像をブログに載せることを禁じる決まりは、モデルのライセンスにも道具側の規約にも見当たらなかった。ただし、最後の責任は使う側にある。</strong>これは法律上の判断ではなく、編集部が原文を読んだ結果です。
+
+ちなみに、失敗した絵を作ったCanvaの規約（AI機能の規約）も読みました。「AIで作ったもの（出力）はあなたのもの。この規約を守っていれば、合法な目的なら何に使ってもよい。ただし自己責任で」という趣旨が書かれています（出典：[Canva「AI Product Terms」](https://www.canva.com/policies/ai-product-terms/)）。この記事に失敗した絵を載せるのも、この規約を読んだうえでのことです。
 
 ## 編集部の新しい決まり
 
@@ -212,7 +223,7 @@ Apache License 2.0は、複製・公開表示・配布などを無償で許す�
 
 細かく残す必要はありません。たとえば、こんな1行です。
 
-- 画像：年末調整の記事のアイキャッチ／道具：Hermes／モデル：Z-Image-Turbo／ライセンス：Apache License 2.0（確認日：2026年11月25日）／サービス側の規約：確認中
+- 画像：年末調整の記事のアイキャッチ／道具：Hermes／モデル：Z-Image-Turbo／ライセンス：Apache License 2.0（確認日：2026年11月25日）／サービス側の規約：fal・Nous Portalとも原文を確認（確認日：2026年11月26日）
 
 あとから「この画像、どこで作ったっけ」となったときに、すぐ調べ直せます。
 
@@ -238,7 +249,12 @@ Apache License 2.0は、複製・公開表示・配布などを無償で許す�
 - [GitHub「Tongyi-MAI/Z-Image」LICENSE](https://github.com/Tongyi-MAI/Z-Image/blob/main/LICENSE)（確認日：2026年11月25日）
 - [Hugging Face「Tongyi-MAI/Z-Image-Turbo」](https://huggingface.co/Tongyi-MAI/Z-Image-Turbo)（確認日：2026年11月25日）
 - [Canva「Introducing Canva Craft」](https://www.canva.com/newsroom/news/canva-craft/)（確認日：2026年11月25日）
-- [TechCrunch「Canva releases its first image generation model」](https://techcrunch.com/2026/10/22/canva-releases-its-first-image-generation-model/)（確認日：2026年11月25日）
+- [TechCrunch「Canva releases its first image generation model」](https://techcrunch.com/2026/10/22/canva-releases-its-first-image-generation-model/)（確認日：2026年11月26日）
+- [Canva「AI Product Terms」](https://www.canva.com/policies/ai-product-terms/)（2026年6月26日発効版。確認日：2026年11月26日）
+- [Nous Research「Image Generation｜Hermes Agent」](https://hermes-agent.nousresearch.com/docs/user-guide/features/image-generation)（確認日：2026年11月26日）
+- [Nous Research「Nous Tool Gateway｜Hermes Agent」](https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-gateway)（確認日：2026年11月26日）
+- [Nous Research「Terms of Service - Nous Portal」](https://portal.nousresearch.com/terms)（2026年11月10日更新版。確認日：2026年11月26日）
+- [fal「Terms of Service」](https://fal.ai/legal/terms-of-service)（2026年9月8日更新版。確認日：2026年11月26日）
 
 ## あわせて読みたい
 
